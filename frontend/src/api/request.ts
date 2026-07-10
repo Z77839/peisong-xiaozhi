@@ -4,8 +4,13 @@ import { ElMessage } from 'element-plus'
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
+// 通过 Render 部署的后端（跨域）
+const API_BASE = (typeof window !== 'undefined' && window.location.hostname.includes('github.io'))
+  ? 'https://peisong-backend.onrender.com/api'
+  : '/api';
+
 const service = axios.create({
-  baseURL: 'https://peisong-backend.onrender.com/api',
+  baseURL: API_BASE,
   timeout: 30000
 })
 
