@@ -5,7 +5,7 @@ import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 const service = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://peisong-backend.onrender.com/api',
   timeout: 30000
 })
 
