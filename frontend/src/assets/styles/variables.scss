@@ -1,0 +1,50 @@
+// ============== 配送小智 设计 Tokens ==============
+// 企业 SaaS 风格 · 蓝色科技调
+
+// 主色
+$primary: #1f6feb;
+$primary-hover: #4080ff;
+$primary-active: #0b58d8;
+$primary-light: #e8f1ff;
+
+// 辅助色
+$success: #00b578;
+$warning: #ff9500;
+$danger: #f53f3f;
+$info: #909399;
+
+// 中性色
+$text-primary: #1d2129;
+$text-regular: #4e5969;
+$text-secondary: #86909c;
+$text-placeholder: #c9cdd4;
+
+// 背景
+$bg-body: #f5f7fa;
+$bg-card: #ffffff;
+$bg-hover: #f7f9fc;
+$bg-sidebar: #001529;
+$bg-sidebar-hover: #1f3a5f;
+$bg-header: #ffffff;
+
+// 边框
+$border-base: #e5e6eb;
+$border-light: #f2f3f5;
+
+// 阴影
+$shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
+$shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+// 圆角
+$radius-sm: 4px;
+$radius-base: 6px;
+$radius-lg: 8px;
+
+// 布局尺寸
+$sidebar-width: 220px;
+$sidebar-collapsed-width: 64px;
+$header-height: 56px;
+
+// 字体
+$font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-mono: 'SF Mono', Monaco, Consolas, 'Courier New', monospace;

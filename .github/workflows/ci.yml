@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# 防止 PR 和 push 互相取消
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-backend:
+    name: Test backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install backend deps
+        working-directory: backend
+        run: npm install --no-audit --no-fund --legacy-peer-deps
+
+      - name: Smoke test (import server)
+        working-directory: backend
+        run: node -e "import('./src/server.js').then(()=>console.log('OK')).catch(e=>{console.error(e);process.exit(1)})"
+
+  test-frontend:
+    name: Test frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Clean install frontend
+        working-directory: frontend
+        # 删掉 lockfile + node_modules 重新装,容忍 package.json/lockfile 不同步
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install --no-audit --no-fund --legacy-peer-deps
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
+          retention-days: 7
