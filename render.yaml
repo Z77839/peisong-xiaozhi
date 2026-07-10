@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: peisong-xiaozhi-backend
+    env: node
+    plan: free
+    region: singapore
+    branch: main
+    rootDir: backend
+    buildCommand: npm install --legacy-peer-deps
+    startCommand: node src/server.js
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CORS_ORIGIN
+        value: '*'
+      - key: PORT
+        value: 3000
+      - key: COZE_BOT_ID
+        sync: false
+      - key: COZE_API_KEY
+        sync: false
+      - key: QWEATHER_API_KEY
+        sync: false
+      - key: ELEME_APP_KEY
+        sync: false
+      - key: ELEME_APP_SECRET
+        sync: false
+      - key: ELEME_ACCESS_TOKEN
+        sync: false
+      - key: RIDER_WS_URL
+        sync: false
+      - key: ORDER_STREAM_URL
+        sync: false
