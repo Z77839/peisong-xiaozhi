@@ -34,12 +34,15 @@ export async function loadWeatherForecast(cityId) {
     return mockWeather(cityId);
   }
 
+  console.log(`[QWeather] 调用 API: host=${QWEATHER_API_HOST}, key=${QWEATHER_API_KEY.slice(0,4)}..., city=${cityId}`);
+
   try {
     // 实时天气
     const now = await axios.get(`${QWEATHER_API_HOST}/weather/now`, {
       params: { location: `${coord.lon},${coord.lat}`, key: QWEATHER_API_KEY },
       timeout: 5000
     });
+    console.log(`[QWeather] 实时天气返回 code=${now.data?.code}`);
 
     // 24h 预报
     const forecast24h = await axios.get(`${QWEATHER_API_HOST}/weather/24h`, {
@@ -51,7 +54,7 @@ export async function loadWeatherForecast(cityId) {
     const forecastData = forecast24h.data;
 
     if (nowData.code !== '200' || forecastData.code !== '200') {
-      console.warn('[QWeather] API 返回错误，使用 Mock:', nowData.code);
+      console.warn(`[QWeather] API 返回错误 code=${nowData.code} forecastCode=${forecastData.code}, body=${JSON.stringify(nowData).slice(0, 200)}`);
       return mockWeather(cityId);
     }
 
@@ -79,7 +82,10 @@ export async function loadWeatherForecast(cityId) {
       impact: computeWeatherImpact(nowData.now, forecastData.hourly)
     };
   } catch (err) {
-    console.error('[QWeather] API 调用失败:', err.message);
+    console.error(`[QWeather] API 调用失败: ${err.message} | code=${err.code} | status=${err.response?.status}`);
+    if (err.response) {
+      console.error(`[QWeather] 响应内容: ${JSON.stringify(err.response.data).slice(0, 200)}`);
+    }
     return mockWeather(cityId);
   }
 }
