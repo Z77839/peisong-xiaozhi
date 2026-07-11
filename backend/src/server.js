@@ -1,12 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import compression from 'compression'
-import { PORT, CORS_ORIGIN } from './config.js'
-
-const QWEATHER_API_KEY = process.env.QWEATHER_API_KEY
-const ELEME_APP_KEY = process.env.ELEME_APP_KEY
-const RIDER_WS_URL = process.env.RIDER_WS_URL
-const ORDER_STREAM_URL = process.env.ORDER_STREAM_URL
+import { PORT, CORS_ORIGIN, QWEATHER_API_KEY, ELEME_APP_KEY, RIDER_WS_URL, ORDER_STREAM_URL } from './config.js'
 
 // 启动时打印环境变量状态
 function logEnvStatus() {
