@@ -2,8 +2,6 @@
 // 真实接入: 饿了么/美团订单流 WebSocket
 // Mock: 基于真实业务数据模拟
 
-const ORDER_STREAM_URL = process.env.ORDER_STREAM_URL;
-
 let mockPoolInterval = null;
 const livePool = new Map();
 
@@ -13,6 +11,9 @@ const livePool = new Map();
  * @param {string} timeRange - '1h' | '4h' | '1d'
  */
 export async function loadOrderPool(cityId, timeRange = '1h') {
+  // 每次调用都读取（避免缓存问题）
+  const ORDER_STREAM_URL = process.env.ORDER_STREAM_URL;
+
   if (!ORDER_STREAM_URL) {
     console.warn('[OrderPool] 未配置 ORDER_STREAM_URL，使用 Mock');
     return mockOrderPool(cityId, timeRange);

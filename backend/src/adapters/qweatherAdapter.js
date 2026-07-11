@@ -4,7 +4,6 @@
 
 import axios from 'axios';
 
-const QWEATHER_API_KEY = process.env.QWEATHER_API_KEY;
 const QWEATHER_API_HOST = process.env.QWEATHER_API_HOST || 'https://devapi.qweather.com/v7';
 
 // 城市经纬度（衡阳/绍兴/常德/衢州）
@@ -25,6 +24,9 @@ export async function loadWeatherForecast(cityId) {
   if (!coord) {
     throw new Error(`未知城市: ${cityId}`);
   }
+
+  // 每次调用都读取环境变量（避免缓存问题）
+  const QWEATHER_API_KEY = process.env.QWEATHER_API_KEY;
 
   // 如果没有 API Key，返回 Mock 数据
   if (!QWEATHER_API_KEY) {

@@ -2,8 +2,6 @@
 // 真实接入: 骑手 App WebSocket 推送
 // Mock: 模拟真实业务数据
 
-const RIDER_WS_URL = process.env.RIDER_WS_URL;
-
 let wsSimulator = null;
 const liveRiders = new Map();
 
@@ -13,6 +11,9 @@ const liveRiders = new Map();
  * @returns {Promise<Array>} 骑手列表
  */
 export async function loadRiderTelemetry(cityId) {
+  // 每次调用都读取（避免缓存问题）
+  const RIDER_WS_URL = process.env.RIDER_WS_URL;
+
   if (!RIDER_WS_URL) {
     console.warn('[RiderTelemetry] 未配置 RIDER_WS_URL，使用 Mock');
     return mockRiderTelemetry(cityId);
