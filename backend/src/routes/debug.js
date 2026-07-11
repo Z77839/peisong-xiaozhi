@@ -15,6 +15,10 @@ router.get('/env-check', (_req, res) => {
           configured: !!QWEATHER_API_KEY,
           preview: QWEATHER_API_KEY ? QWEATHER_API_KEY.slice(0, 4) + '...' + QWEATHER_API_KEY.slice(-4) : null
         },
+        'QWEATHER_API_HOST': {
+          configured: !!process.env.QWEATHER_API_HOST,
+          preview: process.env.QWEATHER_API_HOST || null
+        },
         'ELEME_APP_KEY': {
           configured: !!process.env.ELEME_APP_KEY,
           preview: process.env.ELEME_APP_KEY
