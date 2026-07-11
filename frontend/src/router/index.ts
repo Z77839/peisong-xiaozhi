@@ -108,6 +108,12 @@ const routes: RouteRecordRaw[] = [
         name: 'Simulation',
         component: () => import('@/views/simulation/index.vue'),
         meta: { title: '仿真回放', icon: 'VideoPlay' }
+      },
+      {
+        path: 'data-source',
+        name: 'DataSource',
+        component: () => import('@/views/data-source/index.vue'),
+        meta: { title: '数据接入', icon: 'Connection' }
       }
     ]
   },
