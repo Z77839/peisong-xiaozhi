@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useCityStore } from '@/store/city'
+import { API_BASE_URL } from '@/utils/apiBase'
 
 interface Rider {
   id: string
@@ -79,7 +80,7 @@ async function fetchDispatch() {
       constraints: { max_distance_km: 5, min_on_time_rate: 0.85 }
     }
     try {
-      const opt: any = await fetch('/api/optimize/dispatch', {
+      const opt: any = await fetch(`${API_BASE_URL}/optimize/dispatch`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(optInput)
@@ -95,7 +96,7 @@ async function fetchDispatch() {
 
 async function fetchModelInfo() {
   try {
-    const r: any = await fetch('/api/optimize/models').then((r) => r.json())
+    const r: any = await fetch(`${API_BASE_URL}/optimize/models`).then((r) => r.json())
     modelInfo.value = r.data
   } catch {}
 }
@@ -103,7 +104,7 @@ async function fetchModelInfo() {
 async function dispatchOne(orderId: string, riderId: string, riderName: string) {
   dispatching.value = orderId
   try {
-    await fetch('/api/dispatch/execute', {
+    await fetch(`${API_BASE_URL}/dispatch/execute`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ orderId, riderId })
@@ -122,7 +123,7 @@ async function dispatchOne(orderId: string, riderId: string, riderName: string) 
 async function batchDispatch() {
   if (!orders.value.length) return
   const orderIds = orders.value.map((o) => o.id)
-  await fetch('/api/dispatch/batch', {
+  await fetch(`${API_BASE_URL}/dispatch/batch`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ cityId: cityStore.currentCityId, orderIds })

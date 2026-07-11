@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useCityStore } from '@/store/city'
+import { API_BASE_URL } from '@/utils/apiBase'
 
 interface Snapshot {
   time: string
@@ -21,19 +22,19 @@ const loading = ref(false)
 let pollTimer: number | null = null
 
 async function fetchState() {
-  const r: any = await fetch('/api/simulation/state').then((r) => r.json())
+  const r: any = await fetch(`${API_BASE_URL}/simulation/state`).then((r) => r.json())
   simData.value = r.data
 }
 
 async function fetchTimeline() {
-  const r: any = await fetch('/api/simulation/timeline').then((r) => r.json())
+  const r: any = await fetch(`${API_BASE_URL}/simulation/timeline`).then((r) => r.json())
   timeline.value = r.data
 }
 
 async function control(action: string, step?: number) {
   loading.value = true
   try {
-    const r: any = await fetch('/api/simulation/control', {
+    const r: any = await fetch(`${API_BASE_URL}/simulation/control`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action, step })

@@ -1,8 +1,9 @@
 import { mockChatReply, type ChatMessage } from '../mock/dashboard';
+import { API_BASE_URL } from '@/utils/apiBase';
 
 export async function sendChatMessage(message: string): Promise<ChatMessage> {
   try {
-    const res = await fetch('/api/chat', {
+    const res = await fetch(`${API_BASE_URL}/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message }),

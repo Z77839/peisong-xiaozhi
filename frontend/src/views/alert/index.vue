@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useCityStore } from '@/store/city'
+import { API_BASE_URL } from '@/utils/apiBase'
 
 interface Alert {
   id: string
@@ -67,7 +68,7 @@ async function executeAction(alert: Alert, action: any) {
       '配送小智 · 待你确认',
       { confirmButtonText: '执行', cancelButtonText: '取消', type: 'warning' }
     )
-    const r: any = await fetch('/api/alert/action', {
+    const r: any = await fetch(`${API_BASE_URL}/alert/action`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ alertId: alert.id, actionId: action.id, cityId: alert.cityId })
