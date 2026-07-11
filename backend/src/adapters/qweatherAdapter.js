@@ -4,7 +4,11 @@
 
 import axios from 'axios';
 
-const QWEATHER_API_HOST = process.env.QWEATHER_API_HOST || 'https://devapi.qweather.com/v7';
+// Host 可能是 https:// 开头也可能是裸域名，自动加 https://
+const QWEATHER_API_HOST = (() => {
+  const h = process.env.QWEATHER_API_HOST || 'devapi.qweather.com';
+  return h.startsWith('http') ? h : `https://${h}`;
+})() + '/v7';
 
 // 城市经纬度（衡阳/绍兴/常德/衢州）
 export const CITY_COORDS = {
