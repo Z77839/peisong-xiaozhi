@@ -3,6 +3,25 @@ import cors from 'cors'
 import compression from 'compression'
 import { PORT, CORS_ORIGIN } from './config.js'
 
+const QWEATHER_API_KEY = process.env.QWEATHER_API_KEY
+const ELEME_APP_KEY = process.env.ELEME_APP_KEY
+const RIDER_WS_URL = process.env.RIDER_WS_URL
+const ORDER_STREAM_URL = process.env.ORDER_STREAM_URL
+
+// 启动时打印环境变量状态
+function logEnvStatus() {
+  console.log('')
+  console.log('╔════════════════════════════════════════════════╗')
+  console.log('║   4 个真实数据接入端口 - 状态                       ║')
+  console.log('╠════════════════════════════════════════════════╣')
+  console.log(`║   QWEATHER_API_KEY:     ${(QWEATHER_API_KEY ? '✅ 已配 (' + QWEATHER_API_KEY.slice(0, 4) + '...)' : '❌ 未配').padEnd(30)}║`)
+  console.log(`║   ELEME_APP_KEY:        ${(ELEME_APP_KEY ? '✅ 已配' : '⚠️ 未配 (使用 mock)').padEnd(30)}║`)
+  console.log(`║   RIDER_WS_URL:         ${(RIDER_WS_URL ? '✅ 已配' : '⚠️ 未配 (使用 mock)').padEnd(30)}║`)
+  console.log(`║   ORDER_STREAM_URL:     ${(ORDER_STREAM_URL ? '✅ 已配' : '⚠️ 未配 (使用 mock)').padEnd(30)}║`)
+  console.log('╚════════════════════════════════════════════════╝')
+  console.log('')
+}
+
 import authRouter from './routes/auth.js'
 import citiesRouter from './routes/cities.js'
 import dashboardRouter from './routes/dashboard.js'
@@ -18,6 +37,7 @@ import dispatchRouter from './routes/dispatch.js'
 import simulationRouter from './routes/simulation.js'
 import optimizeRouter from './routes/optimize.js'
 import adaptersRouter from './routes/adapters.js'
+import debugRouter from './routes/debug.js'
 import { startRiderSimulator } from './adapters/riderTelemetryAdapter.js'
 import { startOrderPoolSimulator } from './adapters/orderPoolAdapter.js'
 
@@ -57,6 +77,7 @@ app.use('/api/dispatch', dispatchRouter)
 app.use('/api/simulation', simulationRouter)
 app.use('/api/optimize', optimizeRouter)
 app.use('/api/adapters', adaptersRouter)
+app.use('/api/debug', debugRouter)
 
 // 全局错误处理
 app.use((err, _req, res, _next) => {
@@ -78,6 +99,7 @@ function startAdapters() {
 
 app.listen(PORT, () => {
   startAdapters();
+  logEnvStatus();
   console.log(`\n╔════════════════════════════════════════╗`)
   console.log(`║   配送小智 AI 后端服务已启动            ║`)
   console.log(`║   http://localhost:${PORT}/api           ║`)
