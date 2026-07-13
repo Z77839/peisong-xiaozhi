@@ -33,9 +33,10 @@ router.get('/health', (req, res) => {
 })
 
 // 3. 骑手列表（分页 + 过滤）
-router.get('/', authRequired, (req, res) => {
+router.get('/', authRequired, async (req, res) => {
+  try {
   const { page, pageSize, city, level, type, isResigned, search } = req.query
-  const result = listRiders({
+  const result = await listRiders({
     page: page ? Number(page) : 1,
     pageSize: pageSize ? Number(pageSize) : 50,
     city: city || undefined,
@@ -45,24 +46,35 @@ router.get('/', authRequired, (req, res) => {
     search: search || undefined
   })
   res.json({ code: 200, ...result })
+  } catch (e) {
+    res.status(500).json({ code: 500, message: e.message })
+  }
 })
 
 // 4. 骑手统计（按城市/等级/类型/状态）
-router.get('/stats', authRequired, (req, res) => {
-  const stats = getRiderStats()
+router.get('/stats', authRequired, async (req, res) => {
+  try {
+  const stats = await getRiderStats()
   if (!stats) {
     return res.status(503).json({ code: 503, message: '骑手数据未加载' })
   }
   res.json({ code: 200, data: stats })
+  } catch (e) {
+    res.status(500).json({ code: 500, message: e.message })
+  }
 })
 
 // 5. 骑手详情
-router.get('/:id', authRequired, (req, res) => {
-  const rider = getRiderById(req.params.id)
+router.get('/:id', authRequired, async (req, res) => {
+  try {
+  const rider = await getRiderById(req.params.id)
   if (!rider) {
     return res.status(404).json({ code: 404, message: '骑手不存在' })
   }
   res.json({ code: 200, data: rider })
+  } catch (e) {
+    res.status(500).json({ code: 500, message: e.message })
+  }
 })
 
 // 6. 兼容旧版：segments / lifecycles / stations
