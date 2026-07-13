@@ -8,6 +8,7 @@ const _defaultSecret = 'jiuxiaozhi_dev_only_do_not_use_in_prod'
 export const JWT_SECRET = process.env.JWT_SECRET || _defaultSecret
 if (NODE_ENV === 'production' && JWT_SECRET === _defaultSecret) {
   console.error('[FATAL] 生产环境必须设置 JWT_SECRET 环境变量！')
+  console.error('[HINT] 生成方法: node -e "console.log(require(\'crypto\').randomBytes(64).toString(\'hex\'))"')
   process.exit(1)
 }
 
