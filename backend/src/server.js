@@ -7,7 +7,7 @@ import cors from 'cors'
 import compression from 'compression'
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
-import { PORT, CORS_ORIGIN, NODE_ENV, RATE_LIMIT_PER_MINUTE, QWEATHER_API_KEY, ELEME_APP_KEY, RIDER_WS_URL, ORDER_STREAM_URL } from './config.js'
+import { PORT, CORS_ORIGIN, NODE_ENV, RATE_LIMIT_PER_MINUTE, QWEATHER_API_KEY, ELEME_APP_KEY, RIDER_WS_URL, ORDER_STREAM_URL, DOUBAO, DEEPSEEK, COZE, LLM_ROUTER } from './config.js'
 import { logger, requestLogger } from './services/logger.js'
 
 import authRouter from './routes/auth.js'
@@ -27,6 +27,7 @@ import optimizeRouter from './routes/optimize.js'
 import adaptersRouter from './routes/adapters.js'
 import debugRouter from './routes/debug.js'
 import knowledgeRouter from './routes/knowledge.js'
+import llmRouter from './routes/llm.js'
 import { startRiderSimulator } from './adapters/riderTelemetryAdapter.js'
 import { startOrderPoolSimulator } from './adapters/orderPoolAdapter.js'
 
@@ -141,6 +142,7 @@ app.use('/api/simulation', simulationRouter)
 app.use('/api/optimize', optimizeRouter)
 app.use('/api/adapters', adaptersRouter)
 app.use('/api/knowledge', knowledgeRouter)
+app.use('/api/llm', llmRouter)
 app.use('/api/debug', debugRouter)
 
 // ============================================
@@ -212,6 +214,11 @@ function logEnvStatus() {
   logger.info(`ELEME_APP_KEY:       ${ELEME_APP_KEY ? '✅ 已配' : '⚠️ 未配 (使用 mock)'}`)
   logger.info(`RIDER_WS_URL:        ${RIDER_WS_URL ? '✅ 已配' : '⚠️ 未配 (使用 mock)'}`)
   logger.info(`ORDER_STREAM_URL:    ${ORDER_STREAM_URL ? '✅ 已配' : '⚠️ 未配 (使用 mock)'}`)
+  logger.info('---------- LLM 模型路由 ----------')
+  logger.info(`豆包 Doubao:          ${DOUBAO.enabled ? `✅ 已配 (${DOUBAO.model})` : '⚠️ 未配'}`)
+  logger.info(`DeepSeek:             ${DEEPSEEK.enabled ? `✅ 已配 (${DEEPSEEK.model})` : '⚠️ 未配'}`)
+  logger.info(`Coze:                 ${COZE.enabled ? '✅ 已配' : '⚠️ 未配'}`)
+  logger.info(`路由策略:             ${LLM_ROUTER.strategy}（默认: ${LLM_ROUTER.default}）`)
   logger.info('========================================')
 }
 

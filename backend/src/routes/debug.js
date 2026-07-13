@@ -1,7 +1,7 @@
 // Debug 路由 - 环境变量诊断
 // 让用户能直接看到哪些 API Key 已配 / 未配
 import { Router } from 'express'
-import { QWEATHER_API_KEY } from '../config.js'
+import { QWEATHER_API_KEY, DOUBAO, DEEPSEEK, COZE, LLM_ROUTER } from '../config.js'
 
 const router = Router()
 
@@ -36,7 +36,24 @@ router.get('/env-check', (_req, res) => {
           preview: process.env.ORDER_STREAM_URL
             ? process.env.ORDER_STREAM_URL.slice(0, 20) + '...'
             : null
+        },
+        // LLM 模型状态
+        'DOUBAO': {
+          configured: DOUBAO.enabled,
+          preview: DOUBAO.enabled ? `${DOUBAO.model} (ARK 已配)` : null
+        },
+        'DEEPSEEK': {
+          configured: DEEPSEEK.enabled,
+          preview: DEEPSEEK.enabled ? `${DEEPSEEK.model} (API Key 已配)` : null
         }
+      },
+      // LLM 路由
+      llm: {
+        strategy: LLM_ROUTER.strategy,
+        default: LLM_ROUTER.default,
+        doubao: { enabled: DOUBAO.enabled, model: DOUBAO.model },
+        deepseek: { enabled: DEEPSEEK.enabled, model: DEEPSEEK.model },
+        coze: { enabled: COZE.enabled }
       },
       // Node 环境
       runtime: {

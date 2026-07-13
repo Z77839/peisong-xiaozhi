@@ -36,3 +36,27 @@ export const COZE = {
   enabled: !!(process.env.COZE_BOT_ID && process.env.COZE_API_KEY),
   endpoint: 'https://api.coze.cn/v3/chat'
 }
+
+// ============ LLM 模型配置（多模型路由）============
+// 豆包（字节火山引擎）
+export const DOUBAO = {
+  apiKey: process.env.ARK_API_KEY || '',
+  model: process.env.DOUBAO_MODEL || 'doubao-pro-32k',
+  endpoint: process.env.DOUBAO_ENDPOINT || 'https://ark.cn-beijing.volces.com/api/v3/chat/completions',
+  enabled: !!process.env.ARK_API_KEY
+}
+
+// DeepSeek
+export const DEEPSEEK = {
+  apiKey: process.env.DEEPSEEK_API_KEY || '',
+  model: process.env.DEEPSEEK_MODEL || 'deepseek-chat',
+  endpoint: 'https://api.deepseek.com/v1/chat/completions',
+  enabled: !!process.env.DEEPSEEK_API_KEY
+}
+
+// LLM 路由策略：'doubao' | 'deepseek' | 'coze' | 'auto'
+// auto 模式：豆包 > DeepSeek > Coze > 本地 mock
+export const LLM_ROUTER = {
+  strategy: process.env.LLM_STRATEGY || 'auto',
+  default: process.env.LLM_DEFAULT || 'doubao'
+}

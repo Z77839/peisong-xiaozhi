@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import { ElMessage } from 'element-plus'
-import { Check, Close, Link, CircleClose, Setting, Connection, DataLine, User, ShoppingCart, Sunny } from '@element-plus/icons-vue'
+import { Check, Close, Link, CircleClose, Setting, Connection, DataLine, User, ShoppingCart, Sunny, ChatLineRound, Microphone, Position } from '@element-plus/icons-vue'
 import request from '@/api/request'
 
 interface AdapterStatus {
@@ -75,11 +75,39 @@ const adapters = ref<AdapterStatus[]>([
     docs: '需公司订单系统对接',
     difficulty: 'hard',
     cost: '需公司订单系统改造'
+  },
+  {
+    key: 'DOUBAO',
+    name: '豆包 LLM（字节火山）',
+    desc: '中文优化大模型（订单预测、决策报告、C端文案）',
+    source: '火山引擎方舟 ARK',
+    configured: false,
+    preview: null,
+    envKey: 'ARK_API_KEY',
+    icon: ChatLineRound,
+    color: '#3370ff',
+    docs: 'https://www.volcengine.com/product/doubao',
+    difficulty: 'easy',
+    cost: '有免费额度，注册即领'
+  },
+  {
+    key: 'DEEPSEEK',
+    name: 'DeepSeek（推理备用）',
+    desc: '推理强项（运力调度、成本优化、Pareto 求解）',
+    source: 'DeepSeek Platform',
+    configured: false,
+    preview: null,
+    envKey: 'DEEPSEEK_API_KEY',
+    icon: Microphone,
+    color: '#5e72e4',
+    docs: 'https://platform.deepseek.com/',
+    difficulty: 'easy',
+    cost: '新用户送额度'
   }
 ])
 
 const loading = ref(false)
-const summary = ref({ configured: 0, total: 4 })
+const summary = ref({ configured: 0, total: 6 })
 
 const fetchStatus = async () => {
   loading.value = true
