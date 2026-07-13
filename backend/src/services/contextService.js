@@ -8,6 +8,7 @@
 
 import axios from 'axios'
 import { cities } from '../data/cities.js'
+import { getRiderStats } from './ridersDataService.js'
 
 // 城市经纬度（用于查天气）
 const CITY_COORDS = {
@@ -198,6 +199,10 @@ export async function getAgentContext(cityId = 'hengyang', options = {}) {
   if (weather.type === 'snow') factors.push('雪天')
   if (slot.name.includes('高峰')) factors.push(slot.name + '期')
 
+  // 真实骑手数据（从 27,186 骑手统计）
+  const riderStats = await getRiderStats().catch(() => null)
+  const riderCtx = formatRiderContext(riderStats || {}, city.name)
+
   return {
     timestamp: now.getTime(),
     datetime: `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')} 周${weekday} ${String(hour).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`,
@@ -218,6 +223,7 @@ export async function getAgentContext(cityId = 'hengyang', options = {}) {
       orderEffect: weather.orderEffect,
       source: weather.source
     },
+    riders: riderCtx,
     timeSlot: {
       name: slot.name,
       icon: slot.icon,
@@ -230,13 +236,16 @@ export async function getAgentContext(cityId = 'hengyang', options = {}) {
     injectedPrompt: [
       '【系统设定】你是「配送小智」，本地生活服务电商配送运营决策智能体。',
       '【理念】主动预防式决策，而非被动响应。',
-      '【能力】运力预判 / 调度与成本判断 / 派单 / 辅助推荐 / 主动预警 / 决策报告。'
+      '【能力】运力预判 / 调度与成本判断 / 派单 / 辅助推荐 / 主动预警 / 决策报告。',
+      `【真实骑手】总 ${riderCtx.total} 人（活跃 ${riderCtx.active} 人）；本城 ${riderCtx.cityCount} 人；等级分布：${riderCtx.topLevels.join('、')}`
     ],
     contextSummary: [
       `当前时间：${year}年${month}月${day}日 周${weekday} ${hour}:${String(now.getMinutes()).padStart(2, '0')}`,
       `所在城市：${city.province}·${city.name}`,
       `天气：${weather.label} ${weather.temp}°C（${weather.desc}）`,
       `时段：${slot.name}（${slot.weight}需求）`,
+      `骑手数据：总 ${riderCtx.total} 人，活跃 ${riderCtx.active} 人，本城 ${riderCtx.cityCount} 人`,
+      `骑手等级：${riderCtx.topLevels.join('、')}`,
       holiday.isHoliday ? `节假日：${holiday.name}` : (isWeekend ? '今日是周末' : '今日是工作日'),
       holiday.preheat ? `即将到来：${holiday.preheat}（${holiday.preheatIn} 天后）` : '',
       weather.type === 'rainy' || weather.type === 'storm' ? '⚠️ 雨天外卖需求预计提升 20%' : '',
@@ -244,3 +253,33 @@ export async function getAgentContext(cityId = 'hengyang', options = {}) {
     ].filter(Boolean).join('；')
   }
 }
+/**
+ * 格式化真实骑手数据为决策上下文
+ */
+function formatRiderContext(riderStats, cityName) {
+  if (!riderStats) {
+    return {
+      total: 0, active: 0, cityCount: 0, byCity: {}, byLevel: {}, byLifecycle: {},
+      topLevels: ['N/A']
+    }
+  }
+  // 找到当前城市骑手数
+  const cityCount = riderStats.byCity?.[cityName] || 0
+  // 等级 top 3
+  const topLevels = Object.entries(riderStats.byLevel || {})
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([name, count]) => `${name}(${count})`)
+  
+  return {
+    total: riderStats.total || 0,
+    active: riderStats.active || 0,
+    cityCount,
+    byCity: riderStats.byCity || {},
+    byLevel: riderStats.byLevel || {},
+    byLifecycle: riderStats.byLifecycle || {},
+    topLevels: topLevels.length ? topLevels : ['N/A']
+  }
+}
+
+// 重写 getRiderStats 别名（避免重复定义）
