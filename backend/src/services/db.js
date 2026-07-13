@@ -28,16 +28,11 @@ if (USE_POSTGRES) {
 
   pool.on('connect', () => logger.info('[DB] 新连接已建立'))
   pool.on('error', (err) => logger.error('[DB] 连接池错误:', err.message))
-
-  // 启动时测试连接
-  pool.query('SELECT NOW()').then(() => {
-    logger.info('[DB] PostgreSQL 连接成功')
-  }).catch((err) => {
-    logger.error('[DB] PostgreSQL 连接失败:', err.message)
-  })
 } else {
   logger.warn('[DB] 未配置 DATABASE_URL，使用 JSON 文件存储（开发模式）')
 }
+
+export { pool, USE_POSTGRES }
 
 // ============================================
 // JSON 存储（降级方案）
@@ -228,5 +223,4 @@ export async function dbHealthCheck() {
   return { status: 'ok', type: 'json-fallback' }
 }
 
-export { pool, USE_POSTGRES }
 export default { pool, USE_POSTGRES, findUserByUsername, saveDecision, getDecisionHistory, logAudit, logAgentCall, dbHealthCheck }
