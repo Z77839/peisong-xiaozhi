@@ -22,8 +22,8 @@ import { authRequired } from '../middleware/auth.js'
 
 const router = Router()
 
-// 1. 启动时预加载骑手数据
-loadRiders()
+// 1. 启动时预加载骑手数据（async fire-and-forget）
+loadRiders().catch(err => console.error('[riders] 预加载失败:', err.message))
 
 // 2. 健康检查（不需鉴权）
 router.get('/health', (req, res) => {
