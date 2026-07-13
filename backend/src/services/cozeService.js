@@ -116,6 +116,23 @@ export function mockWorkflow(query) {
 • 月度综合节省：¥48,000+
 `
 
+  // 🔍 调用追踪（借鉴 Langfuse 思路）
+  const totalMs = Date.now() - workflowStart
+  const tracking = {
+    totalMs,
+    agentCount: steps.length,
+    successCount: steps.filter(s => s.status === 'success').length,
+    warningCount: steps.filter(s => s.status === 'warning').length,
+    agents: steps.map(s => ({
+      name: s.name,
+      icon: s.icon,
+      status: s.status,
+      ms: s.duration
+    })),
+    model: 'mock-coze-fallback',
+    timestamp: new Date().toISOString()
+  }
+
   return {
     predicted_orders: orderCount,
     trend: 'upward',
@@ -125,6 +142,7 @@ export function mockWorkflow(query) {
     risk_level: 'low',
     report,
     steps,
+    tracking,
     coze_used: false
   }
 }

@@ -20,11 +20,18 @@ const levelInstance = shallowRef<echarts.ECharts>()
 const groupInstance = shallowRef<echarts.ECharts>()
 
 const kpis = computed(() => {
-  const scale = city.dailyOrders / 100000
+  // 4 城市 C 端数据（衡阳真实，其他按业务规律折算）
+  const cityFactors: Record<string, number> = {
+    hengyang: 1.0,    // 衡阳 - 完整数据
+    shaoxing: 0.85,   // 绍兴 - 发达城市但团队较小
+    changde:  0.55,   // 常德 - 中等
+    quzhou:   0.45    // 衢州 - 较小
+  }
+  const f = cityFactors[city.id] || 0.5
   return [
     {
       label: '社群粉丝',
-      value: formatNumber(Math.floor(data.community.fans * scale)),
+      value: formatNumber(Math.floor(data.community.fans * f)),
       unit: '人',
       trend: data.community.growth,
       icon: 'ChatLineRound',
@@ -32,7 +39,7 @@ const kpis = computed(() => {
     },
     {
       label: '二级团长总数',
-      value: formatNumber(Math.floor(data.group.total * scale)),
+      value: formatNumber(Math.floor(data.group.total * f)),
       unit: '人',
       trend: 12.5,
       icon: 'UserFilled',
@@ -40,7 +47,7 @@ const kpis = computed(() => {
     },
     {
       label: '月活团长',
-      value: formatNumber(Math.floor(data.group.active * scale)),
+      value: formatNumber(Math.floor(data.group.active * f)),
       unit: '人',
       trend: 18.2,
       icon: 'Avatar',

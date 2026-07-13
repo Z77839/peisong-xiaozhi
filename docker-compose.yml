@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # 配送小智主服务
+  app:
+    build: .
+    container_name: peisong-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - JWT_SECRET=${JWT_SECRET:?必须设置 JWT_SECRET}
+      - CORS_ORIGIN=${CORS_ORIGIN:-*}
+      - DATABASE_URL=postgresql://peisong:${DB_PASSWORD}@db:5432/peisong
+      - QWEATHER_API_KEY=${QWEATHER_API_KEY:-}
+      - QWEATHER_API_HOST=${QWEATHER_API_HOST:-}
+      - ELEME_APP_KEY=${ELEME_APP_KEY:-}
+      - ELEME_APP_SECRET=${ELEME_APP_SECRET:-}
+      - RIDER_WS_URL=${RIDER_WS_URL:-}
+      - ORDER_STREAM_URL=${ORDER_STREAM_URL:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  # PostgreSQL 数据库
+  db:
+    image: postgres:16-alpine
+    container_name: peisong-db
+    environment:
+      POSTGRES_DB: peisong
+      POSTGRES_USER: peisong
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/migrations:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U peisong -d peisong"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local

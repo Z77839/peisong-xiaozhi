@@ -114,6 +114,12 @@ const routes: RouteRecordRaw[] = [
         name: 'DataSource',
         component: () => import('@/views/data-source/index.vue'),
         meta: { title: '数据接入', icon: 'Connection' }
+      },
+      {
+        path: 'readiness',
+        name: 'Readiness',
+        component: () => import('@/views/readiness/index.vue'),
+        meta: { title: '生产就绪度', icon: 'Aim' }
       }
     ]
   },

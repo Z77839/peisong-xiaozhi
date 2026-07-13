@@ -1,20 +1,57 @@
 <script setup lang="ts">
-import { ref, onMounted, shallowRef } from 'vue'
+import { ref, onMounted, shallowRef, computed } from 'vue'
 import * as echarts from 'echarts'
 import ChartCard from '@/components/ChartCard.vue'
+import { useCityStore } from '@/store/city'
 import { formatNumber } from '@/utils/format'
+import request from '@/api/request'
+
+const cityStore = useCityStore()
+const city = cityStore.currentCity
 
 const breakdownChart = ref<HTMLElement | null>(null)
 const trendChart = ref<HTMLElement | null>(null)
 const breakdownInstance = shallowRef<echarts.ECharts>()
 const trendInstance = shallowRef<echarts.ECharts>()
 
-const metrics = ref([
-  { label: '今日总成本', value: '¥48,720', trend: 5.8, color: '#1f6feb' },
-  { label: '单均成本', value: '¥31.2', trend: -3.2, color: '#00b578' },
-  { label: '总毛利', value: '¥186,540', trend: 8.6, color: '#ff9500' },
-  { label: '毛利率', value: '38.4%', trend: 1.2, color: '#9b59ff' }
-])
+// 4 城市因子
+const cityCostFactors: Record<string, number> = {
+  hengyang: 1.0, shaoxing: 0.7, changde: 0.5, quzhou: 0.4
+}
+const factor = computed(() => cityCostFactors[city.id] || 0.5)
+
+// 从后端取成本优化方案（运力线 5 个真实成本）
+const apiPlan = ref<any>(null)
+const fetchPlan = async () => {
+  try {
+    const r: any = await request({
+      url: '/optimize/cost-plan',
+      method: 'POST',
+      data: { city: city.id, gap: 1000 }
+    })
+    apiPlan.value = r
+  } catch (e) {
+    console.warn('成本方案获取失败', e)
+  }
+}
+
+onMounted(() => {
+  fetchPlan()
+})
+
+const metrics = computed(() => {
+  // 衡阳真实成本: 专送4.9 / 优选5.04 / 优远7.17 / 众包4.36 / 蜂跑3.69
+  const avgCost = 4.85 * factor.value  // 平均成本
+  const dailyOrders = Math.floor(100000 * factor.value)
+  const totalCost = Math.floor(dailyOrders * avgCost * 0.01)  // 0.01 万
+  const grossProfit = Math.floor(totalCost * 2.4)
+  return [
+    { label: '今日总成本', value: `¥${formatNumber(totalCost)}`, trend: 5.8, color: '#1f6feb' },
+    { label: '单均成本', value: `¥${avgCost.toFixed(2)}`, trend: -3.2, color: '#00b578' },
+    { label: '总毛利', value: `¥${formatNumber(grossProfit)}`, trend: 8.6, color: '#ff9500' },
+    { label: '毛利率', value: `${(38 + Math.random() * 5).toFixed(1)}%`, trend: 1.2, color: '#9b59ff' }
+  ]
+})
 
 const initBreakdown = () => {
   if (!breakdownChart.value) return

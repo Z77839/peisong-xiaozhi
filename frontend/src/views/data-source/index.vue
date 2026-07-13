@@ -132,6 +132,57 @@ const difficultyMap = {
   medium: { label: '中等', type: 'warning' },
   hard: { label: '较难', type: 'danger' }
 } as const
+
+// 演示场景
+const demoResult = ref<any>(null)
+
+const demoScenarios: Record<string, any> = {
+  weekday: {
+    title: '📅 工作日午后 · 稳定状态',
+    metrics: [
+      { label: '衡阳运力', value: '462/500', color: '#00b578' },
+      { label: '准时率', value: '94.5%', color: '#1f6feb' },
+      { label: '单均成本', value: '¥4.85', color: '#fa8c16' },
+      { label: '预警数', value: '0', color: '#00b578' }
+    ],
+    action: '所有城市运力充足，无需特殊调度。系统平稳运行，各项指标在基准线附近。'
+  },
+  dinner: {
+    title: '🍱 衡阳晚高峰 17-21 点',
+    metrics: [
+      { label: '订单量', value: '7,571', color: '#fa8c16' },
+      { label: '缺口', value: '4,741', color: '#f56c6c' },
+      { label: '预测准确率', value: '94.2%', color: '#1f6feb' },
+      { label: '推荐方案', value: '众包+蜂跑', color: '#00b578' }
+    ],
+    action: '启动主动预防式决策：推荐众包+2 + 蜂跑+1 组合（¥1.65/单，节省 42.6%），启动高峰补贴预案，预警 9 次主动触发。'
+  },
+  rainy: {
+    title: '🌧️ 衡阳暴雨极端天气',
+    metrics: [
+      { label: '天气影响系数', value: '1.65', color: '#f56c6c' },
+      { label: '优远成本', value: '¥7.17 → ¥17.2', color: '#f56c6c' },
+      { label: '建议', value: '暂停远单', color: '#fa8c16' },
+      { label: '应急预案', value: '蜂跑启动', color: '#00b578' }
+    ],
+    action: '天气影响系数 1.65（暴雨+雷暴），远距离单成本激增。建议暂停优远远单，启动蜂跑应急运力 + 临时补贴。预估节省 ¥3.2 万/日。'
+  },
+  night: {
+    title: '🌙 衡阳夜宵 02-05 点',
+    metrics: [
+      { label: '订单量', value: '387/h', color: '#9b59ff' },
+      { label: '众包运力', value: '不足 30%', color: '#f56c6c' },
+      { label: '建议', value: '蜂跑+专项', color: '#fa8c16' },
+      { label: '补贴', value: '¥3/单', color: '#00b578' }
+    ],
+    action: '凌晨众包运力不足，启动蜂跑应急池（1200 骑手 10% 调拨），叠加 ¥3/单夜宵补贴，覆盖 95% 订单。'
+  }
+}
+
+const loadDemoScenario = (key: string) => {
+  demoResult.value = demoScenarios[key]
+  ElMessage.success(`已加载场景：${demoScenarios[key].title}`)
+}
 </script>
 
 <template>
@@ -318,6 +369,46 @@ const difficultyMap = {
           <strong>业务使用：</strong>所有 Agent 自动用真实数据，无需改代码
         </li>
       </ol>
+    </div>
+
+    <!-- 演示场景 -->
+    <div class="demo-section">
+      <h2 class="section-title">🎬 演示场景</h2>
+      <p class="demo-desc">选一个场景，看看 4 个 Adapter 在不同数据状态下的协同效果：</p>
+      <div class="demo-grid">
+        <div class="demo-card" @click="loadDemoScenario('weekday')">
+          <div class="demo-icon" style="background: #1f6feb">📅</div>
+          <div class="demo-name">工作日午后</div>
+          <div class="demo-desc">4 城市稳定状态，演示系统基线</div>
+        </div>
+        <div class="demo-card" @click="loadDemoScenario('dinner')">
+          <div class="demo-icon" style="background: #ff9500">🍱</div>
+          <div class="demo-name">晚高峰 17-21 点</div>
+          <div class="demo-desc">衡阳缺口 4741 单，演示智能派单</div>
+        </div>
+        <div class="demo-card" @click="loadDemoScenario('rainy')">
+          <div class="demo-icon" style="background: #00b578">🌧️</div>
+          <div class="demo-name">衡阳暴雨</div>
+          <div class="demo-desc">优远成本激增 2.4×，演示主动预警</div>
+        </div>
+        <div class="demo-card" @click="loadDemoScenario('night')">
+          <div class="demo-icon" style="background: #9b59ff">🌙</div>
+          <div class="demo-name">夜宵时段</div>
+          <div class="demo-desc">众包运力不足，演示蜂跑应急</div>
+        </div>
+      </div>
+      <div v-if="demoResult" class="demo-result">
+        <h3>{{ demoResult.title }}</h3>
+        <div class="demo-metrics">
+          <div v-for="m in demoResult.metrics" :key="m.label" class="dm-item">
+            <div class="dm-label">{{ m.label }}</div>
+            <div class="dm-value" :style="{ color: m.color }">{{ m.value }}</div>
+          </div>
+        </div>
+        <div class="demo-actions">
+          <strong>AI 决策：</strong>{{ demoResult.action }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -550,5 +641,78 @@ const difficultyMap = {
       margin-right: 4px;
     }
   }
+}
+
+// 演示场景
+.demo-section {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 24px;
+}
+.demo-desc {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 20px 0;
+}
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.demo-card {
+  padding: 16px;
+  background: #fafbfc;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-color: #1f6feb;
+  }
+}
+.demo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+.demo-name { font-size: 14px; font-weight: 600; color: #1a1a2e; margin-bottom: 4px; }
+.demo-desc { font-size: 12px; color: #666; line-height: 1.4; }
+.demo-result {
+  background: #f0f7ff;
+  border: 1px solid #b3d8ff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  h3 { margin: 0 0 12px 0; font-size: 16px; color: #1f6feb; }
+}
+.demo-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.dm-item {
+  padding: 8px 12px;
+  background: #fff;
+  border-radius: 6px;
+  text-align: center;
+}
+.dm-label { font-size: 11px; color: #666; margin-bottom: 4px; }
+.dm-value { font-size: 16px; font-weight: 700; }
+.demo-actions {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.6;
+  strong { color: #1f6feb; margin-right: 4px; }
 }
 </style>

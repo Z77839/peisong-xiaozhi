@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { computed } from 'vue'
 import { useUserStore } from '@/store/user'
 import { useCityStore } from '@/store/city'
 import { useAppStore } from '@/store/app'
@@ -25,6 +26,17 @@ const handleLogout = () => {
     })
     .catch(() => {})
 }
+
+// 角色映射
+const roleMap: Record<string, { label: string; color: string }> = {
+  admin: { label: '系统管理员', color: '#f56c6c' },
+  operator: { label: '运营分析师', color: '#e6a23c' },
+  viewer: { label: '数据分析师', color: '#909399' }
+}
+const roleLabel = computed(() => {
+  const role = userStore.userInfo?.role || 'viewer'
+  return roleMap[role]?.label || role
+})
 </script>
 
 <template>
@@ -76,6 +88,14 @@ const handleLogout = () => {
             {{ userStore.userInfo?.nickname?.slice(0, 1) || 'U' }}
           </el-avatar>
           <span class="user-name">{{ userStore.userInfo?.nickname || '未登录' }}</span>
+          <el-tag
+            :type="userStore.userInfo?.role === 'admin' ? 'danger' : userStore.userInfo?.role === 'operator' ? 'warning' : 'info'"
+            size="small"
+            effect="dark"
+            style="margin-left: 6px;"
+          >
+            {{ roleLabel }}
+          </el-tag>
           <el-icon><ArrowDown /></el-icon>
         </div>
         <template #dropdown>

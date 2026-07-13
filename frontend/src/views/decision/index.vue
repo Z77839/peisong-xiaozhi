@@ -542,6 +542,62 @@ function copyReport() {
           <pre class="report-body">{{ result.report }}</pre>
         </div>
 
+        <!-- 🔍 Agent 调用追踪（借鉴 Langfuse 思路） -->
+        <div v-if="result.tracking" class="tracking-section">
+          <div class="ts-header">
+            <span class="ts-ico">🔍</span>
+            <span class="ts-title">Agent 调用追踪</span>
+            <span class="ts-sub">借鉴 Langfuse 可观测性设计 · 完整记录每个 Agent 耗时</span>
+          </div>
+
+          <div class="ts-summary">
+            <div class="ts-stat">
+              <div class="ts-stat-value">{{ result.tracking.totalMs }}ms</div>
+              <div class="ts-stat-label">总耗时</div>
+            </div>
+            <div class="ts-stat success">
+              <div class="ts-stat-value">{{ result.tracking.successCount }}/{{ result.tracking.agentCount }}</div>
+              <div class="ts-stat-label">成功调用</div>
+            </div>
+            <div class="ts-stat" :class="result.tracking.warningCount > 0 ? 'warning' : 'ok'">
+              <div class="ts-stat-value">{{ result.tracking.warningCount }}</div>
+              <div class="ts-stat-label">告警</div>
+            </div>
+            <div class="ts-stat">
+              <div class="ts-stat-value">{{ result.tracking.model }}</div>
+              <div class="ts-stat-label">推理模型</div>
+            </div>
+          </div>
+
+          <div class="ts-timeline">
+            <div
+              v-for="(agent, idx) in result.tracking.agents"
+              :key="idx"
+              class="ts-row"
+              :class="agent.status"
+            >
+              <div class="ts-icon">{{ agent.icon }}</div>
+              <div class="ts-name">{{ agent.name }}</div>
+              <div class="ts-bar-wrap">
+                <div
+                  class="ts-bar"
+                  :style="{ width: Math.min(100, agent.ms / 5) + '%', background: agent.status === 'success' ? '#00b578' : '#fa8c16' }"
+                ></div>
+              </div>
+              <div class="ts-ms">{{ agent.ms }}ms</div>
+              <div class="ts-status">
+                <span v-if="agent.status === 'success'">✓</span>
+                <span v-else>⚠</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ts-footer">
+            <span class="ts-footo-label">🔬 调用于</span>
+            <span class="ts-footo-time">{{ result.tracking.timestamp }}</span>
+          </div>
+        </div>
+
         <!-- 底部建议行动 -->
         <div class="bottom-cta">
           <div class="cta-text">
@@ -1247,5 +1303,90 @@ function copyReport() {
 
 @media (max-width: 1100px) {
   .agent-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+// 🔍 Agent 调用追踪样式
+.tracking-section {
+  background: #fff;
+  border: 1px solid $border-light;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 16px;
+}
+.ts-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.ts-ico { font-size: 20px; }
+.ts-title { font-size: 16px; font-weight: 600; color: $text-primary; }
+.ts-sub { font-size: 12px; color: $text-placeholder; margin-left: auto; }
+.ts-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.ts-stat {
+  padding: 12px 16px;
+  background: #f5f7fa;
+  border-radius: 8px;
+  text-align: center;
+  border-left: 3px solid #1f6feb;
+  &.success { border-left-color: #00b578; background: #f0f9f4; }
+  &.warning { border-left-color: #fa8c16; background: #fff7e6; }
+  &.ok { border-left-color: #00b578; }
+}
+.ts-stat-value { font-size: 20px; font-weight: 700; color: $text-primary; margin-bottom: 4px; word-break: break-all; }
+.ts-stat-label { font-size: 11px; color: $text-placeholder; }
+.ts-timeline {
+  background: #fafbfc;
+  border-radius: 8px;
+  padding: 12px;
+}
+.ts-row {
+  display: grid;
+  grid-template-columns: 32px 140px 1fr 60px 24px;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 4px;
+  border-radius: 4px;
+  &:hover { background: #fff; }
+  &.warning { color: #fa8c16; }
+}
+.ts-icon { font-size: 18px; text-align: center; }
+.ts-name { font-size: 13px; color: $text-primary; font-weight: 500; }
+.ts-bar-wrap {
+  height: 8px;
+  background: #e8e8e8;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.ts-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+  min-width: 4px;
+}
+.ts-ms { font-size: 12px; color: $text-placeholder; text-align: right; font-family: monospace; }
+.ts-status { font-size: 14px; text-align: center; color: #00b578; }
+.ts-row.warning .ts-status { color: #fa8c16; }
+.ts-footer {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #e8e8e8;
+  font-size: 11px;
+  color: $text-placeholder;
+  display: flex;
+  gap: 8px;
+}
+.ts-footo-time { font-family: monospace; }
+
+@media (max-width: 1100px) {
+  .ts-summary { grid-template-columns: repeat(2, 1fr); }
+  .ts-row { grid-template-columns: 24px 100px 1fr 50px 20px; }
 }
 </style>
