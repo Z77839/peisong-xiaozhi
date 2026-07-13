@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import { ElMessage } from 'element-plus'
-import { Check, Close, Link, LinkOff, Setting, Connection, DataLine, User, ShoppingCart, Sunny } from '@element-plus/icons-vue'
+import { Check, Close, Link, CircleClose, Setting, Connection, DataLine, User, ShoppingCart, Sunny } from '@element-plus/icons-vue'
 import request from '@/api/request'
 
 interface AdapterStatus {
@@ -303,7 +303,7 @@ const loadDemoScenario = (key: string) => {
             type="primary"
             size="small"
             plain
-            :icon="LinkOff"
+            :icon="CircleClose"
             disabled
           >
             等待公司授权
