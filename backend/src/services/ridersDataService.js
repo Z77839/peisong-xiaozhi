@@ -17,25 +17,17 @@ let ridersCache = null
 let lastLoadTime = null
 
 /**
- * 从 GitHub 拉取 CSV（Render 部署场景）
+ * 从 GitHub 拉取 CSV（使用 fetch 自动 follow redirect）
  */
-function downloadCSV() {
-  return new Promise((resolve, reject) => {
-    if (!FALLBACK_CSV_URL) return reject(new Error('No FALLBACK_CSV_URL'))
-    logger.info(`[Riders] 从 ${FALLBACK_CSV_URL} 拉取 CSV...`)
-    const url = new URL(FALLBACK_CSV_URL)
-    https.get(url, (res) => {
-      if (res.statusCode !== 200) return reject(new Error(`HTTP ${res.statusCode}`))
-      const chunks = []
-      res.on('data', (c) => chunks.push(c))
-      res.on('end', () => {
-        const text = Buffer.concat(chunks).toString('utf-8')
-        try { fs.writeFileSync(CSV_PATH, text) } catch (e) { logger.warn(`[Riders] 写本地失败: ${e.message}`) }
-        logger.info(`[Riders] 拉取完成: ${text.length} bytes`)
-        resolve(text)
-      })
-    }).on('error', reject)
-  })
+async function downloadCSV() {
+  if (!FALLBACK_CSV_URL) throw new Error('No URL')
+  logger.info(`[Riders] 拉取 CSV: ${FALLBACK_CSV_URL}`)
+  const res = await fetch(FALLBACK_CSV_URL, { redirect: 'follow' })
+  if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text().catch(() => '')}`)
+  const text = await res.text()
+  try { fs.writeFileSync(CSV_PATH, text) } catch (e) { logger.warn(`[Riders] 写本地失败: ${e.message}`) }
+  logger.info(`[Riders] 拉取完成: ${text.length} bytes`)
+  return text
 }
 
 /**
