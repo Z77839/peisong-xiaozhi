@@ -88,9 +88,8 @@ const handleUpload = async () => {
     fd.append('file', uploadFile.value.raw)
     fd.append('cat', uploadCat.value)
     fd.append('desc', uploadDesc.value)
-    const res: any = await request.post('/knowledge/upload', fd, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
+    // 不设 Content-Type，axios 会自动加 multipart/form-data; boundary=xxx
+    const res: any = await request.post('/knowledge/upload', fd)
     if (res.code === 200) {
       ElMessage.success('上传成功')
       uploadDialog.value = false
@@ -101,7 +100,9 @@ const handleUpload = async () => {
       ElMessage.error(res.message || '上传失败')
     }
   } catch (e: any) {
-    ElMessage.error('上传失败: ' + (e?.message || '未知错误'))
+    const detail = e?.response?.data?.message || e?.message || '未知错误'
+    ElMessage.error('上传失败: ' + detail)
+    console.error('[Upload] 详细错误:', e?.response?.data || e)
   } finally {
     uploading.value = false
   }
