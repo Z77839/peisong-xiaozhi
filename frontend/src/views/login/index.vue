@@ -9,7 +9,7 @@ const userStore = useUserStore()
 
 const form = ref({
   account: 'admin',
-  password: 'jiuxiaozhi2024'
+  password: 'admin@2024'
 })
 const remember = ref(true)
 const loading = ref(false)
