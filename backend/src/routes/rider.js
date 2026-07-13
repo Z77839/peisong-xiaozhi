@@ -13,6 +13,7 @@ import { Router } from 'express'
 import { segments, lifecycles, topStations } from '../data/riders.js'
 import {
   loadRiders,
+  bootstrapRiders,
   listRiders,
   getRiderById,
   getRiderStats,
@@ -22,8 +23,8 @@ import { authRequired } from '../middleware/auth.js'
 
 const router = Router()
 
-// 1. 启动时预加载骑手数据（async fire-and-forget）
-loadRiders().catch(err => console.error('[riders] 预加载失败:', err.message))
+// 1. 启动时预加载骑手数据（同步 + 异步拉取）
+bootstrapRiders().catch(err => console.error('[riders] bootstrap 失败:', err.message))
 
 // 2. 健康检查（不需鉴权）
 router.get('/health', (req, res) => {
