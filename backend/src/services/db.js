@@ -6,6 +6,8 @@
 import pg from 'pg'
 import fs from 'node:fs'
 import path from 'node:path'
+import bcrypt from 'bcryptjs'
+import { BCRYPT_ROUNDS } from '../config.js'
 import { logger } from './logger.js'
 
 const { Pool } = pg
@@ -45,6 +47,42 @@ if (!USE_POSTGRES && !fs.existsSync(JSON_DIR)) {
   fs.mkdirSync(JSON_DIR, { recursive: true })
 }
 
+/**
+ * 启动时初始化默认账号（仅 JSON 模式）
+ * 生产环境建议用 PostgreSQL migration 初始化
+ */
+async function initDefaultUsers() {
+  if (USE_POSTGRES) return // PG 模式不在这里处理
+  const userFile = path.join(JSON_DIR, 'users.json')
+  if (fs.existsSync(userFile)) {
+    try {
+      const users = JSON.parse(fs.readFileSync(userFile, 'utf-8'))
+      if (users.length > 0) return // 已有用户
+    } catch {}
+  }
+  // 创建默认账号
+  logger.info('[DB] 初始化默认演示账号...')
+  const defaults = [
+    { username: 'admin', role: 'admin', password: 'admin@2024', nickname: '系统管理员', org: '配送小智总部' },
+    { username: 'operator', role: 'operator', password: 'operator@2024', nickname: '运营分析师', org: '衡阳运营中心' },
+    { username: 'analyst', role: 'analyst', password: 'analyst@2024', nickname: '数据分析师', org: '总部数据部' }
+  ]
+  const now = new Date().toISOString()
+  const users = await Promise.all(defaults.map(async (u, i) => ({
+    id: `u_${i + 1}`,
+    username: u.username,
+    passwordHash: await bcrypt.hash(u.password, BCRYPT_ROUNDS),
+    nickname: u.nickname,
+    role: u.role,
+    org: u.org,
+    isActive: true,
+    createdAt: now,
+    updatedAt: now
+  })))
+  fs.writeFileSync(userFile, JSON.stringify(users, null, 2))
+  logger.info(`[DB] 初始化 ${users.length} 个默认账号 (admin/operator/analyst)`)
+}
+
 function readJsonFile(filename) {
   const filePath = path.join(JSON_DIR, filename)
   if (!fs.existsSync(filePath)) return []
@@ -67,6 +105,11 @@ export async function findUserByUsername(username) {
   if (USE_POSTGRES) {
     const { rows } = await pool.query('SELECT * FROM users WHERE username = $1', [username])
     return rows[0] || null
+  }
+  // 确保默认账号已初始化
+  if (!findUserByUsername._initialized) {
+    findUserByUsername._initialized = true
+    await initDefaultUsers()
   }
   const users = readJsonFile('users.json')
   return users.find(u => u.username === username) || null
