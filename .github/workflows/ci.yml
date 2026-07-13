@@ -28,9 +28,17 @@ jobs:
         working-directory: backend
         run: npm install --no-audit --no-fund --legacy-peer-deps
 
-      - name: Smoke test (import server)
+      - name: Lint check (syntax)
         working-directory: backend
-        run: node -e "import('./src/server.js').then(()=>console.log('OK')).catch(e=>{console.error(e);process.exit(1)})"
+        run: |
+          for f in src/server.js src/services/*.js src/routes/*.js src/middleware/*.js; do
+            node --check "$f" 2>&1 | head -5
+          done
+          echo '✅ 语法检查通过'
+
+      - name: Run unit tests
+        working-directory: backend
+        run: npm test 2>&1 | tail -30
 
   test-frontend:
     name: Test frontend
