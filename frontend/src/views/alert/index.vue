@@ -1,3 +1,4 @@
+import request from '@/api/request'
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
@@ -52,7 +53,7 @@ const filteredAlerts = computed(() => {
 async function fetchAlerts() {
   loading.value = true
   try {
-    const r: any = await fetch(`/api/alert?cityId=${cityStore.currentCityId}`).then((r) => r.json())
+    const r: any = await request({ url: `/alert?cityId=${cityStore.currentCityId}` })
     alerts.value = r.data.alerts
     alertStats.value = r.data.stats
     context.value = r.data.context
@@ -83,7 +84,7 @@ async function executeAction(alert: Alert, action: any) {
 }
 
 async function ackAlert(alert: Alert) {
-  await fetch(`/api/alert/ack/${alert.id}`, { method: 'POST' })
+  await request({ url: `/alert/ack/${alert.id}`, method: 'POST' })
   alert.status = 'acked'
   ElMessage.success('已确认')
 }

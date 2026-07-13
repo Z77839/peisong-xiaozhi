@@ -51,7 +51,7 @@ const formatTime = (iso: string) => {
 
 const loadDocs = async () => {
   try {
-    const res: any = await request.get('/api/knowledge/list')
+    const res: any = await request.get('/knowledge/list')
     if (res.code === 200) {
       docs.value = res.data || []
     }
@@ -88,7 +88,7 @@ const handleUpload = async () => {
     fd.append('file', uploadFile.value.raw)
     fd.append('cat', uploadCat.value)
     fd.append('desc', uploadDesc.value)
-    const res: any = await request.post('/api/knowledge/upload', fd, {
+    const res: any = await request.post('/knowledge/upload', fd, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
     if (res.code === 200) {
@@ -114,7 +114,7 @@ const handleDelete = async (doc: any) => {
       confirmButtonText: '删除',
       cancelButtonText: '取消'
     })
-    const res: any = await request.delete(`/api/knowledge/${doc.id}`)
+    const res: any = await request.delete(`/knowledge/${doc.id}`)
     if (res.code === 200) {
       ElMessage.success('已删除')
       await loadDocs()
@@ -132,7 +132,7 @@ const handleView = async (doc: any) => {
   if (doc.url) {
     window.open(doc.url, '_blank')
     try {
-      await request.post(`/api/knowledge/${doc.id}/view`)
+      await request.post(`/knowledge/${doc.id}/view`)
     } catch {}
   } else {
     ElMessage.info('演示模式：未上传到服务器')

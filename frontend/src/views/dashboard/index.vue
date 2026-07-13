@@ -1,3 +1,4 @@
+import request from '@/api/request'
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, shallowRef, watch } from 'vue'
 import { useRouter } from 'vue-router'
@@ -41,7 +42,7 @@ const liveKpis = ref<any[]>([
 const context = ref<any>(null)
 async function fetchContext() {
   try {
-    const r: any = await fetch(`/api/context?cityId=${cityStore.currentCityId}`).then((r) => r.json())
+    const r: any = await request({ url: `/context?cityId=${cityStore.currentCityId}` })
     context.value = r.data
   } catch {}
 }
@@ -50,7 +51,7 @@ async function fetchContext() {
 const alertSummary = ref<any>(null)
 async function fetchAlertSummary() {
   try {
-    const r: any = await fetch(`/api/alert?cityId=${cityStore.currentCityId}`).then((r) => r.json())
+    const r: any = await request({ url: `/alert?cityId=${cityStore.currentCityId}` })
     alertSummary.value = r.data
   } catch {}
 }
@@ -58,7 +59,7 @@ async function fetchAlertSummary() {
 const dispatchSummary = ref<any>(null)
 async function fetchDispatchSummary() {
   try {
-    const r: any = await fetch(`/api/dispatch?cityId=${cityStore.currentCityId}`).then((r) => r.json())
+    const r: any = await request({ url: `/dispatch?cityId=${cityStore.currentCityId}` })
     dispatchSummary.value = r.data
   } catch {}
 }

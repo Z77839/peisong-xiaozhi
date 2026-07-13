@@ -1,3 +1,4 @@
+import request from '@/api/request'
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage } from 'element-plus'
@@ -51,7 +52,7 @@ let refreshTimer: number | null = null
 async function fetchDispatch() {
   loading.value = true
   try {
-    const r: any = await fetch(`/api/dispatch?cityId=${cityStore.currentCityId}`).then((r) => r.json())
+    const r: any = await request({ url: `/dispatch?cityId=${cityStore.currentCityId}` })
     orders.value = r.data.orders
     riders.value = r.data.riders
     recommendations.value = r.data.recommendations
