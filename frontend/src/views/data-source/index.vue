@@ -413,7 +413,8 @@ const loadDemoScenario = (key: string) => {
   </div>
 </template>
 
-<style lang="scss" scoped@use "@/assets/styles/variables.scss" as *;
+<style lang="scss" scoped>
+@use "@/assets/styles/variables.scss" as *;
 .page-header {
   display: flex;
   justify-content: space-between;
