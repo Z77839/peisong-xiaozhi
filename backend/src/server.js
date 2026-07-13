@@ -26,6 +26,7 @@ import simulationRouter from './routes/simulation.js'
 import optimizeRouter from './routes/optimize.js'
 import adaptersRouter from './routes/adapters.js'
 import debugRouter from './routes/debug.js'
+import knowledgeRouter from './routes/knowledge.js'
 import { startRiderSimulator } from './adapters/riderTelemetryAdapter.js'
 import { startOrderPoolSimulator } from './adapters/orderPoolAdapter.js'
 
@@ -65,6 +66,11 @@ import fs from 'node:fs'
 const publicDir = path.resolve(process.cwd(), 'public')
 if (fs.existsSync(publicDir)) {
   app.use(express.static(publicDir))
+  // uploads 静态服务（知识库文件）
+  const uploadsDir = path.resolve(process.cwd(), 'uploads')
+  if (fs.existsSync(uploadsDir)) {
+    app.use('/uploads', express.static(uploadsDir))
+  }
   // SPA 路由 fallback（重要：Vue Router history 模式）
   app.get(/^\/(?!api).*/, (req, res, next) => {
     const indexPath = path.join(publicDir, 'index.html')
@@ -134,6 +140,7 @@ app.use('/api/dispatch', dispatchRouter)
 app.use('/api/simulation', simulationRouter)
 app.use('/api/optimize', optimizeRouter)
 app.use('/api/adapters', adaptersRouter)
+app.use('/api/knowledge', knowledgeRouter)
 app.use('/api/debug', debugRouter)
 
 // ============================================
