@@ -149,6 +149,19 @@ app.use('/api/debug', debugRouter)
 // 全局错误处理（必须放最后）
 // ============================================
 
+// 根路由 + 健康检查（Render / UptimeRobot 探测）
+app.get('/', (req, res) => {
+  res.json({
+    code: 200,
+    service: 'peisong-xiaozhi-backend',
+    version: '3.3.0',
+    status: 'live',
+    timestamp: new Date().toISOString()
+  })
+})
+app.head('/', (req, res) => res.status(200).end())
+app.get('/health', (req, res) => res.json({ status: 'ok' }))
+
 // 404 处理
 app.use((req, res) => {
   logger.warn(`404 not found: ${req.method} ${req.originalUrl}`)
