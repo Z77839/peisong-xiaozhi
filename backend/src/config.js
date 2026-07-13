@@ -41,6 +41,7 @@ export const COZE = {
 // 豆包（字节火山引擎）
 export const DOUBAO = {
   apiKey: process.env.ARK_API_KEY || '',
+  // 支持两种格式：标准模型名（doubao-pro-32k）或 endpoint ID（ep-xxxxxx-xxx）
   model: process.env.DOUBAO_MODEL || 'doubao-pro-32k',
   endpoint: process.env.DOUBAO_ENDPOINT || 'https://ark.cn-beijing.volces.com/api/v3/chat/completions',
   enabled: !!process.env.ARK_API_KEY
