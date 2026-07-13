@@ -10,7 +10,8 @@ import { logger } from './logger.js'
 
 const CSV_PATH = path.resolve(process.cwd(), 'data/riders_full.csv')
 // 备用：Render 启动时如果本地 CSV 不存在，从 GitHub 拉取
-const FALLBACK_CSV_URL = process.env.RIDERS_CSV_URL || null
+const DEFAULT_CSV_URL = 'https://github.com/Z77839/peisong-xiaozhi/releases/download/riders-data-v1/riders_full.csv'
+const FALLBACK_CSV_URL = process.env.RIDERS_CSV_URL || DEFAULT_CSV_URL
 
 let ridersCache = null
 let lastLoadTime = null
