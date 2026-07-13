@@ -22,7 +22,7 @@ let lastLoadTime = null
 async function downloadCSV() {
   if (!FALLBACK_CSV_URL) throw new Error('No URL')
   logger.info(`[Riders] 拉取 CSV: ${FALLBACK_CSV_URL}`)
-  const res = await fetch(FALLBACK_CSV_URL, { redirect: 'follow' })
+  const res = await fetch(FALLBACK_CSV_URL, { redirect: 'follow', signal: AbortSignal.timeout(90000) })
   if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text().catch(() => '')}`)
   const text = await res.text()
   try { fs.writeFileSync(CSV_PATH, text) } catch (e) { logger.warn(`[Riders] 写本地失败: ${e.message}`) }
