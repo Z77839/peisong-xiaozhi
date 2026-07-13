@@ -55,19 +55,10 @@ function parseCSV(text) {
 }
 
 /**
- * 加载骑手数据（带缓存）
+ * 同步加载骑手数据（带缓存）
  */
-export async function loadRiders(force = false) {
+export function loadRiders(force = false) {
   if (ridersCache && !force) return ridersCache
-
-  // 优先用本地文件
-  if (!fs.existsSync(CSV_PATH) && FALLBACK_CSV_URL) {
-    try {
-      await downloadCSV()
-    } catch (err) {
-      logger.warn(`[Riders] 拉取 CSV 失败: ${err.message}`)
-    }
-  }
 
   if (!fs.existsSync(CSV_PATH)) {
     logger.warn(`[Riders] CSV 不存在: ${CSV_PATH}`)
@@ -83,6 +74,22 @@ export async function loadRiders(force = false) {
   lastLoadTime = new Date()
   logger.info(`[Riders] 加载 ${data.length} 个骑手 (${elapsed}ms)`)
   return data
+}
+
+/**
+ * 异步：启动时从 GitHub 拉取 CSV（fire-and-forget）
+ */
+export async function bootstrapRiders() {
+  if (fs.existsSync(CSV_PATH)) {
+    logger.info(`[Riders] 本地 CSV 已存在: ${CSV_PATH}`)
+    return
+  }
+  if (!FALLBACK_CSV_URL) return
+  try {
+    await downloadCSV()
+  } catch (err) {
+    logger.warn(`[Riders] 拉取 CSV 失败: ${err.message}`)
+  }
 }
 
 /**
