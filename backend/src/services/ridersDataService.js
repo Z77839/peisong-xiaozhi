@@ -5,12 +5,37 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
+import https from 'node:https'
 import { logger } from './logger.js'
 
 const CSV_PATH = path.resolve(process.cwd(), 'data/riders_full.csv')
+// 备用：Render 启动时如果本地 CSV 不存在，从 GitHub 拉取
+const FALLBACK_CSV_URL = process.env.RIDERS_CSV_URL || null
 
 let ridersCache = null
 let lastLoadTime = null
+
+/**
+ * 从 GitHub 拉取 CSV（Render 部署场景）
+ */
+function downloadCSV() {
+  return new Promise((resolve, reject) => {
+    if (!FALLBACK_CSV_URL) return reject(new Error('No FALLBACK_CSV_URL'))
+    logger.info(`[Riders] 从 ${FALLBACK_CSV_URL} 拉取 CSV...`)
+    const url = new URL(FALLBACK_CSV_URL)
+    https.get(url, (res) => {
+      if (res.statusCode !== 200) return reject(new Error(`HTTP ${res.statusCode}`))
+      const chunks = []
+      res.on('data', (c) => chunks.push(c))
+      res.on('end', () => {
+        const text = Buffer.concat(chunks).toString('utf-8')
+        try { fs.writeFileSync(CSV_PATH, text) } catch (e) { logger.warn(`[Riders] 写本地失败: ${e.message}`) }
+        logger.info(`[Riders] 拉取完成: ${text.length} bytes`)
+        resolve(text)
+      })
+    }).on('error', reject)
+  })
+}
 
 /**
  * 解析 CSV（简单 split，不处理复杂转义）
@@ -39,8 +64,17 @@ function parseCSV(text) {
 /**
  * 加载骑手数据（带缓存）
  */
-export function loadRiders(force = false) {
+export async function loadRiders(force = false) {
   if (ridersCache && !force) return ridersCache
+
+  // 优先用本地文件
+  if (!fs.existsSync(CSV_PATH) && FALLBACK_CSV_URL) {
+    try {
+      await downloadCSV()
+    } catch (err) {
+      logger.warn(`[Riders] 拉取 CSV 失败: ${err.message}`)
+    }
+  }
 
   if (!fs.existsSync(CSV_PATH)) {
     logger.warn(`[Riders] CSV 不存在: ${CSV_PATH}`)
