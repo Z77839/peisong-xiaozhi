@@ -117,7 +117,7 @@ export function mockWorkflow(query) {
 `
 
   // 🔍 调用追踪（借鉴 Langfuse 思路）
-  const totalMs = Date.now() - workflowStart
+  const totalMs = Date.now() - now
   const tracking = {
     totalMs,
     agentCount: steps.length,
@@ -152,9 +152,47 @@ export async function runDecisionWorkflow(query, options = {}) {
   // 智能体感知世界状态（时间/天气/节假日）
   const ctx = await getAgentContext(cityId)
 
+  // 1. 优先 LLM Router（豆包 → DeepSeek → Coze）
+  try {
+    const { callLLM } = await import('./llmRouter.js')
+    const enrichedQuery = `[系统设定]
+你是「配送小智」，本地生活服务电商配送运营决策智能体。
+你的职责：辅助运营管理员提前发现高峰风险、及时调整运力、控制配送成本。
+你的能力：运力预判 / 调度与成本判断 / 派单 / 辅助推荐 / 主动预警 / 决策报告。
+你的理念：「主动预防式决策」而非「被动响应」。
+输出风格：结构化、可执行、附置信度。
+
+[智能体感知上下文]
+${ctx.contextSummary}
+
+[用户问题]
+${query}`
+    const llmResult = await callLLM(enrichedQuery, { prefer: 'auto', taskType: 'long' })
+    if (llmResult?.content) {
+      return {
+        steps: AGENTS.map((a, i) => ({
+          id: a.id,
+          name: a.name,
+          desc: a.desc,
+          icon: a.icon,
+          status: 'success',
+          output: i === 0 ? `已路由到 ${llmResult.provider} (${llmResult.model})` : `由 ${llmResult.provider} 生成建议`
+        })),
+        report: llmResult.content,
+        provider: llmResult.provider,
+        model: llmResult.model,
+        llm_used: true,
+        coze_used: false,
+        context: ctx
+      }
+    }
+  } catch (err) {
+    console.warn('[LLM Router] 失败，回落 Coze/Mock:', err.message)
+  }
+
+  // 2. 回落 Coze
   if (COZE.enabled) {
     try {
-      // 把 context 拼接到 query 里，让真 Coze Bot 也基于世界状态回答
       const enrichedQuery = `[系统设定]
 你是「配送小智」，本地生活服务电商配送运营决策智能体。
 你的职责：辅助运营管理员提前发现高峰风险、及时调整运力、控制配送成本。
