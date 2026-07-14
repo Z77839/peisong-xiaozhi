@@ -7,7 +7,10 @@ const route = useRoute()
 const appStore = useAppStore()
 
 const menus = [
+  // 1. 独立：运营总览（首页）
   { path: '/dashboard', title: '运营总览', icon: 'DataAnalysis' },
+
+  // 2. 智能决策中心
   {
     path: '/decision',
     title: '智能决策中心',
@@ -18,21 +21,48 @@ const menus = [
       { path: '/dispatch', title: '智能派单', icon: 'TakeawayBox' }
     ]
   },
-  { path: '/simulation', title: '仿真回放', icon: 'VideoPlay' },
-  { path: '/rider-types', title: '运力线分析', icon: 'Van' },
-  { path: '/rider', title: '骑手管理', icon: 'User' },
-  { path: '/order', title: '订单分析', icon: 'TrendCharts' },
-  { path: '/cost', title: '成本分析', icon: 'Money' },
-  { path: '/data-source', title: '数据接入', icon: 'Connection' },
-  { path: '/report', title: '运营报告', icon: 'Document' },
-  { path: '/knowledge', title: '知识库', icon: 'Files' },
-  { path: '/setting', title: '系统设置', icon: 'Setting' }
+
+  // 3. 运力管理
+  {
+    path: '/rider-types',
+    title: '运力管理',
+    icon: 'Van',
+    children: [
+      { path: '/rider-types', title: '运力线分析', icon: 'PieChart' },
+      { path: '/rider', title: '骑手管理', icon: 'User' },
+      { path: '/simulation', title: '仿真回放', icon: 'VideoPlay' }
+    ]
+  },
+
+  // 4. 运营分析
+  {
+    path: '/order',
+    title: '运营分析',
+    icon: 'DataLine',
+    children: [
+      { path: '/order', title: '订单分析', icon: 'TrendCharts' },
+      { path: '/cost', title: '成本分析', icon: 'Money' },
+      { path: '/report', title: '运营报告', icon: 'Document' }
+    ]
+  },
+
+  // 5. 系统配置
+  {
+    path: '/data-source',
+    title: '系统配置',
+    icon: 'Setting',
+    children: [
+      { path: '/data-source', title: '数据接入', icon: 'Connection' },
+      { path: '/knowledge', title: '知识库', icon: 'Files' },
+      { path: '/setting', title: '系统设置', icon: 'Tools' }
+    ]
+  }
 ]
 
 const activeMenu = computed(() => route.path)
 
-// 默认展开决策中心大类
-const defaultOpened = ['/decision']
+// 默认展开所有大类
+const defaultOpened = ['/decision', '/rider-types', '/order', '/data-source']
 </script>
 
 <template>
@@ -181,6 +211,7 @@ const defaultOpened = ['/decision']
     .el-sub-menu__title {
       color: #1a1a2e !important;
       font-size: 14px;
+      font-weight: 600;
       height: 44px;
       line-height: 44px;
       margin: 2px 8px;
@@ -205,6 +236,7 @@ const defaultOpened = ['/decision']
       font-size: 13px;
       height: 40px;
       line-height: 40px;
+      min-width: 0;
     }
   }
 }
