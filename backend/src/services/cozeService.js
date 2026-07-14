@@ -166,7 +166,7 @@ export async function runDecisionWorkflow(query, options = {}) {
 
 [智能体感知上下文]
 ${ctx.contextSummary}
-
+${getKnowledgeContext(query)}
 [用户问题]
 ${query}`
     const llmResult = await callLLM(enrichedQuery, { prefer: 'auto', taskType: 'long' })
@@ -214,7 +214,7 @@ ${query}`
 
 [智能体感知上下文]
 ${ctx.contextSummary}
-
+${getKnowledgeContext(query)}
 [用户问题]
 ${query}`
       const reply = await callCozeBot(enrichedQuery)
