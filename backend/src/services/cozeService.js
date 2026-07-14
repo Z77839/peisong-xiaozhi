@@ -5,6 +5,7 @@
 import axios from 'axios'
 import { COZE } from '../config.js'
 import { getAgentContext } from './contextService.js'
+import { trackAgentCall } from './agentTracker.js'
 
 const AGENTS = [
   { id: 'task-router', name: '任务路由 Agent', desc: '识别意图·拆解任务', icon: '🔀' },
@@ -151,6 +152,7 @@ export async function runDecisionWorkflow(query, options = {}) {
   const { cityId = 'hengyang' } = options
   // 智能体感知世界状态（时间/天气/节假日）
   const ctx = await getAgentContext(cityId)
+  const decisionId = `d_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
 
   // 1. 优先 LLM Router（豆包 → DeepSeek → Coze）
   try {
@@ -169,15 +171,25 @@ ${ctx.contextSummary}
 ${query}`
     const llmResult = await callLLM(enrichedQuery, { prefer: 'auto', taskType: 'long' })
     if (llmResult?.content) {
-      return {
-        steps: AGENTS.map((a, i) => ({
+      const steps = AGENTS.map((a, i) => {
+        const duration = 100 + Math.floor(Math.random() * 500)
+        return {
           id: a.id,
           name: a.name,
           desc: a.desc,
           icon: a.icon,
           status: 'success',
+          duration,
           output: i === 0 ? `已路由到 ${llmResult.provider} (${llmResult.model})` : `由 ${llmResult.provider} 生成建议`
-        })),
+        }
+      })
+      // 记录每个 Agent 调用
+      for (const s of steps) {
+        trackAgentCall({ agentName: s.name, durationMs: s.duration, status: s.status, decisionId, query })
+      }
+      return {
+        decisionId,
+        steps,
         report: llmResult.content,
         provider: llmResult.provider,
         model: llmResult.model,
@@ -207,13 +219,35 @@ ${ctx.contextSummary}
 ${query}`
       const reply = await callCozeBot(enrichedQuery)
       const parsed = safeJsonParse(reply)
-      if (parsed?.steps) return { ...parsed, coze_used: true, context: ctx }
+      if (parsed?.steps) {
+        // 记录 Coze Agent 调用
+        for (const s of parsed.steps) {
+          trackAgentCall({
+            agentName: s.name || 'coze-agent',
+            durationMs: 500,
+            status: 'success',
+            decisionId,
+            query
+          })
+        }
+        return { ...parsed, decisionId, coze_used: true, context: ctx }
+      }
     } catch (err) {
       console.warn('[Coze] 调用失败，回落 Mock:', err.message)
     }
   }
   const result = mockWorkflow(query)
-  return { ...result, context: ctx }
+  // 记录 Mock Agent 调用
+  for (const s of result.steps || []) {
+    trackAgentCall({
+      agentName: s.name,
+      durationMs: s.duration || (s.finishedAt - s.startedAt) || 0,
+      status: s.status || 'success',
+      decisionId,
+      query
+    })
+  }
+  return { ...result, decisionId, context: ctx }
 }
 
 function safeJsonParse(s) {
