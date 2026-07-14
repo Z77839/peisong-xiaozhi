@@ -52,7 +52,7 @@ router.get('/', authRequired, async (req, res) => {
     isResigned: isResigned !== undefined ? isResigned : undefined,
     search: search || undefined
   })
-  res.json({ code: 200, ...result })
+  res.json({ code: 200, data: result })
   } catch (e) {
     res.status(500).json({ code: 500, message: e.message })
   }
