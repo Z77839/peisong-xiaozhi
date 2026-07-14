@@ -35,7 +35,8 @@ interface Order {
 
 interface Recommendation {
   order: Order
-  topRiders: (Rider & { matchScore: number; matchReason: string })[]
+  topRiders: (Rider & { matchScore: number;
+import KnowledgeHints from '@/components/KnowledgeHints.vue' matchReason: string })[]
 }
 
 const cityStore = useCityStore()
@@ -169,6 +170,8 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="dispatch-page">
+    <!-- 知识库提示 -->
+    <KnowledgeHints />
     <!-- Hero -->
     <div class="hero">
       <div class="hero-inner">
