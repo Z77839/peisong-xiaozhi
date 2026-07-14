@@ -53,8 +53,11 @@ const formatTime = (iso: string) => {
 const loadDocs = async () => {
   try {
     const res: any = await request.get('/knowledge/list')
-    if (res.code === 200) {
-      docs.value = res.data || []
+    // axios 拦截器已剥离 code，res 直接是后端 data
+    if (res && Array.isArray(res)) {
+      docs.value = res
+    } else if (res && Array.isArray(res.data)) {
+      docs.value = res.data
     }
   } catch (e: any) {
     console.warn('加载知识库失败', e?.message)
@@ -84,14 +87,15 @@ const handleUpload = async () => {
     fd.append('desc', uploadDesc.value)
     // 不设 Content-Type，axios 会自动加 multipart/form-data; boundary=xxx
     const res: any = await request.post('/knowledge/upload', fd)
-    if (res.code === 200) {
-      ElMessage.success('上传成功')
+    // axios 拦截器已剥离 code/message，res 直接是后端 data
+    if (res && (res.id || res.code === 200)) {
+      ElMessage.success('上传成功：' + (res.title || res.data?.title || '文档'))
       uploadDialog.value = false
       uploadFile.value = null
       uploadDesc.value = ''
       await loadDocs()
     } else {
-      ElMessage.error(res.message || '上传失败')
+      ElMessage.error('上传失败：服务器返回异常')
     }
   } catch (e: any) {
     const detail = e?.response?.data?.message || e?.message || '未知错误'
@@ -110,10 +114,9 @@ const handleDelete = async (doc: any) => {
       cancelButtonText: '取消'
     })
     const res: any = await request.delete(`/knowledge/${doc.id}`)
-    if (res.code === 200) {
-      ElMessage.success('已删除')
-      await loadDocs()
-    }
+    // axios 拦截器已剥离，res 是 data（成功）or 错误 reject
+    ElMessage.success('已删除')
+    await loadDocs()
   } catch (e: any) {
     if (e !== 'cancel') {
       ElMessage.error('删除失败: ' + (e?.message || '未知错误'))
