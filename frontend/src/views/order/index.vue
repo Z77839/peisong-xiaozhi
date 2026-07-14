@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import KnowledgeHints from '@/components/KnowledgeHints.vue'
 import { ref, onMounted, shallowRef, computed, watch } from 'vue'
 import * as echarts from 'echarts'
 import ChartCard from '@/components/ChartCard.vue'
@@ -191,8 +190,6 @@ watch([hourlyOrders, regionData], () => {
 
 <template>
   <div class="page-container">
-    <!-- 知识库提示 -->
-    <KnowledgeHints />
     <!-- KPI 行 -->
     <div class="stat-row">
       <div v-for="(s, i) in kpis" :key="i" class="stat-card" :style="{ borderTop: `3px solid ${s.color}` }">
