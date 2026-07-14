@@ -698,9 +698,9 @@ function copyReport() {
             <div class="cta-sub">检查以上报告后，可跳转预警中心 / 智能派单 模块执行具体动作</div>
           </div>
           <div class="cta-actions">
-            <button class="cta-btn" @click="$router.push('/alert')">🚨 查看预警</button>
-            <button class="cta-btn" @click="$router.push('/dispatch')">🚴 智能派单</button>
-            <button class="cta-btn primary" @click="$router.push('/alert')">⚡ 一键执行建议</button>
+            <button class="cta-btn" @click="goToAlert">🚨 查看预警</button>
+            <button class="cta-btn" @click="goToDispatch">🚴 智能派单</button>
+            <button class="cta-btn primary" @click="goToDispatch">⚡ 一键执行建议</button>
           </div>
         </div>
       </div>
