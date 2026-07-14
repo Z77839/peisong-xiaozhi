@@ -294,9 +294,7 @@ onMounted(() => {
           <template #default="{ row }">
             <el-tag v-if="row.city && row.city !== '未分配'" size="small" type="success">{{ row.city }}</el-tag>
             <el-tag v-else size="small">未分配</el-tag>
-            <!-- 悬浮球：添加/导入骑手 -->
-  <RiderFloatButton @refresh="fetchKpis" />
-</template>
+          </template>
         </el-table-column>
         <el-table-column label="所属站点" prop="station" min-width="160" show-overflow-tooltip />
         <el-table-column label="服务等级" prop="level" width="120">
@@ -325,6 +323,9 @@ onMounted(() => {
         <span class="total-info">共 {{ formatNumber(totalRiders) }} 条</span>
       </div>
     </div>
+
+    <!-- 🆕 悬浮球：添加/导入骑手 -->
+    <RiderFloatButton @refresh="fetchKpis" />
   </div>
 </template>
 
