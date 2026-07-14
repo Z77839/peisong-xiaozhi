@@ -360,7 +360,20 @@ onBeforeUnmount(() => {
 .status-tag { padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
 .status-tag.tag-acked { background: #f6ffed; color: #00b578; }
 .status-tag.tag-executing { background: #e8f3ff; color: #1f6feb; }
-.ac-city { font-size: 11px; color: #a3a8b3; }
+.ac-city { font-size: 11px; color: #a3a8b3; margin-left: 8px; }
+
+.link-to-decision {
+  margin-left: auto;
+  background: linear-gradient(90deg, #1f6feb, #4080ff);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.link-to-decision:hover { opacity: 0.85; }
 .empty-state { text-align: center; padding: 60px 0; background: #fff; border-radius: 12px; border: 1px dashed #e5e6eb; }
 .es-ico { font-size: 48px; margin-bottom: 12px; }
 .es-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
