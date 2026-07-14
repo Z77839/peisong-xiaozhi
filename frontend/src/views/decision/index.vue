@@ -78,6 +78,25 @@ function resetOverride() {
 /**
  * 从用户问题中智能解析日期
  */
+/**
+ * 跳转到预警中心
+ */
+function goToAlert() {
+  const cityId = result.value?.context?.city?.id || cityStore.currentCityId
+  $router.push(`/alert?cityId=${cityId}`)
+}
+
+/**
+ * 跳转到智能派单中心，带决策上下文
+ */
+function goToDispatch() {
+  const cityId = result.value?.context?.city?.id || cityStore.currentCityId
+  const gap = result.value?.context?.riders?.cityCount
+    ? Math.max(0, 200 - result.value.context.riders.cityCount)
+    : 200
+  $router.push(`/dispatch?cityId=${cityId}&gap=${gap}`)
+}
+
 function parseDateFromQuery(q: string): Date | null {
   if (!q) return null
   const now = new Date()
@@ -109,7 +128,24 @@ function parseDateFromQuery(q: string): Date | null {
   return null
 }
 
-onMounted(fetchContext)
+onMounted(() => {
+  fetchContext()
+  // 从 URL 参数读取（从预警中心跳转过来）
+  const params = new URLSearchParams(window.location.search || window.location.hash.split('?')[1] || '')
+  const preQ = params.get('q')
+  const preCity = params.get('cityId')
+  if (preQ) {
+    queryText.value = decodeURIComponent(preQ)
+  }
+  if (preCity) {
+    cityStore.setCity?.(preCity) || (cityStore.currentCityId = preCity)
+  }
+  // 预警跳转带 alertId 标记
+  const alertId = params.get('alertId')
+  if (alertId) {
+    ElMessage.info(`已加载预警 #${alertId}，可继续调整后生成决策`)
+  }
+})
 watch(() => cityStore.currentCityId, fetchContext)
 
 const queryText = ref<string>('')
