@@ -19,6 +19,13 @@ import {
   getRiderStats,
   ridersHealth
 } from '../services/ridersDataService.js'
+import {
+  addRider,
+  importRidersFromCSV,
+  listExtraRiders,
+  deleteExtraRider,
+  getExtraRiderCount
+} from '../services/riderImporter.js'
 import { authRequired } from '../middleware/auth.js'
 
 const router = Router()
@@ -81,5 +88,45 @@ router.get('/:id', authRequired, async (req, res) => {
 router.get('/segments', (req, res) => res.json({ code: 0, data: segments }))
 router.get('/lifecycles', (req, res) => res.json({ code: 0, data: lifecycles }))
 router.get('/stations', (req, res) => res.json({ code: 0, data: topStations }))
+
+// 7. 🆕 导入骑手（CSV）
+router.post('/import', authRequired, (req, res) => {
+  try {
+    const { csv } = req.body || {}
+    if (!csv) return res.status(400).json({ code: 400, message: 'csv 字段必填' })
+    const result = importRidersFromCSV(csv)
+    res.json({ code: 200, message: `成功导入 ${result.added} 个骑手`, data: result })
+  } catch (e) {
+    res.status(500).json({ code: 500, message: e.message })
+  }
+})
+
+// 8. 🆕 添加单个骑手
+router.post('/add', authRequired, (req, res) => {
+  try {
+    const rider = addRider(req.body || {})
+    res.json({ code: 200, message: '添加成功', data: rider })
+  } catch (e) {
+    res.status(500).json({ code: 500, message: e.message })
+  }
+})
+
+// 9. 🆕 列出导入的骑手
+router.get('/extra', authRequired, (req, res) => {
+  const page = Number(req.query.page) || 1
+  const pageSize = Number(req.query.pageSize) || 50
+  res.json({ code: 200, data: listExtraRiders({ page, pageSize }) })
+})
+
+// 10. 🆕 导入统计
+router.get('/import-stats', authRequired, (req, res) => {
+  res.json({ code: 200, data: { extraCount: getExtraRiderCount() } })
+})
+
+// 11. 🆕 删除导入的骑手
+router.delete('/extra/:id', authRequired, (req, res) => {
+  const result = deleteExtraRider(req.params.id)
+  res.json({ code: 200, data: result })
+})
 
 export default router
