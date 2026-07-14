@@ -9,6 +9,7 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
+import { scheduleBackup } from './backupService.js'
 
 const EXTRA_FILE = path.resolve(process.cwd(), 'data/riders_extra.json')
 
@@ -31,6 +32,7 @@ function saveExtra() {
       fs.mkdirSync(path.dirname(EXTRA_FILE), { recursive: true })
     }
     fs.writeFileSync(EXTRA_FILE, JSON.stringify(extraRiders, null, 2))
+  scheduleBackup()
   } catch (e) {
     console.error('[RiderImporter] 保存失败:', e.message)
   }
