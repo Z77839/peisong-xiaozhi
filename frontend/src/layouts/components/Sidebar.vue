@@ -16,8 +16,6 @@ const menus = [
   { path: '/rider', title: '骑手管理', icon: 'User' },
   { path: '/order', title: '订单分析', icon: 'TrendCharts' },
   { path: '/cost', title: '成本分析', icon: 'Money' },
-  { path: '/merchant', title: '商户健康度', icon: 'Shop' },
-  { path: '/c-end', title: 'C 端运营', icon: 'ChatLineSquare' },
   { path: '/data-source', title: '数据接入', icon: 'Connection' },
   { path: '/report', title: '运营报告', icon: 'Document' },
   { path: '/knowledge', title: '知识库', icon: 'Files' },
