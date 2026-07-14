@@ -75,6 +75,40 @@ function resetOverride() {
   fetchContext()
 }
 
+/**
+ * 从用户问题中智能解析日期
+ */
+function parseDateFromQuery(q: string): Date | null {
+  if (!q) return null
+  const now = new Date()
+  let m = q.match(/(\d{2,4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*[日号]?/i)
+  if (m) {
+    const year = m[1].length === 2 ? 2000 + parseInt(m[1]) : parseInt(m[1])
+    const month = parseInt(m[2])
+    const day = parseInt(m[3])
+    return new Date(year, month - 1, day, 14, 0, 0)
+  }
+  m = q.match(/(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/)
+  if (m) {
+    return new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3]), 14, 0, 0)
+  }
+  m = q.match(/(\d{1,2})\s*月\s*(\d{1,2})\s*[日号]?/i)
+  if (m) {
+    return new Date(now.getFullYear(), parseInt(m[1]) - 1, parseInt(m[2]), 14, 0, 0)
+  }
+  m = q.match(/(\d{1,2})\s*[日号]/)
+  if (m) {
+    return new Date(now.getFullYear(), now.getMonth(), parseInt(m[1]), 14, 0, 0)
+  }
+  if (/昨晚|今早|今晚|明天/.test(q)) {
+    const offset = /昨晚/.test(q) ? -1 : /明天/.test(q) ? 1 : 0
+    const d = new Date(now)
+    d.setDate(d.getDate() + offset)
+    return d
+  }
+  return null
+}
+
 onMounted(fetchContext)
 watch(() => cityStore.currentCityId, fetchContext)
 
@@ -117,10 +151,14 @@ async function runDecision() {
   try {
     // 通过真实后端 API（会带 context）
     const override: any = {}
+    // 智能解析用户问题里的日期（如 "25年6月16"、"6月17日"）
+    const parsedDate = parseDateFromQuery(q)
     if (overrideHour.value !== null) {
-      const now = new Date()
+      const now = parsedDate || new Date()
       now.setHours(overrideHour.value, 0, 0, 0)
       override.datetime = now.toISOString()
+    } else if (parsedDate) {
+      override.datetime = parsedDate.toISOString()
     }
     if (overrideWeather.value) override.weatherType = overrideWeather.value
 
