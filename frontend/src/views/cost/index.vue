@@ -18,8 +18,9 @@ const CITY_DAILY_ORDERS = {
 }
 const factor = computed(() => CITY_DAILY_ORDERS[city.id] || 100000)
 
-// 时段单均成本（基于真实 5 运力线加权均价 ¥4.85）
+// 时段单均成本（业务估算：依据运营手册给定 ¥4.85 ± 0.3）
 const AVG_COST_PER_ORDER = 4.85
+const COST_SOURCE = '业务估算'
 
 const timeChart = ref<HTMLElement | null>(null)
 const planChart = ref<HTMLElement | null>(null)
@@ -83,8 +84,8 @@ const metrics = computed(() => {
   const gap = costPlan.value?.totalGap || gapPrediction.value?.gap || 800
   const currentPlan = costPlan.value?.plans?.find((p: any) => p.name === '平衡方案')
   return [
-    { label: '日总成本', value: `¥${totalCostW.toFixed(1)}万`, sub: `${formatNumber(cityOrders)} 单 × ¥${AVG_COST_PER_ORDER.toFixed(2)}`, color: '#1f6feb', icon: '💰' },
-    { label: '日毛利', value: `¥${(grossProfit / 10000).toFixed(1)}万`, sub: '毛利率 45%', color: '#00b578', icon: '📈' },
+    { label: '日总成本', value: `¥${totalCostW.toFixed(1)}万`, sub: `${formatNumber(cityOrders)} 单 × ¥${AVG_COST_PER_ORDER.toFixed(2)}（${COST_SOURCE}）`, color: '#1f6feb', icon: '💰' },
+    { label: '日毛利', value: `¥${(grossProfit / 10000).toFixed(1)}万`, sub: '毛利率 45%（业务估算）', color: '#00b578', icon: '📈' },
     { label: '运力缺口', value: formatNumber(gap), sub: '高峰时段', color: '#f5222d', icon: '📉' },
     { label: '推荐方案节省', value: currentPlan ? `¥${formatNumber(currentPlan.totalCost)}` : '¥560', sub: currentPlan?.name || '平衡方案', color: '#9b59ff', icon: '🎯' }
   ]
