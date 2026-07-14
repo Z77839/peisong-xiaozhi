@@ -3,6 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Search, Plus, Delete, View, Download } from '@element-plus/icons-vue'
 import request from '@/api/request'
+import { API_BASE_URL } from '@/utils/apiBase'
 
 const activeTab = ref('docs')
 const search = ref('')
@@ -56,15 +57,8 @@ const loadDocs = async () => {
       docs.value = res.data || []
     }
   } catch (e: any) {
-    console.warn('加载知识库失败，使用 mock 数据', e?.message)
-    // mock 数据（无 token 时降级）
-    docs.value = [
-      { id: '1', title: '配送小智运营手册 v2.6', cat: '运营', updated: '2 小时前', views: 1284, size: 1024000, mimetype: 'application/pdf' },
-      { id: '2', title: '运力调度最佳实践', cat: '调度', updated: '昨天', views: 928, size: 856000, mimetype: 'application/pdf' },
-      { id: '3', title: '恶劣天气应急预案', cat: '应急', updated: '3 天前', views: 615, size: 524000, mimetype: 'application/pdf' },
-      { id: '4', title: '商户入驻规范与审核流程', cat: '商户', updated: '1 周前', views: 482, size: 768000, mimetype: 'application/pdf' },
-      { id: '5', title: '订单预测模型说明', cat: '算法', updated: '1 周前', views: 396, size: 1200000, mimetype: 'application/pdf' }
-    ]
+    console.warn('加载知识库失败', e?.message)
+    ElMessage.error('加载知识库失败: ' + (e?.message || '网络错误'))
   }
 }
 
@@ -122,32 +116,33 @@ const handleDelete = async (doc: any) => {
     }
   } catch (e: any) {
     if (e !== 'cancel') {
-      // mock 模式：直接前端删除
-      docs.value = docs.value.filter(d => d.id !== doc.id)
-      ElMessage.success('已删除（本地）')
+      ElMessage.error('删除失败: ' + (e?.message || '未知错误'))
     }
   }
 }
 
 const handleView = async (doc: any) => {
   if (doc.url) {
-    window.open(doc.url, '_blank')
+    // 拼接完整 URL（后端有静态服务 uploads 目录）
+    const fullUrl = doc.url.startsWith('http') ? doc.url : `${API_BASE_URL}${doc.url}`
+    window.open(fullUrl, '_blank')
     try {
       await request.post(`/knowledge/${doc.id}/view`)
     } catch {}
   } else {
-    ElMessage.info('演示模式：未上传到服务器')
+    ElMessage.info('未上传到服务器')
   }
 }
 
 const handleDownload = (doc: any) => {
   if (doc.url) {
+    const fullUrl = doc.url.startsWith('http') ? doc.url : `${API_BASE_URL}/knowledge/download/${doc.id}`
     const a = document.createElement('a')
-    a.href = doc.url
+    a.href = fullUrl
     a.download = doc.title
     a.click()
   } else {
-    ElMessage.info('演示模式：未上传到服务器')
+    ElMessage.info('未上传到服务器')
   }
 }
 
