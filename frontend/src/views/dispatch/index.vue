@@ -148,6 +148,16 @@ function timeAgo(iso: string) {
 }
 
 onMounted(() => {
+  // 从 URL 参数读取（从决策中心跳转过来）
+  const params = new URLSearchParams(window.location.search || window.location.hash.split('?')[1] || '')
+  const preCity = params.get('cityId')
+  const preGap = params.get('gap')
+  if (preCity) {
+    cityStore.currentCityId = preCity
+  }
+  if (preGap) {
+    ElMessage.info(`决策中心传来缺口 ${preGap} 人，已自动预填派单策略`)
+  }
   void fetchDispatch()
   void fetchModelInfo()
   refreshTimer = window.setInterval(fetchDispatch, 30000)
