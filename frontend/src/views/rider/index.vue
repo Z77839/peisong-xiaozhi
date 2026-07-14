@@ -181,6 +181,8 @@ onMounted(() => {
 
 <template>
   <div class="page-container">
+    <!-- 知识库提示 -->
+    <KnowledgeHints />
     <!-- 顶部数据条 -->
     <div class="stat-row">
       <div class="stat-card" style="border-top: 3px solid #1f6feb">
@@ -325,6 +327,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @use "@/assets/styles/variables.scss" as *;
+import KnowledgeHints from '@/components/KnowledgeHints.vue'
 
 .page-container {
   padding: 20px;
