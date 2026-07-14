@@ -6,6 +6,7 @@
 import pg from 'pg'
 import fs from 'node:fs'
 import path from 'node:path'
+import { scheduleBackup } from './backupService.js'
 import bcrypt from 'bcryptjs'
 import { BCRYPT_ROUNDS } from '../config.js'
 import { logger } from './logger.js'
@@ -91,6 +92,8 @@ function readJsonFile(filename) {
 function writeJsonFile(filename, data) {
   const filePath = path.join(JSON_DIR, filename)
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+  // 触发 GitHub 备份（debounce 5s）
+  scheduleBackup()
 }
 
 // ============================================
