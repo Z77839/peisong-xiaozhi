@@ -10,6 +10,7 @@ const cityStore = useCityStore()
 
 // 8 个真实业务 Agent
 const AGENTS = [
+  { id: 'knowledge-retrieve', name: '知识库检索', desc: 'RAG · 检索相关运营知识', icon: '📚' },
   { id: 'task-router', name: '任务路由', desc: '识别意图·拆解任务', icon: '🔀' },
   { id: 'order-predict', name: '订单预测', desc: 'AI 模型预测各时段订单', icon: '📈' },
   { id: 'rider-analyze', name: '运力分析', desc: '5 运力线智能匹配', icon: '🚴' },
@@ -602,6 +603,26 @@ function copyReport() {
                 <div class="af-step-output">{{ step.output }}</div>
               </div>
               <div v-if="idx < (result.steps?.length || 0) - 1" class="af-arrow">→</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 📚 参考知识库（AI 引用来源） -->
+        <div v-if="result.knowledgeUsed && result.knowledgeUsed.length" class="kb-section">
+          <div class="kb-header">
+            <span class="kb-ico">📚</span>
+            <span class="kb-title">本回答参考了 {{ result.knowledgeUsed.length }} 条知识库</span>
+            <span class="kb-sub">AI 在生成答案时检索了这些运营文档</span>
+          </div>
+          <div class="kb-list">
+            <div v-for="(k, ki) in result.knowledgeUsed" :key="ki" class="kb-item">
+              <div class="kb-item-head">
+                <span class="kb-num">📄 {{ ki + 1 }}</span>
+                <span class="kb-name">{{ k.title }}</span>
+                <span class="kb-cat">{{ k.cat }}</span>
+                <span class="kb-score">匹配度 {{ k.score }}</span>
+              </div>
+              <div class="kb-excerpt">{{ k.excerpt }}</div>
             </div>
           </div>
         </div>
@@ -1463,4 +1484,65 @@ function copyReport() {
   .ts-summary { grid-template-columns: repeat(2, 1fr); }
   .ts-row { grid-template-columns: 24px 100px 1fr 50px 20px; }
 }
+
+/* 📚 参考知识库 */
+.kb-section {
+  background: linear-gradient(135deg, #fff7e6 0%, #fff 100%);
+  border: 1px solid #ffd591;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+.kb-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.kb-ico { font-size: 20px; }
+.kb-title { font-size: 16px; font-weight: 700; color: #d4380d; }
+.kb-sub { font-size: 12px; color: #8c8c8c; margin-left: auto; }
+.kb-list { display: flex; flex-direction: column; gap: 10px; }
+.kb-item {
+  background: #fff;
+  border: 1px solid #ffe7ba;
+  border-radius: 8px;
+  padding: 12px 16px;
+  transition: all 0.2s;
+}
+.kb-item:hover { border-color: #fa8c16; transform: translateX(4px); }
+.kb-item-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+.kb-num { color: #fa8c16; font-weight: 600; }
+.kb-name { font-weight: 600; color: #1f2d3d; flex: 1; }
+.kb-cat {
+  background: #fff7e6;
+  color: #d4380d;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+.kb-score {
+  background: #f6ffed;
+  color: #389e0d;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+.kb-excerpt {
+  font-size: 12px;
+  color: #595959;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  border-left: 3px solid #ffd591;
+  padding-left: 10px;
+  margin-top: 4px;
+}
+
 </style>
