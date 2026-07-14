@@ -114,40 +114,24 @@ router.get('/', async (req, res) => {
     const realRiderActive = riderStats?.active || 0
     const realRiderHengyang = riderStats?.byCity?.衡阳 || 0
 
-    // 🆕 读真实 Agent 调用统计（baseline + 真实记录）
+    // 🆕 读真实 Agent 调用统计（只显示真实数据，不做 baseline 伪造）
     const realAgentStats = getAgentCallStats()
-    const baseline = getBaselineAgentStats()
-    const realMap = Object.fromEntries(realAgentStats.map(s => [s.agent_name, s]))
     let agentStats = []
     
-    // 总是合并 baseline + 真实（保证 dashboard 有数据展示）
-    agentStats = Object.entries(baseline).map(([name, v]) => {
-      const real = realMap[name]
-      if (real) {
-        const totalCalls = v.baseCalls + real.calls
-        const totalMs = v.baseMs * v.baseCalls + real.avg_ms * real.calls
-        return {
-          agent_name: name,
-          calls: totalCalls,
-          avg_ms: Math.round(totalMs / totalCalls),
-          last_call: real.last_call,
-          is_baseline: false
-        }
-      } else {
-        return { agent_name: name, calls: v.baseCalls, avg_ms: v.baseMs, is_baseline: true }
-      }
-    })
-    
-    // 如果有真实记录但不在 baseline 中（比如决策时新增的 agent），也加进来
-    for (const real of realAgentStats) {
-      if (!baseline[real.agent_name]) {
-        agentStats.push({
-          agent_name: real.agent_name,
-          calls: real.calls,
-          avg_ms: real.avg_ms,
-          is_baseline: false
-        })
-      }
+    if (realAgentStats.length === 0) {
+      // 首次访问：返回空数据（前端显示 "调用 0 次 - 请运行决策流"）
+      agentStats = []
+    } else {
+      // 有真实记录：直接返回
+      agentStats = realAgentStats.map(s => ({
+        agent_name: s.agent_name,
+        calls: s.calls,
+        avg_ms: s.avg_ms,
+        max_ms: s.max_ms,
+        min_ms: s.min_ms,
+        last_call: s.last_call,
+        is_baseline: false
+      }))
     }
 
     const data = {
