@@ -162,7 +162,7 @@ export async function predictGap({ cityId, hour, weather, isHoliday }) {
   const finalGapRatio = Math.max(0, Math.min(1, gapRatio + noise));
 
   return {
-    city: cityId,
+    city: _cityId,
     hour,
     baseOrder: Math.floor(baseOrder),
     supply: Math.floor(supply),
