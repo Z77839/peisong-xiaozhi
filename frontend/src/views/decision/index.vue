@@ -16,7 +16,6 @@ const AGENTS = [
   { id: 'rider-analyze', name: '运力分析', desc: '5 运力线智能匹配', icon: '🚴' },
   { id: 'cost-analyze', name: '成本分析', desc: '多运力成本 Pareto', icon: '💰' },
   { id: 'dispatch-rec', name: '派单推荐', desc: '蜂跑+众包+专送智能调度', icon: '📦' },
-  { id: 'c-end-analyze', name: 'C 端增长', desc: '社群+团长双引擎', icon: '👥' },
   { id: 'decision-merge', name: '决策汇总', desc: '综合评估·生成报告', icon: '🧠' },
   { id: 'report-gen', name: '报告生成', desc: '结构化输出', icon: '📊' }
 ]
@@ -25,7 +24,6 @@ const QUESTION_TEMPLATES = [
   { label: '订单预测', text: '预测今晚衡阳各商圈订单量' },
   { label: '运力调度', text: '评估晚高峰蜂跑运力是否扩容' },
   { label: '成本优化', text: '如何降低衡阳单均履约成本' },
-  { label: 'C 端增长', text: '如何提升蒸湘区团长激活率' }
 ]
 
 // ========== 智能体感知 ==========
