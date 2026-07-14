@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { useRoute } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useCityStore } from '@/store/city'
 import { API_BASE_URL } from '@/utils/apiBase'
@@ -29,6 +30,10 @@ interface AlertContext {
 }
 
 const cityStore = useCityStore()
+const route = useRoute()
+const fromDecision = ref(!!route.query.q || !!route.query.alertId)
+const decisionQuery = ref(route.query.q as string || '')
+const decisionAlertId = ref(route.query.alertId as string || '')
 const alerts = ref<Alert[]>([])
 const alertStats = ref<any>({})
 const context = ref<AlertContext | null>(null)
@@ -133,6 +138,14 @@ onBeforeUnmount(() => {
 <template>
   <div class="alert-page">
     <!-- 顶部：知识库提示 -->
+    <!-- 🆕 决策中心跳转来的上下文 -->
+    <div v-if="fromDecision" class="from-decision-banner">
+      <span class="fd-ico">⚡</span>
+      <span class="fd-text">
+        来自决策中心 — {{ decisionQuery || (decisionAlertId ? '查看预警' : '自动跳转') }}
+        <span v-if="decisionAlertId" class="fd-alert-id">(预警 ID: {{ decisionAlertId }})</span>
+      </span>
+    </div>
     <!-- 顶部：配送小智 主动预防式 -->
     <div class="hero">
       <div class="hero-bg">
@@ -290,6 +303,21 @@ onBeforeUnmount(() => {
 
 
 <style scoped>
+.from-decision-banner {
+  background: linear-gradient(135deg, #fff7e6 0%, #ffe7ba 100%);
+  border: 1px solid #fa8c16;
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.from-decision-banner .fd-ico { font-size: 18px; }
+.from-decision-banner .fd-text { color: #d4380d; font-weight: 500; }
+.from-decision-banner .fd-alert-id { color: #8c8c8c; margin-left: 8px; font-weight: normal; }
+
 .alert-page { padding: 24px; background: #f5f7fa; min-height: 100vh; }
 .hero { position: relative; margin-bottom: 24px; }
 .hero-inner { position: relative; max-width: 1200px; margin: 0 auto; padding: 24px 0; }
