@@ -129,4 +129,17 @@ router.delete('/extra/:id', authRequired, (req, res) => {
   res.json({ code: 200, data: result })
 })
 
+// 12. 骑手详情（必须放最后，否则会拦截 /import-stats 等子路由）
+router.get('/:id', authRequired, async (req, res) => {
+  try {
+    const rider = await getRiderById(req.params.id)
+    if (!rider) {
+      return res.status(404).json({ code: 404, message: '骑手不存在' })
+    }
+    res.json({ code: 200, data: rider })
+  } catch (e) {
+    res.status(500).json({ code: 500, message: e.message })
+  }
+})
+
 export default router
