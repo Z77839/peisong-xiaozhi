@@ -10,6 +10,7 @@
 import express from 'express'
 import multer from 'multer'
 import path from 'node:path'
+import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { logger } from '../services/logger.js'
 import { authRequired } from '../middleware/auth.js'
@@ -228,7 +229,20 @@ router.post('/:id/view', authRequired, (req, res) => {
   res.json({ code: 200, data: { views: doc.views } })
 })
 
-// 5. 下载文件
+// 5. 知识库内容检索（用 searchKnowledge 函数，含中文分词）
+router.get('/search', authRequired, (req, res) => {
+  const { q = '', limit = 3 } = req.query
+  const kw = String(q).toLowerCase().trim()
+  if (!kw) return res.json({ code: 200, data: [], total: 0 })
+  const results = searchKnowledge(kw, Number(limit))
+  const enriched = results.map(r => ({
+    ...r,
+    contentPreview: r.excerpt
+  }))
+  res.json({ code: 200, data: enriched, total: enriched.length, query: q })
+})
+
+// 6. 下载文件
 router.get('/download/:id', authRequired, (req, res) => {
   const { id } = req.params
   const doc = knowledgeIndex.get(id)
@@ -240,43 +254,7 @@ router.get('/download/:id', authRequired, (req, res) => {
   res.download(filePath, doc.title)
 })
 
-// 6. 🆕 知识库内容检索（供决策中心调用）
-router.get('/search', authRequired, (req, res) => {
-  const { q = '', limit = 3 } = req.query
-  const kw = String(q).toLowerCase().trim()
-  if (!kw) {
-    return res.json({ code: 200, data: [], total: 0 })
-  }
-  // 简单关键词匹配 + 评分
-  const docs = Array.from(knowledgeIndex.values())
-  const scored = docs
-    .map(d => {
-      let score = 0
-      const title = (d.title || '').toLowerCase()
-      const desc = (d.desc || '').toLowerCase()
-      const content = (d.content || '').toLowerCase()
-      const cat = (d.cat || '').toLowerCase()
-      if (title.includes(kw)) score += 10
-      if (cat.includes(kw)) score += 5
-      if (desc.includes(kw)) score += 3
-      if (content.includes(kw)) score += 1
-      return { d, score }
-    })
-    .filter(x => x.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, Number(limit))
-    .map(x => ({
-      id: x.d.id,
-      title: x.d.title,
-      cat: x.d.cat,
-      desc: x.d.desc,
-      score: x.score,
-      contentPreview: (x.d.content || '').slice(0, 800),
-      // 截取包含关键词的上下文
-      excerpt: extractExcerpt(x.d.content || x.d.desc || x.d.title, kw, 200)
-    }))
-  res.json({ code: 200, data: scored, total: scored.length, query: q })
-})
+
 
 // 提取关键词附近 200 字
 function extractExcerpt(text, kw, len) {
