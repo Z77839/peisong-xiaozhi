@@ -1,5 +1,5 @@
-import request from '@/api/request'
 <script setup lang="ts">
+import KnowledgeHints from '@/components/KnowledgeHints.vue'
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useCityStore } from '@/store/city'
@@ -35,8 +35,7 @@ interface Order {
 
 interface Recommendation {
   order: Order
-  topRiders: (Rider & { matchScore: number;
-import KnowledgeHints from '@/components/KnowledgeHints.vue' matchReason: string })[]
+  topRiders: (Rider & { matchScore: number; matchReason: string })[]
 }
 
 const cityStore = useCityStore()
