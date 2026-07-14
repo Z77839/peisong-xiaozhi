@@ -278,6 +278,11 @@ router.post('/seed', authRequired, (req, res) => {
     const seed = JSON.parse(fs.readFileSync(SEED, 'utf-8'))
     fs.mkdirSync(path.dirname(INDEX), { recursive: true })
     fs.writeFileSync(INDEX, JSON.stringify(seed, null, 2))
+    // 🔄 重新加载到内存
+    knowledgeIndex.clear()
+    for (const item of seed.items) {
+      knowledgeIndex.set(item.id, item)
+    }
     res.json({ code: 200, message: `seed 导入 ${seed.items.length} 条`, data: { count: seed.items.length } })
   } catch (e) {
     res.status(500).json({ code: 500, message: e.message })
