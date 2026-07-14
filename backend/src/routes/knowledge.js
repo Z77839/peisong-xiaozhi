@@ -10,7 +10,6 @@
 import express from 'express'
 import multer from 'multer'
 import path from 'node:path'
-import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { logger } from '../services/logger.js'
 import { authRequired } from '../middleware/auth.js'
@@ -98,6 +97,37 @@ const upload = multer({
     }
   }
 })
+
+/**
+ * 启动时如果 knowledge_index.json 是空，从 seed 导入
+ */
+function bootstrapSeed() {
+  const INDEX = path.resolve(process.cwd(), 'data/knowledge_index.json')
+  const SEED = path.resolve(process.cwd(), 'data/knowledge_seed.json')
+  
+  let needSeed = false
+  if (!fs.existsSync(INDEX)) {
+    needSeed = true
+  } else {
+    try {
+      const cur = JSON.parse(fs.readFileSync(INDEX, 'utf-8'))
+      if (!cur.items || cur.items.length === 0) needSeed = true
+    } catch (e) { needSeed = true }
+  }
+  
+  if (!needSeed) return
+  if (!fs.existsSync(SEED)) return
+  
+  try {
+    const seed = JSON.parse(fs.readFileSync(SEED, 'utf-8'))
+    fs.mkdirSync(path.dirname(INDEX), { recursive: true })
+    fs.writeFileSync(INDEX, JSON.stringify(seed, null, 2))
+    console.log(`[knowledge] 已从 seed 导入 ${seed.items.length} 条`)
+  } catch (e) {
+    console.error('[knowledge] seed 导入失败:', e.message)
+  }
+}
+bootstrapSeed()
 
 const router = express.Router()
 
