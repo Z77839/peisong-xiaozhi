@@ -18,17 +18,9 @@ const CAPABILITIES = [
   { key: 'decision', name: '决策报告', icon: '📊', color: '#52c41a', desc: '8 Agent 协同 · 一键生成报告', value: '8 个', valueLabel: 'Agent 协同' }
 ]
 
-// 智能体状态
-const agents = ref<Array<{ name: string; status: string; calls: number; avgMs: number }>>([
-  { name: '运力预判 Agent', status: 'active', calls: 1248, avgMs: 320 },
-  { name: '成本分析 Agent', status: 'active', calls: 845, avgMs: 280 },
-  { name: '派单推荐 Agent', status: 'active', calls: 2156, avgMs: 420 },
-  { name: '天气风险 Agent', status: 'active', calls: 96, avgMs: 150 },
-  { name: 'C 端增长 Agent', status: 'active', calls: 423, avgMs: 380 },
-  { name: '调度执行 Agent', status: 'active', calls: 642, avgMs: 220 },
-  { name: '预警监控 Agent', status: 'active', calls: 189, avgMs: 180 },
-  { name: '报告生成 Agent', status: 'active', calls: 127, avgMs: 540 }
-])
+// 智能体状态（从后端实时加载）
+const agents = ref<Array<{ name: string; status: string; calls: number; avgMs: number }>>([])
+const agentLoadHint = ref('点击「决策中心」运行决策后会自动记录')
 
 // 实时 KPI（从后端加载）
 const liveKpis = ref<any[]>([
@@ -52,13 +44,17 @@ async function fetchKpis() {
       { label: '异常区域', value: String(k.risk_regions || 0), unit: '个', trend: '高风险', icon: '🚨', color: '#fa541c' }
     ]
     // 同步加载 Agent 真实调用统计
-    if (d.agent_calls && Array.isArray(d.agent_calls)) {
+    if (d.agent_calls && Array.isArray(d.agent_calls) && d.agent_calls.length > 0) {
       agents.value = d.agent_calls.map((a: any) => ({
         name: a.agent_name,
         status: 'active',
         calls: Number(a.calls) || 0,
         avgMs: Number(a.avg_ms) || 0
       }))
+      agentLoadHint.value = ''
+    } else {
+      agents.value = []
+      agentLoadHint.value = '运行决策后自动记录 Agent 调用情况'
     }
   } catch (e) {
     console.warn('Dashboard KPI 加载失败，使用 fallback', e)
@@ -307,7 +303,7 @@ function goPage(path: string) {
     <div class="agents-section">
       <div class="section-head">
         <h2>🤖 Agent 协同状态</h2>
-        <span class="sh-sub">8 Agent 实时在线 · 累计调用 {{ agents.reduce((s, a) => s + a.calls, 0).toLocaleString() }} 次</span>
+        <span class="sh-sub">8 Agent 实时在线 · 累计调用 {{ agents.reduce((s, a) => s + a.calls, 0).toLocaleString() }} 次{{ agentLoadHint ? ' · ' + agentLoadHint : '' }}</span>
       </div>
       <div class="agent-list">
         <div v-for="agent in agents" :key="agent.name" class="agent-row">
