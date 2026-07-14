@@ -30,13 +30,40 @@ const agents = ref<Array<{ name: string; status: string; calls: number; avgMs: n
   { name: '报告生成 Agent', status: 'active', calls: 127, avgMs: 540 }
 ])
 
-// 实时 KPI
+// 实时 KPI（从后端加载）
 const liveKpis = ref<any[]>([
-  { label: '当前订单', value: '100,000', unit: '单', trend: '+12.3%', icon: '📦', color: '#1f6feb' },
-  { label: '在线骑手', value: '20,000', unit: '人', trend: '可调度 71%', icon: '🚴', color: '#13c2c2' },
-  { label: '预计运力缺口', value: '4,000', unit: '人', trend: '2 小时峰值', icon: '📉', color: '#f5222d' },
-  { label: '异常区域', value: '3', unit: '个', trend: '高风险', icon: '🚨', color: '#fa541c' }
+  { label: '当前订单', value: '--', unit: '单', trend: '加载中', icon: '📦', color: '#1f6feb' },
+  { label: '在线骑手', value: '--', unit: '人', trend: '加载中', icon: '🚴', color: '#13c2c2' },
+  { label: '预计运力缺口', value: '--', unit: '人', trend: '加载中', icon: '📉', color: '#f5222d' },
+  { label: '异常区域', value: '--', unit: '个', trend: '加载中', icon: '🚨', color: '#fa541c' }
 ])
+
+// 从后端加载 KPI
+async function fetchKpis() {
+  try {
+    const r: any = await request({ url: '/dashboard' })
+    const d = r.data || r  // 兼容不同返回格式
+    const k = d.kpis || {}
+    const rs = d.rider_stats || {}
+    liveKpis.value = [
+      { label: '当前订单', value: (k.total_orders || 0).toLocaleString(), unit: '单', trend: k.orders_trend || '+12.3%', icon: '📦', color: '#1f6feb' },
+      { label: '骑手总数', value: (k.online_riders || 0).toLocaleString(), unit: '人', trend: `活跃 ${(k.riders_active || 0).toLocaleString()} / 衡阳 ${k.riders_hengyang || 0}`, icon: '🚴', color: '#13c2c2' },
+      { label: '预计运力缺口', value: (k.capacity_gap || 0).toLocaleString(), unit: '人', trend: '2 小时峰值', icon: '📉', color: '#f5222d' },
+      { label: '异常区域', value: String(k.risk_regions || 0), unit: '个', trend: '高风险', icon: '🚨', color: '#fa541c' }
+    ]
+    // 同步加载 Agent 真实调用统计
+    if (d.agent_calls && Array.isArray(d.agent_calls)) {
+      agents.value = d.agent_calls.map((a: any) => ({
+        name: a.agent_name,
+        status: 'active',
+        calls: Number(a.calls) || 0,
+        avgMs: Number(a.avg_ms) || 0
+      }))
+    }
+  } catch (e) {
+    console.warn('Dashboard KPI 加载失败，使用 fallback', e)
+  }
+}
 
 // 智能体感知
 const context = ref<any>(null)
@@ -66,10 +93,12 @@ async function fetchDispatchSummary() {
 
 let timer: number | null = null
 onMounted(() => {
+  void fetchKpis()
   void fetchContext()
   void fetchAlertSummary()
   void fetchDispatchSummary()
   timer = window.setInterval(() => {
+    void fetchKpis()
     void fetchContext()
     void fetchAlertSummary()
     void fetchDispatchSummary()
