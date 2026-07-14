@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import KnowledgeHints from '@/components/KnowledgeHints.vue'
 import { ref, onMounted, shallowRef, computed, watch } from 'vue'
 import * as echarts from 'echarts'
 import ChartCard from '@/components/ChartCard.vue'
@@ -183,8 +182,6 @@ onMounted(() => {
 
 <template>
   <div class="page-container">
-    <!-- 知识库提示 -->
-    <KnowledgeHints />
     <!-- 顶部数据条 -->
     <div class="stat-row">
       <div class="stat-card" style="border-top: 3px solid #1f6feb">
