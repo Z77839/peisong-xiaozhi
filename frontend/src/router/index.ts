@@ -32,12 +32,6 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '决策中心', icon: 'Cpu' }
       },
       {
-        path: 'rider-types',
-        name: 'RiderTypes',
-        component: () => import('@/views/rider-types/index.vue'),
-        meta: { title: '运力线分析', icon: 'Van' }
-      },
-      {
         path: 'rider',
         name: 'Rider',
         component: () => import('@/views/rider/index.vue'),
