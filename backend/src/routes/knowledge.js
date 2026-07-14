@@ -332,9 +332,30 @@ router.use((err, req, res, next) => {
 export default router
 
 // 导出供其他服务调用
+/**
+ * 简单中文分词：按字符 / 2字 / 3字 切分
+ */
+function tokenize(q) {
+  const kws = []
+  // 整句
+  if (q.length >= 2) kws.push(q)
+  // 3 字 token（中文常用）
+  for (let i = 0; i <= q.length - 3; i++) kws.push(q.slice(i, i + 3))
+  // 2 字 token
+  for (let i = 0; i <= q.length - 2; i++) kws.push(q.slice(i, i + 2))
+  // 1 字 token
+  for (let i = 0; i < q.length; i++) kws.push(q[i])
+  // 去重
+  return [...new Set(kws)].filter(k => k.length >= 1)
+}
+
 export function searchKnowledge(q, limit = 3) {
-  const kw = String(q || '').toLowerCase().trim()
-  if (!kw) return []
+  const raw = String(q || '').toLowerCase().trim()
+  if (!raw) return []
+  // 去除停用词
+  const stopWords = ['怎么', '如何', '怎么办', '应该', '需要', '什么', '为什么', '这个', '那个', '吗', '呢', '啊', '吧']
+  const filtered = stopWords.reduce((s, w) => s.replaceAll(w, ' '), raw)
+  const tokens = tokenize(filtered)
   const docs = Array.from(knowledgeIndex.values())
   return docs
     .map(d => {
@@ -342,10 +363,17 @@ export function searchKnowledge(q, limit = 3) {
       const title = (d.title || '').toLowerCase()
       const desc = (d.desc || '').toLowerCase()
       const content = (d.content || '').toLowerCase()
-      if (title.includes(kw)) score += 10
-      if ((d.cat || '').toLowerCase().includes(kw)) score += 5
-      if (desc.includes(kw)) score += 3
-      if (content.includes(kw)) score += 1
+      // 整句加权
+      if (title.includes(raw)) score += 10
+      if ((d.cat || '').toLowerCase().includes(raw)) score += 5
+      if (desc.includes(raw)) score += 3
+      if (content.includes(raw)) score += 2
+      // 多 token 命中累计
+      for (const t of tokens) {
+        if (t.length < 2) continue
+        if (title.includes(t)) score += 3
+        if (content.includes(t)) score += 1
+      }
       return { d, score }
     })
     .filter(x => x.score > 0)
@@ -355,7 +383,8 @@ export function searchKnowledge(q, limit = 3) {
       id: x.d.id,
       title: x.d.title,
       cat: x.d.cat,
-      excerpt: extractExcerpt(x.d.content || x.d.desc || x.d.title, kw, 300)
+      score: x.score,
+      excerpt: extractExcerpt(x.d.content || x.d.desc || x.d.title, tokens[0] || raw, 300)
     }))
 }
 
