@@ -321,3 +321,10 @@ export function getKnowledgeContext(query) {
   }
   return ctx
 }
+
+/**
+ * 检索并返回结构化结果（供 decision 路由用）
+ */
+export function retrieveKnowledge(query, limit = 3) {
+  return searchKnowledge(query, limit)
+}
