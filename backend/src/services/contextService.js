@@ -101,7 +101,7 @@ function mockWeather(cityId) {
  */
 async function fetchQWeather(cityId) {
   const coords = CITY_COORDS[cityId] || CITY_COORDS.hengyang
-  const apiKey = process.env.WEATHER_API_KEY
+  const apiKey = process.env.QWEATHER_API_KEY || process.env.WEATHER_API_KEY
   // 优先用 QWEATHER_API_HOST（Render 配的 .re.qweatherapi.com 代理）
   // 降级用 devapi.qweather.com
   const host = process.env.QWEATHER_API_HOST
@@ -136,7 +136,7 @@ async function fetchQWeather(cityId) {
 }
 
 async function fetchWeather(cityId) {
-  const apiKey = process.env.WEATHER_API_KEY
+  const apiKey = process.env.QWEATHER_API_KEY || process.env.WEATHER_API_KEY
   if (apiKey) {
     try {
       const real = await fetchQWeather(cityId)
@@ -153,8 +153,8 @@ async function fetchWeather(cityId) {
  * 测一下天气 API 是否能用（启动时或手动）
  */
 export async function testWeatherAPI(cityId = 'hengyang') {
-  const apiKey = process.env.WEATHER_API_KEY
-  if (!apiKey) return { ok: false, message: 'WEATHER_API_KEY 未配置' }
+  const apiKey = process.env.QWEATHER_API_KEY || process.env.WEATHER_API_KEY
+  if (!apiKey) return { ok: false, message: 'QWEATHER_API_KEY 未配置' }
   try {
     const r = await fetchQWeather(cityId)
     return { ok: true, source: 'qweather', data: { temp: r.temp, label: r.label, humidity: r.humidity } }
