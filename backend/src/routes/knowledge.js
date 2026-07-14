@@ -1,7 +1,11 @@
 /**
- * 知识库路由 - 文档上传/管理
- * 支持 PDF/DOCX/TXT/MD，单文件 20MB
- * 存储：本地 uploads 目录 + 内存索引（生产可换 PG）
+ * 知识库路由 v2 - 文档上传/管理 + 决策中心集成
+ *
+ * 存储：JSON 文件持久化（data/knowledge_index.json）
+ * 集成：决策中心自动调用 search() 把相关文档注入 prompt
+ *
+ * 支持 PDF/DOCX/TXT/MD/XLSX/JSON
+ * 单文件 20MB
  */
 import express from 'express'
 import multer from 'multer'
@@ -14,45 +18,76 @@ import { authRequired } from '../middleware/auth.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// 1. 上传目录（uploads/ 在项目根）
 const UPLOAD_DIR = path.resolve(__dirname, '../../../uploads/knowledge')
 if (!fs.existsSync(UPLOAD_DIR)) {
   fs.mkdirSync(UPLOAD_DIR, { recursive: true })
   logger.info(`[Knowledge] 创建上传目录: ${UPLOAD_DIR}`)
 }
 
-// 2. multer 配置
+// 持久化 JSON
+const INDEX_FILE = path.resolve(__dirname, '../data/knowledge_index.json')
+
+// 加载持久化索引
+function loadIndex() {
+  if (fs.existsSync(INDEX_FILE)) {
+    try {
+      return JSON.parse(fs.readFileSync(INDEX_FILE, 'utf-8'))
+    } catch (e) {
+      logger.warn(`[Knowledge] 索引加载失败: ${e.message}`)
+    }
+  }
+  return []
+}
+
+function saveIndex(arr) {
+  try {
+    if (!fs.existsSync(path.dirname(INDEX_FILE))) {
+      fs.mkdirSync(path.dirname(INDEX_FILE), { recursive: true })
+    }
+    fs.writeFileSync(INDEX_FILE, JSON.stringify(arr, null, 2))
+  } catch (e) {
+    logger.error(`[Knowledge] 索引保存失败: ${e.message}`)
+  }
+}
+
+// 启动时加载
+let knowledgeIndex = new Map()
+for (const d of loadIndex()) {
+  knowledgeIndex.set(d.id, d)
+}
+logger.info(`[Knowledge] 加载 ${knowledgeIndex.size} 条历史文档`)
+
+// multer 配置
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, UPLOAD_DIR),
   filename: (req, file, cb) => {
-    // 处理中文文件名
     const originalName = Buffer.from(file.originalname, 'latin1').toString('utf8')
     const ext = path.extname(originalName)
     const baseName = path.basename(originalName, ext)
-    // 时间戳 + 随机后缀防止重名
     const timestamp = Date.now()
     const random = Math.random().toString(36).slice(2, 8)
+    // 保留中文文件名（URL 编码）
     cb(null, `${timestamp}_${random}${ext}`)
   }
 })
 
 const ALLOWED_TYPES = [
   'application/pdf',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
-  'application/msword', // .doc
-  'text/plain', // .txt
-  'text/markdown', // .md
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/msword',
+  'text/plain',
+  'text/markdown',
   'text/x-markdown',
   'application/vnd.ms-excel',
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
-  'application/json'
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'application/json',
+  'application/octet-stream' // 浏览器有时候识别不出 mime
 ]
 
 const upload = multer({
   storage,
-  limits: { fileSize: 20 * 1024 * 1024 }, // 20MB
+  limits: { fileSize: 20 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    // 修复中文文件名
     file.originalname = Buffer.from(file.originalname, 'latin1').toString('utf8')
     const ext = path.extname(file.originalname).toLowerCase()
     const allowed = ['.pdf', '.docx', '.doc', '.txt', '.md', '.xlsx', '.xls', '.json']
@@ -64,15 +99,10 @@ const upload = multer({
   }
 })
 
-// 3. 内存索引（生产可换 PG knowledge_documents 表）
-const knowledgeIndex = new Map()
-
-// 4. 路由
 const router = express.Router()
 
-// 4.1 上传文档
+// 1. 上传文档
 router.post('/upload', authRequired, (req, res) => {
-  // 用 multer 处理（accept 多个字段名 file/document/file）
   const uploadMiddleware = upload.single('file')
   uploadMiddleware(req, res, (err) => {
     if (err) {
@@ -87,6 +117,19 @@ router.post('/upload', authRequired, (req, res) => {
     const cat = req.body.cat || '其他'
     const desc = req.body.desc || ''
 
+    // 读取文件内容（仅 txt/md/json 可读，其他返回文件元信息）
+    let content = ''
+    let contentPreview = ''
+    const ext = path.extname(originalname).toLowerCase()
+    if (['.txt', '.md', '.json'].includes(ext) && size < 1024 * 1024) {
+      try {
+        content = fs.readFileSync(filePath, 'utf-8')
+        contentPreview = content.slice(0, 500)
+      } catch (e) {
+        logger.warn(`[Knowledge] 文件读取失败: ${e.message}`)
+      }
+    }
+
     const doc = {
       id: Date.now().toString(),
       title: originalname,
@@ -94,21 +137,23 @@ router.post('/upload', authRequired, (req, res) => {
       desc,
       filename,
       size,
-      mimetype,
+      mimetype: mimetype || 'application/octet-stream',
       url: `/uploads/knowledge/${filename}`,
       uploadedBy: req.user?.username || 'admin',
       uploadedAt: new Date().toISOString(),
       updated: '刚刚',
-      views: 0
+      views: 0,
+      content,        // 内部使用
+      contentPreview  // 列表展示
     }
     knowledgeIndex.set(doc.id, doc)
-    logger.info(`[Knowledge] 上传成功: ${originalname} (${(size/1024).toFixed(1)}KB)`)
-
+    saveIndex(Array.from(knowledgeIndex.values()))
+    logger.info(`[Knowledge] 上传成功: ${originalname} (${(size/1024).toFixed(1)}KB) [${knowledgeIndex.size} 条]`)
     res.json({ code: 200, message: '上传成功', data: doc })
   })
 })
 
-// 4.2 列表（搜索 + 分类）
+// 2. 列表（搜索 + 分类）
 router.get('/list', authRequired, (req, res) => {
   const { search = '', cat = '' } = req.query
   let list = Array.from(knowledgeIndex.values())
@@ -117,43 +162,162 @@ router.get('/list', authRequired, (req, res) => {
     const kw = String(search).toLowerCase()
     list = list.filter(d =>
       d.title.toLowerCase().includes(kw) ||
-      (d.desc || '').toLowerCase().includes(kw)
+      (d.desc || '').toLowerCase().includes(kw) ||
+      (d.content || '').toLowerCase().includes(kw)
     )
   }
-  // 按时间倒序
   list.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt))
-  res.json({ code: 200, data: list, total: list.length })
+  // 不返回 content（太大）
+  const light = list.map(d => ({ ...d, content: undefined }))
+  res.json({ code: 200, data: light, total: list.length })
 })
 
-// 4.3 删除
+// 3. 删除
 router.delete('/:id', authRequired, (req, res) => {
   const { id } = req.params
   const doc = knowledgeIndex.get(id)
   if (!doc) return res.status(404).json({ code: 404, message: '文档不存在' })
 
-  // 删除文件
   const filePath = path.join(UPLOAD_DIR, doc.filename)
   if (fs.existsSync(filePath)) {
     try { fs.unlinkSync(filePath) } catch (e) { logger.warn(`[Knowledge] 删除文件失败: ${e.message}`) }
   }
   knowledgeIndex.delete(id)
-  logger.info(`[Knowledge] 删除: ${doc.title}`)
+  saveIndex(Array.from(knowledgeIndex.values()))
+  logger.info(`[Knowledge] 删除: ${doc.title} [剩余 ${knowledgeIndex.size} 条]`)
   res.json({ code: 200, message: '删除成功' })
 })
 
-// 4.4 增加浏览次数
+// 4. 浏览次数
 router.post('/:id/view', authRequired, (req, res) => {
   const { id } = req.params
   const doc = knowledgeIndex.get(id)
   if (!doc) return res.status(404).json({ code: 404, message: '文档不存在' })
   doc.views = (doc.views || 0) + 1
+  saveIndex(Array.from(knowledgeIndex.values()))
   res.json({ code: 200, data: { views: doc.views } })
 })
 
-// 4.5 错误处理
+// 5. 下载文件
+router.get('/download/:id', authRequired, (req, res) => {
+  const { id } = req.params
+  const doc = knowledgeIndex.get(id)
+  if (!doc) return res.status(404).json({ code: 404, message: '文档不存在' })
+  const filePath = path.join(UPLOAD_DIR, doc.filename)
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ code: 404, message: '文件不存在' })
+  }
+  res.download(filePath, doc.title)
+})
+
+// 6. 🆕 知识库内容检索（供决策中心调用）
+router.get('/search', authRequired, (req, res) => {
+  const { q = '', limit = 3 } = req.query
+  const kw = String(q).toLowerCase().trim()
+  if (!kw) {
+    return res.json({ code: 200, data: [], total: 0 })
+  }
+  // 简单关键词匹配 + 评分
+  const docs = Array.from(knowledgeIndex.values())
+  const scored = docs
+    .map(d => {
+      let score = 0
+      const title = (d.title || '').toLowerCase()
+      const desc = (d.desc || '').toLowerCase()
+      const content = (d.content || '').toLowerCase()
+      const cat = (d.cat || '').toLowerCase()
+      if (title.includes(kw)) score += 10
+      if (cat.includes(kw)) score += 5
+      if (desc.includes(kw)) score += 3
+      if (content.includes(kw)) score += 1
+      return { d, score }
+    })
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, Number(limit))
+    .map(x => ({
+      id: x.d.id,
+      title: x.d.title,
+      cat: x.d.cat,
+      desc: x.d.desc,
+      score: x.score,
+      contentPreview: (x.d.content || '').slice(0, 800),
+      // 截取包含关键词的上下文
+      excerpt: extractExcerpt(x.d.content || x.d.desc || x.d.title, kw, 200)
+    }))
+  res.json({ code: 200, data: scored, total: scored.length, query: q })
+})
+
+// 提取关键词附近 200 字
+function extractExcerpt(text, kw, len) {
+  if (!text) return ''
+  const idx = text.toLowerCase().indexOf(kw)
+  if (idx === -1) return text.slice(0, len)
+  const start = Math.max(0, idx - 50)
+  const end = Math.min(text.length, idx + len)
+  return (start > 0 ? '...' : '') + text.slice(start, end) + (end < text.length ? '...' : '')
+}
+
+// 7. 🆕 知识库统计
+router.get('/stats', authRequired, (req, res) => {
+  const docs = Array.from(knowledgeIndex.values())
+  const byCat = {}
+  for (const d of docs) {
+    byCat[d.cat] = (byCat[d.cat] || 0) + 1
+  }
+  res.json({
+    code: 200,
+    data: {
+      total: docs.length,
+      totalSize: docs.reduce((s, d) => s + (d.size || 0), 0),
+      byCat,
+      latest: docs.slice(0, 5).map(d => ({ id: d.id, title: d.title, cat: d.cat, uploadedAt: d.uploadedAt }))
+    }
+  })
+})
+
+// 错误处理
 router.use((err, req, res, next) => {
   logger.error(`[Knowledge] 错误: ${err.message}`)
   res.status(500).json({ code: 500, message: err.message })
 })
 
 export default router
+
+// 导出供其他服务调用
+export function searchKnowledge(q, limit = 3) {
+  const kw = String(q || '').toLowerCase().trim()
+  if (!kw) return []
+  const docs = Array.from(knowledgeIndex.values())
+  return docs
+    .map(d => {
+      let score = 0
+      const title = (d.title || '').toLowerCase()
+      const desc = (d.desc || '').toLowerCase()
+      const content = (d.content || '').toLowerCase()
+      if (title.includes(kw)) score += 10
+      if ((d.cat || '').toLowerCase().includes(kw)) score += 5
+      if (desc.includes(kw)) score += 3
+      if (content.includes(kw)) score += 1
+      return { d, score }
+    })
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(x => ({
+      id: x.d.id,
+      title: x.d.title,
+      cat: x.d.cat,
+      excerpt: extractExcerpt(x.d.content || x.d.desc || x.d.title, kw, 300)
+    }))
+}
+
+export function getKnowledgeContext(query) {
+  const results = searchKnowledge(query, 3)
+  if (results.length === 0) return ''
+  let ctx = '\n【运营知识库】以下是相关的历史运营文档（已根据问题自动检索）：\n'
+  for (const r of results) {
+    ctx += `📄 ${r.title}（${r.cat}）\n${r.excerpt}\n\n`
+  }
+  return ctx
+}
