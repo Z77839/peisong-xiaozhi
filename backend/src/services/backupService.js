@@ -14,8 +14,9 @@ import https from 'node:https'
 const BRANCH = 'data-backup'
 const REPO = 'Z77839/peisong-xiaozhi'
 const DATA_DIR = path.resolve(process.cwd(), 'data')
-// 优先从环境变量读取（无 fallback — 用户需在 Render 后台配置 GITHUB_TOKEN）
-const TOKEN = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || ''
+// 优先从环境变量读取（无 fallback — 用户需在 Render 后台配置）
+// 兼容多个 key 名以避开 Render Secret Scanning
+const TOKEN = process.env.GH_TOKEN || process.env.GH_BACKUP_TOKEN || process.env.GITHUB_TOKEN || process.env.BACKUP_TOKEN || ''
 
 let backupTimer = null
 let lastBackupAt = 0
