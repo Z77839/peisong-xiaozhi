@@ -4,6 +4,7 @@ import * as echarts from 'echarts'
 import ChartCard from '@/components/ChartCard.vue'
 import { formatNumber } from '@/utils/format'
 import request from '@/api/request'
+import RiderFloatButton from '@/components/RiderFloatButton.vue'
 
 // ===== 真实数据 API =====
 const loading = ref(false)
@@ -293,7 +294,9 @@ onMounted(() => {
           <template #default="{ row }">
             <el-tag v-if="row.city && row.city !== '未分配'" size="small" type="success">{{ row.city }}</el-tag>
             <el-tag v-else size="small">未分配</el-tag>
-          </template>
+            <!-- 悬浮球：添加/导入骑手 -->
+  <RiderFloatButton @refresh="fetchKpis" />
+</template>
         </el-table-column>
         <el-table-column label="所属站点" prop="station" min-width="160" show-overflow-tooltip />
         <el-table-column label="服务等级" prop="level" width="120">
