@@ -8,9 +8,16 @@ const appStore = useAppStore()
 
 const menus = [
   { path: '/dashboard', title: '运营总览', icon: 'DataAnalysis' },
-  { path: '/decision', title: '决策中心', icon: 'Cpu' },
-  { path: '/alert', title: '预警中心', icon: 'Warning' },
-  { path: '/dispatch', title: '智能派单', icon: 'TakeawayBox' },
+  {
+    path: '/decision',
+    title: '智能决策中心',
+    icon: 'Cpu',
+    children: [
+      { path: '/decision', title: '决策中心', icon: 'Aim' },
+      { path: '/alert', title: '预警中心', icon: 'Warning' },
+      { path: '/dispatch', title: '智能派单', icon: 'TakeawayBox' }
+    ]
+  },
   { path: '/simulation', title: '仿真回放', icon: 'VideoPlay' },
   { path: '/rider-types', title: '运力线分析', icon: 'Van' },
   { path: '/rider', title: '骑手管理', icon: 'User' },
@@ -23,6 +30,9 @@ const menus = [
 ]
 
 const activeMenu = computed(() => route.path)
+
+// 默认展开决策中心大类
+const defaultOpened = ['/decision']
 </script>
 
 <template>
@@ -48,6 +58,7 @@ const activeMenu = computed(() => route.path)
 
     <el-menu
       :default-active="activeMenu"
+      :default-openeds="defaultOpened"
       class="sidebar-menu"
       background-color="transparent"
       text-color="#1a1a2e"
@@ -57,10 +68,23 @@ const activeMenu = computed(() => route.path)
       :collapse-transition="false"
       router
     >
-      <el-menu-item v-for="m in menus" :key="m.path" :index="m.path">
+      <!-- 一级菜单（无子菜单） -->
+      <el-menu-item v-for="m in menus.filter(x => !x.children)" :key="m.path" :index="m.path">
         <el-icon><component :is="m.icon" /></el-icon>
         <template #title>{{ m.title }}</template>
       </el-menu-item>
+
+      <!-- 二级菜单（带子菜单） -->
+      <el-sub-menu v-for="m in menus.filter(x => x.children)" :key="m.path" :index="m.path">
+        <template #title>
+          <el-icon><component :is="m.icon" /></el-icon>
+          <span>{{ m.title }}</span>
+        </template>
+        <el-menu-item v-for="c in m.children" :key="c.path" :index="c.path">
+          <el-icon><component :is="c.icon" /></el-icon>
+          <template #title>{{ c.title }}</template>
+        </el-menu-item>
+      </el-sub-menu>
     </el-menu>
 
     <div v-show="!appStore.sidebarCollapsed" class="sidebar-footer">
@@ -149,6 +173,38 @@ const activeMenu = computed(() => route.path)
       color: #666;
       font-size: 16px;
       margin-right: 8px;
+    }
+  }
+
+  // 子菜单（折叠展开的）样式
+  :deep(.el-sub-menu) {
+    .el-sub-menu__title {
+      color: #1a1a2e !important;
+      font-size: 14px;
+      height: 44px;
+      line-height: 44px;
+      margin: 2px 8px;
+      border-radius: 6px;
+      padding: 0 12px !important;
+
+      &:hover {
+        background: #f0f7ff !important;
+        color: #1f6feb !important;
+      }
+
+      .el-icon {
+        color: #666;
+        font-size: 16px;
+        margin-right: 8px;
+      }
+    }
+
+    // 子菜单项缩进
+    .el-menu .el-menu-item {
+      padding-left: 36px !important;
+      font-size: 13px;
+      height: 40px;
+      line-height: 40px;
     }
   }
 }
