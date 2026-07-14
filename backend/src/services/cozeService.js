@@ -16,7 +16,6 @@ const AGENTS = [
   { id: 'rider-analyze', name: '运力分析 Agent', desc: '5 运力线智能匹配', icon: '🚴' },
   { id: 'cost-analyze', name: '成本分析 Agent', desc: '多运力成本 Pareto', icon: '💰' },
   { id: 'dispatch-rec', name: '派单推荐 Agent', desc: '蜂跑+众包+专送智能调度', icon: '📦' },
-  { id: 'c-end-analyze', name: 'C 端增长 Agent', desc: '社群+团长双引擎', icon: '👥' },
   { id: 'decision-merge', name: '决策汇总 Agent', desc: '综合评估·生成报告', icon: '🧠' },
   { id: 'report-gen', name: '报告生成 Agent', desc: '结构化输出', icon: '📊' }
 ]
@@ -75,9 +74,8 @@ export function mockWorkflow(query) {
   steps[2].output = '当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）'
   steps[3].output = '专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69'
   steps[4].output = '建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底'
-  steps[5].output = '通过校园 KOL 矩阵与团长晋升，目标社群 GMV +30%'
-  steps[6].output = '综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000'
-  steps[7].output = '已生成可执行的运力优化报告'
+  steps[5].output = '综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000'
+  steps[6].output = '已生成可执行的运力优化报告'
 
   const orderCount = q.includes('订单') || q.includes('预测') ? 15600 : 13200 + Math.floor(Math.random() * 3000)
 
@@ -106,9 +104,6 @@ export function mockWorkflow(query) {
 1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL
 2. 高峰时段优先派单蜂跑 + 普通众包
 3. 启动临时补贴方案（¥2/单），召募预备运力
-
-▍ C 端增长联动
-激活金牌团长 32 名，预期社群 GMV +30%
 
 ▍ 风险等级
 综合评估：LOW
