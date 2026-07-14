@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import KnowledgeHints from '@/components/KnowledgeHints.vue'
 import { ref, onMounted, shallowRef, computed, watch } from 'vue'
 import * as echarts from 'echarts'
 import ChartCard from '@/components/ChartCard.vue'
@@ -273,7 +274,6 @@ watch([hourlyOrders, regionData], () => {
 
 <style lang="scss" scoped>
 @use "@/assets/styles/variables.scss" as *;
-import KnowledgeHints from '@/components/KnowledgeHints.vue'
 
 .page-container { padding: 20px; }
 
