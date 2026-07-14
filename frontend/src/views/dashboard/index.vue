@@ -9,14 +9,15 @@ const cityStore = useCityStore()
 const router = useRouter()
 
 // 6 大核心能力
-const CAPABILITIES = [
-  { key: 'predict', name: '运力预判', icon: '🔮', color: '#1f6feb', desc: 'AI 模型预判各区域运力缺口', value: '92%', valueLabel: '预测准确率' },
-  { key: 'dispatch', name: '调度成本', icon: '⚖️', color: '#722ed1', desc: '5 运力线智能匹配 + 成本 Pareto', value: '¥3.69', valueLabel: '最低单价' },
-  { key: 'order', name: '智能派单', icon: '🚴', color: '#13c2c2', desc: '距离/负载/准时率综合评分 TOP 3', value: '1.4s', valueLabel: '平均耗时' },
-  { key: 'recommend', name: '辅助推荐', icon: '✨', color: '#fa8c16', desc: '增配/补贴/调拨一键建议', value: '4 个', valueLabel: '实时建议' },
-  { key: 'alert', name: '主动预警', icon: '🚨', color: '#f5222d', desc: '7×24 持续监控 · 提前 90 分钟', value: '8 项', valueLabel: '主动识别' },
-  { key: 'decision', name: '决策报告', icon: '📊', color: '#52c41a', desc: '8 Agent 协同 · 一键生成报告', value: '8 个', valueLabel: 'Agent 协同' }
+const CAPABILITIES_META: any[] = [
+  { key: 'predict', name: '运力预判', icon: '🔮', color: '#1f6feb', desc: 'AI 模型预判各区域运力缺口', valueLabel: '预测准确率' },
+  { key: 'dispatch', name: '调度成本', icon: '⚖️', color: '#722ed1', desc: '5 运力线智能匹配 + 成本 Pareto', valueLabel: '最低单价' },
+  { key: 'order', name: '智能派单', icon: '🚴', color: '#13c2c2', desc: '距离/负载/准时率综合评分 TOP 3', valueLabel: '平均耗时' },
+  { key: 'recommend', name: '辅助推荐', icon: '✨', color: '#fa8c16', desc: '增配/补贴/调拨一键建议', valueLabel: '实时建议' },
+  { key: 'alert', name: '主动预警', icon: '🚨', color: '#f5222d', desc: '7×24 持续监控 · 提前 90 分钟', valueLabel: '主动识别' },
+  { key: 'decision', name: '决策报告', icon: '📊', color: '#52c41a', desc: '8 Agent 协同 · 一键生成报告', valueLabel: 'Agent 协同' }
 ]
+const capabilities = ref<any[]>(CAPABILITIES_META.map(m => ({ ...m, value: '--' })))
 
 // 智能体状态（从后端实时加载）
 const agents = ref<Array<{ name: string; status: string; calls: number; avgMs: number }>>([])
@@ -219,7 +220,7 @@ function goPage(path: string) {
       </div>
       <div class="cap-grid">
         <div
-          v-for="cap in CAPABILITIES"
+          v-for="cap in capabilities"
           :key="cap.key"
           class="cap-card"
           :style="{ '--cap-color': cap.color }"
@@ -232,6 +233,7 @@ function goPage(path: string) {
             <span class="cs-val">{{ cap.value }}</span>
             <span class="cs-label">{{ cap.valueLabel }}</span>
           </div>
+          <div class="cap-source">数据源: {{ cap.source || '计算中' }}</div>
           <div class="cap-arrow">→</div>
         </div>
       </div>
