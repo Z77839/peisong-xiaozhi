@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useCityStore } from '@/store/city'
 import { API_BASE_URL } from '@/utils/apiBase'
@@ -38,6 +39,10 @@ interface Recommendation {
 }
 
 const cityStore = useCityStore()
+const route = useRoute()
+const fromDecision = ref(!!route.query.gap || !!route.query.q)
+const decisionGap = ref(Number(route.query.gap) || 0)
+const decisionQuery = ref(route.query.q as string || '')
 const orders = ref<Order[]>([])
 const riders = ref<Rider[]>([])
 const recommendations = ref<Recommendation[]>([])
@@ -377,6 +382,21 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+.from-decision-banner {
+  background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%);
+  border: 1px solid #1890ff;
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.from-decision-banner .fd-ico { font-size: 18px; }
+.from-decision-banner .fd-text { color: #0050b3; font-weight: 500; }
+.from-decision-banner .fd-gap { color: #f5222d; font-size: 16px; margin: 0 4px; }
+
 .dispatch-page { padding: 24px; background: #f5f7fa; min-height: 100vh; }
 .hero { margin-bottom: 20px; }
 .hero-tag { display: inline-block; background: linear-gradient(135deg, #1890ff, #722ed1); color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 12px; letter-spacing: 1px; }
