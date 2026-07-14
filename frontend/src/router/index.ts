@@ -56,18 +56,6 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '成本分析', icon: 'Money' }
       },
       {
-        path: 'merchant',
-        name: 'Merchant',
-        component: () => import('@/views/merchant/index.vue'),
-        meta: { title: '商户健康度', icon: 'Shop' }
-      },
-      {
-        path: 'c-end',
-        name: 'CEnd',
-        component: () => import('@/views/c-end/index.vue'),
-        meta: { title: 'C 端运营', icon: 'ChatLineSquare' }
-      },
-      {
         path: 'report',
         name: 'Report',
         component: () => import('@/views/report/index.vue'),
