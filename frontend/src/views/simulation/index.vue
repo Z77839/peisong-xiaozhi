@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import KnowledgeHints from '@/components/KnowledgeHints.vue'
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useCityStore } from '@/store/city'
 import { API_BASE_URL } from '@/utils/apiBase'
@@ -105,8 +104,6 @@ function playPause() {
 
 <template>
   <div class="sim-page">
-    <!-- 知识库提示 -->
-    <KnowledgeHints />
     <!-- Hero -->
     <div class="hero">
       <div class="hero-inner">
