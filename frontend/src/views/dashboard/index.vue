@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import KnowledgeHints from '@/components/KnowledgeHints.vue'
 import { ref, computed, onMounted, onBeforeUnmount, shallowRef, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCityStore } from '@/store/city'
@@ -112,8 +111,6 @@ function goPage(path: string) {
 
 <template>
   <div class="dash-page">
-    <!-- 知识库提示 -->
-    <KnowledgeHints />
     <!-- ========== Hero: 配送小智 形象 ========== -->
     <div class="hero">
       <div class="hero-bg">
