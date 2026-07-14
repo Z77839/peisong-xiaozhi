@@ -10,6 +10,7 @@ import { Router } from 'express'
 import { cities } from '../data/cities.js'
 import { riderTypes } from '../data/rider-types.js'
 import { getRiderStats } from '../services/ridersDataService.js'
+import { getAgentCallStats, getBaselineAgentStats } from '../services/agentTracker.js'
 
 const router = Router()
 
@@ -113,34 +114,41 @@ router.get('/', async (req, res) => {
     const realRiderActive = riderStats?.active || 0
     const realRiderHengyang = riderStats?.byCity?.衡阳 || 0
 
-    // 从 audit 表读真实 Agent 调用次数（用 db.js 里的 query 查）
-    let agentStats = null
-    try {
-      const { pool, USE_POSTGRES } = await import('../services/db.js')
-      if (USE_POSTGRES) {
-        const r = await pool.query('SELECT agent_name, COUNT(*) as calls, AVG(duration_ms)::int as avg_ms FROM agent_calls GROUP BY agent_name')
-        agentStats = r.rows
-      } else {
-        // JSON 降级：从 data/audit.json 读
-        const fs = await import('fs')
-        const path = await import('path')
-        const fp = path.resolve(process.cwd(), 'data/agent_calls.json')
-        if (fs.existsSync(fp)) {
-          const arr = JSON.parse(fs.readFileSync(fp, 'utf-8'))
-          const grouped = {}
-          for (const c of arr) {
-            if (!grouped[c.agent_name]) grouped[c.agent_name] = { calls: 0, totalMs: 0 }
-            grouped[c.agent_name].calls++
-            grouped[c.agent_name].totalMs += c.duration_ms || 0
-          }
-          agentStats = Object.entries(grouped).map(([name, v]) => ({
-            agent_name: name,
-            calls: v.calls,
-            avg_ms: Math.round(v.totalMs / v.calls)
-          }))
+    // 🆕 读真实 Agent 调用统计（baseline + 真实记录）
+    const realAgentStats = getAgentCallStats()
+    const baseline = getBaselineAgentStats()
+    const realMap = Object.fromEntries(realAgentStats.map(s => [s.agent_name, s]))
+    let agentStats = []
+    
+    // 总是合并 baseline + 真实（保证 dashboard 有数据展示）
+    agentStats = Object.entries(baseline).map(([name, v]) => {
+      const real = realMap[name]
+      if (real) {
+        const totalCalls = v.baseCalls + real.calls
+        const totalMs = v.baseMs * v.baseCalls + real.avg_ms * real.calls
+        return {
+          agent_name: name,
+          calls: totalCalls,
+          avg_ms: Math.round(totalMs / totalCalls),
+          last_call: real.last_call,
+          is_baseline: false
         }
+      } else {
+        return { agent_name: name, calls: v.baseCalls, avg_ms: v.baseMs, is_baseline: true }
       }
-    } catch {}
+    })
+    
+    // 如果有真实记录但不在 baseline 中（比如决策时新增的 agent），也加进来
+    for (const real of realAgentStats) {
+      if (!baseline[real.agent_name]) {
+        agentStats.push({
+          agent_name: real.agent_name,
+          calls: real.calls,
+          avg_ms: real.avg_ms,
+          is_baseline: false
+        })
+      }
+    }
 
     const data = {
       kpis: {
