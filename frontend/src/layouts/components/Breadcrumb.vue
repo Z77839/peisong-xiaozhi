@@ -13,7 +13,6 @@ const subtitle = computed(() => {
     Order: 'AI 模型预测各时段订单量与趋势',
     Rider: '运力调度与人效评估',
     Cost: '成本结构拆解与优化建议',
-    Merchant: '商户运营健康度评分',
     Decision: '多 Agent 协同执行与决策流',
     Report: '一键生成专业运营报告',
     Knowledge: '运营知识库与文档管理',
