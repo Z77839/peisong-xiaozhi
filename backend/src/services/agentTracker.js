@@ -5,6 +5,7 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
+import { scheduleBackup } from './backupService.js'
 
 const TRACKING_FILE = path.resolve(process.cwd(), 'data/agent_calls.json')
 
@@ -30,6 +31,7 @@ export function trackAgentCall({ agentName, durationMs = 0, status = 'success', 
       arr = arr.slice(-10000)
     }
     fs.writeFileSync(TRACKING_FILE, JSON.stringify(arr, null, 2))
+    scheduleBackup()
   } catch (e) {
     console.warn('[AgentTracker] 记录失败:', e.message)
   }
