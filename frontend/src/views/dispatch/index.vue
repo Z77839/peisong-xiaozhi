@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import KnowledgeHints from '@/components/KnowledgeHints.vue'
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useCityStore } from '@/store/city'
@@ -169,8 +168,6 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="dispatch-page">
-    <!-- 知识库提示 -->
-    <KnowledgeHints />
     <!-- Hero -->
     <div class="hero">
       <div class="hero-inner">
