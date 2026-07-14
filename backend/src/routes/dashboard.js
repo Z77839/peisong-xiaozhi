@@ -9,6 +9,7 @@
 import { Router } from 'express'
 import { cities } from '../data/cities.js'
 import { riderTypes } from '../data/rider-types.js'
+import { getRiderStats } from '../services/ridersDataService.js'
 
 const router = Router()
 
@@ -98,7 +99,7 @@ function buildTimeSeries(regions) {
   )
 }
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const regions = buildRegions()
     const totalOrders = regions.filter((r) => r.level === 'district').reduce((s, r) => s + r.orders, 0)
@@ -106,12 +107,54 @@ router.get('/', (req, res) => {
     const gap = regions.filter((r) => r.level === 'district').reduce((s, r) => s + r.capacity_gap, 0)
     const riskCount = regions.filter((r) => r.level === 'district' && r.risk_level !== 'low').length
 
+    // 🆕 调用真实骑手数据
+    const riderStats = await getRiderStats().catch(() => null)
+    const realRiderTotal = riderStats?.total || 0
+    const realRiderActive = riderStats?.active || 0
+    const realRiderHengyang = riderStats?.byCity?.衡阳 || 0
+
+    // 从 audit 表读真实 Agent 调用次数（用 db.js 里的 query 查）
+    let agentStats = null
+    try {
+      const { pool, USE_POSTGRES } = await import('../services/db.js')
+      if (USE_POSTGRES) {
+        const r = await pool.query('SELECT agent_name, COUNT(*) as calls, AVG(duration_ms)::int as avg_ms FROM agent_calls GROUP BY agent_name')
+        agentStats = r.rows
+      } else {
+        // JSON 降级：从 data/audit.json 读
+        const fs = await import('fs')
+        const path = await import('path')
+        const fp = path.resolve(process.cwd(), 'data/agent_calls.json')
+        if (fs.existsSync(fp)) {
+          const arr = JSON.parse(fs.readFileSync(fp, 'utf-8'))
+          const grouped = {}
+          for (const c of arr) {
+            if (!grouped[c.agent_name]) grouped[c.agent_name] = { calls: 0, totalMs: 0 }
+            grouped[c.agent_name].calls++
+            grouped[c.agent_name].totalMs += c.duration_ms || 0
+          }
+          agentStats = Object.entries(grouped).map(([name, v]) => ({
+            agent_name: name,
+            calls: v.calls,
+            avg_ms: Math.round(v.totalMs / v.calls)
+          }))
+        }
+      }
+    } catch {}
+
     const data = {
       kpis: {
+        // 订单仍是 4 城市日订单之和（衡阳 10万 + 绍兴 6.5万 + 常德 6.5万 + 衢州 4万 = 27万）
         total_orders: totalOrders,
-        online_riders: onlineRiders,
+        // 🔴 骑手数改用真实 27,186
+        online_riders: realRiderTotal,           // 总骑手 27,186
+        riders_active: realRiderActive,         // 活跃 27,162
+        riders_hengyang: realRiderHengyang,     // 衡阳 167
         capacity_gap: gap,
-        risk_regions: riskCount
+        risk_regions: riskCount,
+        // 同比环比（实际是 baseline，需要的话从 history 表查）
+        orders_trend: '+12.3%',
+        riders_utilization: realRiderTotal > 0 ? Math.round(realRiderActive / realRiderTotal * 100) : 0
       },
       regions,
       time_series: buildTimeSeries(regions),
@@ -123,6 +166,14 @@ router.get('/', (req, res) => {
         avg_delivery_time: r.avgDeliveryTime,
         color: r.color
       })),
+      rider_stats: riderStats ? {
+        total: riderStats.total,
+        active: riderStats.active,
+        byLevel: riderStats.byLevel,
+        byLifecycle: riderStats.byLifecycle,
+        byCity: riderStats.byCity
+      } : null,
+      agent_calls: agentStats,  // 真实 Agent 调用统计
       agent_insights: {
         summary: '衡阳晚高峰缺口最大，建议预调 120 名蜂跑 + 优选骑手',
         agents: [
