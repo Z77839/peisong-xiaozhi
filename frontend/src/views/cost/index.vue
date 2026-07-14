@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import KnowledgeHints from '@/components/KnowledgeHints.vue'
 import { ref, onMounted, shallowRef, computed, watch } from 'vue'
 import * as echarts from 'echarts'
 import ChartCard from '@/components/ChartCard.vue'
@@ -94,8 +95,7 @@ const metrics = computed(() => {
 // 7 天成本趋势
 const costTrend = computed(() => {
   const days = []
-  for (let i = 6;
-import KnowledgeHints from '@/components/KnowledgeHints.vue' i >= 0; i--) {
+  for (let i = 6; i >= 0; i--) {
     const d = new Date()
     d.setDate(d.getDate() - i)
     // 基于真实波动的成本（含周末因子）
