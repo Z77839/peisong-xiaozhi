@@ -9,7 +9,7 @@ import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import { PORT, CORS_ORIGIN, NODE_ENV, RATE_LIMIT_PER_MINUTE, QWEATHER_API_KEY, ELEME_APP_KEY, RIDER_WS_URL, ORDER_STREAM_URL, DOUBAO, DEEPSEEK, COZE, LLM_ROUTER } from './config.js'
 import { logger, requestLogger } from './services/logger.js'
-import { restoreFromBackup, scheduleBackup } from './services/backupService.js'
+import { restoreFromBackup, scheduleBackup, backupNow } from './services/backupService.js'
 
 import authRouter from './routes/auth.js'
 import citiesRouter from './routes/cities.js'
@@ -162,6 +162,39 @@ app.get('/', (req, res) => {
 })
 app.head('/', (req, res) => res.status(200).end())
 app.get('/health', (req, res) => res.json({ status: 'ok' }))
+
+const BRANCH_INFO = 'Z77839/peisong-xiaozhi@data-backup'
+
+// 🆕 手动触发备份（演示用）
+app.post('/api/admin/backup', async (req, res) => {
+  try {
+    const result = await backupNow()
+    res.json({
+      code: 200,
+      ...result,
+      message: result.ok
+        ? `备份成功：${result.files} 个文件 → ${BRANCH_INFO}@${result.commit}`
+        : `备份失败：${result.reason || '未知'}`
+    })
+  } catch (e) {
+    res.status(500).json({ code: 500, message: e.message })
+  }
+})
+
+app.get('/api/admin/backup', async (req, res) => {
+  try {
+    const result = await backupNow()
+    res.json({
+      code: 200,
+      ...result,
+      message: result.ok
+        ? `备份成功：${result.files} 个文件 → ${BRANCH_INFO}@${result.commit}`
+        : `备份失败：${result.reason || '未知'}`
+    })
+  } catch (e) {
+    res.status(500).json({ code: 500, message: e.message })
+  }
+})
 
 // 404 处理
 app.use((req, res) => {
