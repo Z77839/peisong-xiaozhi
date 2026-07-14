@@ -1,5 +1,5 @@
-import request from '@/api/request'
 <script setup lang="ts">
+import KnowledgeHints from '@/components/KnowledgeHints.vue'
 import { ref, computed, onMounted, onBeforeUnmount, shallowRef, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCityStore } from '@/store/city'
@@ -19,8 +19,7 @@ const CAPABILITIES = [
 ]
 
 // 智能体状态（从后端实时加载）
-const agents = ref<Array<{ name: string;
-import KnowledgeHints from '@/components/KnowledgeHints.vue' status: string; calls: number; avgMs: number }>>([])
+const agents = ref<Array<{ name: string; status: string; calls: number; avgMs: number }>>([])
 const agentLoadHint = ref('点击「决策中心」运行决策后会自动记录')
 
 // 实时 KPI（从后端加载）
