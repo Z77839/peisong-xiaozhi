@@ -1,0 +1,146 @@
+[
+  {
+    "agent_name": "知识库检索 Agent",
+    "duration_ms": 202,
+    "status": "success",
+    "decision_id": "d_1784015682569_06hd3b",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:54:42.573Z"
+  },
+  {
+    "agent_name": "任务路由 Agent",
+    "duration_ms": 175,
+    "status": "success",
+    "decision_id": "d_1784015682569_06hd3b",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:54:42.584Z"
+  },
+  {
+    "agent_name": "订单预测 Agent",
+    "duration_ms": 524,
+    "status": "success",
+    "decision_id": "d_1784015682569_06hd3b",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:54:42.595Z"
+  },
+  {
+    "agent_name": "运力分析 Agent",
+    "duration_ms": 229,
+    "status": "success",
+    "decision_id": "d_1784015682569_06hd3b",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:54:42.607Z"
+  },
+  {
+    "agent_name": "成本分析 Agent",
+    "duration_ms": 584,
+    "status": "success",
+    "decision_id": "d_1784015682569_06hd3b",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:54:42.620Z"
+  },
+  {
+    "agent_name": "派单推荐 Agent",
+    "duration_ms": 583,
+    "status": "success",
+    "decision_id": "d_1784015682569_06hd3b",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:54:42.672Z"
+  },
+  {
+    "agent_name": "C 端增长 Agent",
+    "duration_ms": 580,
+    "status": "success",
+    "decision_id": "d_1784015682569_06hd3b",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:54:42.698Z"
+  },
+  {
+    "agent_name": "决策汇总 Agent",
+    "duration_ms": 271,
+    "status": "success",
+    "decision_id": "d_1784015682569_06hd3b",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:54:42.710Z"
+  },
+  {
+    "agent_name": "报告生成 Agent",
+    "duration_ms": 554,
+    "status": "success",
+    "decision_id": "d_1784015682569_06hd3b",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:54:42.724Z"
+  },
+  {
+    "agent_name": "知识库检索 Agent",
+    "duration_ms": 311,
+    "status": "success",
+    "decision_id": "d_1784015717782_1orbnf",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:55:17.797Z"
+  },
+  {
+    "agent_name": "任务路由 Agent",
+    "duration_ms": 518,
+    "status": "success",
+    "decision_id": "d_1784015717782_1orbnf",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:55:17.811Z"
+  },
+  {
+    "agent_name": "订单预测 Agent",
+    "duration_ms": 256,
+    "status": "success",
+    "decision_id": "d_1784015717782_1orbnf",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:55:17.825Z"
+  },
+  {
+    "agent_name": "运力分析 Agent",
+    "duration_ms": 426,
+    "status": "success",
+    "decision_id": "d_1784015717782_1orbnf",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:55:17.838Z"
+  },
+  {
+    "agent_name": "成本分析 Agent",
+    "duration_ms": 122,
+    "status": "success",
+    "decision_id": "d_1784015717782_1orbnf",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:55:17.855Z"
+  },
+  {
+    "agent_name": "派单推荐 Agent",
+    "duration_ms": 578,
+    "status": "success",
+    "decision_id": "d_1784015717782_1orbnf",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:55:17.868Z"
+  },
+  {
+    "agent_name": "C 端增长 Agent",
+    "duration_ms": 269,
+    "status": "success",
+    "decision_id": "d_1784015717782_1orbnf",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:55:17.882Z"
+  },
+  {
+    "agent_name": "决策汇总 Agent",
+    "duration_ms": 599,
+    "status": "success",
+    "decision_id": "d_1784015717782_1orbnf",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:55:17.895Z"
+  },
+  {
+    "agent_name": "报告生成 Agent",
+    "duration_ms": 147,
+    "status": "success",
+    "decision_id": "d_1784015717782_1orbnf",
+    "query": "衡阳晚高峰运力不足怎么应对",
+    "timestamp": "2026-07-14T07:55:17.909Z"
+  }
+]
