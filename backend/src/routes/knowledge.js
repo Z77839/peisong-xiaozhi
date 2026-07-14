@@ -13,6 +13,7 @@ import path from 'node:path'
 import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { logger } from '../services/logger.js'
+import { scheduleBackup } from '../services/backupService.js'
 import { authRequired } from '../middleware/auth.js'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -45,6 +46,7 @@ function saveIndex(arr) {
       fs.mkdirSync(path.dirname(INDEX_FILE), { recursive: true })
     }
     fs.writeFileSync(INDEX_FILE, JSON.stringify(arr, null, 2))
+    scheduleBackup()
   } catch (e) {
     logger.error(`[Knowledge] 索引保存失败: ${e.message}`)
   }
