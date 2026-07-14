@@ -289,6 +289,23 @@ function extractExcerpt(text, kw, len) {
 }
 
 // 7. 🆕 知识库统计
+// 🆕 手动触发 seed 导入（dev 用）
+router.post('/seed', authRequired, (req, res) => {
+  const INDEX = path.resolve(process.cwd(), 'data/knowledge_index.json')
+  const SEED = path.resolve(process.cwd(), 'data/knowledge_seed.json')
+  if (!fs.existsSync(SEED)) {
+    return res.status(404).json({ code: 404, message: 'seed 文件不存在' })
+  }
+  try {
+    const seed = JSON.parse(fs.readFileSync(SEED, 'utf-8'))
+    fs.mkdirSync(path.dirname(INDEX), { recursive: true })
+    fs.writeFileSync(INDEX, JSON.stringify(seed, null, 2))
+    res.json({ code: 200, message: `seed 导入 ${seed.items.length} 条`, data: { count: seed.items.length } })
+  } catch (e) {
+    res.status(500).json({ code: 500, message: e.message })
+  }
+})
+
 router.get('/stats', authRequired, (req, res) => {
   const docs = Array.from(knowledgeIndex.values())
   const byCat = {}
