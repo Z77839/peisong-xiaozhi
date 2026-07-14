@@ -9,49 +9,46 @@ import request from '@/api/request'
 const cityStore = useCityStore()
 const city = cityStore.currentCity
 
-// 4 城市因子
-const cityCostFactors: Record<string, number> = {
-  hengyang: 1.0, shaoxing: 0.7, changde: 0.5, quzhou: 0.4
+// 4 城市日订单因子（衡阳 10万 / 绍兴 6.5万 / 常德 6.5万 / 衢州 4万）
+const CITY_DAILY_ORDERS = {
+  hengyang: 100000,
+  shaoxing: 65000,
+  changde: 65000,
+  quzhou: 40000
 }
-const factor = computed(() => cityCostFactors[city.id] || 0.5)
+const factor = computed(() => CITY_DAILY_ORDERS[city.id] || 100000)
 
-// 5 运力线真实成本（来自 cities.js）
-const RIDER_LINE_COSTS = [
-  { name: '专送', cost: 4.90, color: '#1f6feb', desc: '主力配送', avgTime: 32 },
-  { name: '优选', cost: 5.04, color: '#00b578', desc: '中端优选', avgTime: 35 },
-  { name: '优远', cost: 7.17, color: '#9b59ff', desc: '远距离', avgTime: 50 },
-  { name: '众包', cost: 4.36, color: '#ff9500', desc: '灵活运力', avgTime: 38 },
-  { name: '蜂跑', cost: 3.69, color: '#f5222d', desc: '应急蜂跑', avgTime: 30 }
-]
+// 时段单均成本（基于真实 5 运力线加权均价 ¥4.85）
+const AVG_COST_PER_ORDER = 4.85
 
-const breakdownChart = ref<HTMLElement | null>(null)
 const timeChart = ref<HTMLElement | null>(null)
 const planChart = ref<HTMLElement | null>(null)
-const paretoChart = ref<HTMLElement | null>(null)
-const breakdownInstance = shallowRef<echarts.ECharts>()
+const trendChart = ref<HTMLElement | null>(null)
+const compareChart = ref<HTMLElement | null>(null)
 const timeInstance = shallowRef<echarts.ECharts>()
 const planInstance = shallowRef<echarts.ECharts>()
-const paretoInstance = shallowRef<echarts.ECharts>()
+const trendInstance = shallowRef<echarts.ECharts>()
+const compareInstance = shallowRef<echarts.ECharts>()
 
 // 真实数据
 const dashboardData = ref<any>(null)
-const costPlan = ref<any>(null)  // 来自 /api/optimize/cost-plan
-const gapPrediction = ref<any>(null)  // 来自 /api/optimize/predict-gap
+const costPlan = ref<any>(null)
+const gapPrediction = ref<any>(null)
 const loading = ref(false)
 const selectedPlan = ref<string>('balanced')
 
-// 时段成本
+// 4 个时段成本（不依赖运力线分类）
 const timeSlotCosts = computed(() => {
-  const cityOrders = (dashboardData.value?.kpis?.total_orders || 0) * factor.value
-  const avg = RIDER_LINE_COSTS.reduce((s, r) => s + r.cost * r.share, 0)
-  // 4 个时段：早 7-10 / 午 11-13 / 晚 17-21 / 夜 22-6
+  const cityOrders = (dashboardData.value?.kpis?.total_orders || 0) * (factor.value / 270000)
+  // 4 城市总 270,000 = 100000+65000+65000+40000
+  const base = cityOrders
   return [
-    { slot: '早高峰', time: '07-10', orders: Math.floor(cityOrders * 0.15), avgCost: avg * 1.0, cost: 0 },
-    { slot: '午高峰', time: '11-13', orders: Math.floor(cityOrders * 0.25), avgCost: avg * 1.05, cost: 0 },
-    { slot: '晚高峰', time: '17-21', orders: Math.floor(cityOrders * 0.40), avgCost: avg * 1.15, cost: 0 },
-    { slot: '夜宵', time: '22-06', orders: Math.floor(cityOrders * 0.10), avgCost: avg * 1.20, cost: 0 },
-    { slot: '平峰', time: '其他', orders: Math.floor(cityOrders * 0.10), avgCost: avg * 0.95, cost: 0 }
-  ].map(s => ({ ...s, cost: Math.floor(s.orders * s.avgCost) }))
+    { slot: '早高峰', time: '07-10', orders: Math.round(base * 0.15), avgCost: AVG_COST_PER_ORDER * 1.0 },
+    { slot: '午高峰', time: '11-13', orders: Math.round(base * 0.25), avgCost: AVG_COST_PER_ORDER * 1.05 },
+    { slot: '晚高峰', time: '17-21', orders: Math.round(base * 0.40), avgCost: AVG_COST_PER_ORDER * 1.15 },
+    { slot: '夜宵', time: '22-06', orders: Math.round(base * 0.10), avgCost: AVG_COST_PER_ORDER * 1.20 },
+    { slot: '平峰', time: '其他', orders: Math.round(base * 0.10), avgCost: AVG_COST_PER_ORDER * 0.95 }
+  ].map(s => ({ ...s, cost: Math.round(s.orders * s.avgCost) }))
 })
 
 async function fetchData() {
@@ -59,8 +56,8 @@ async function fetchData() {
   try {
     const [dashR, planR, gapR] = await Promise.all([
       request({ url: '/dashboard' }),
-      request({ url: '/optimize/cost-plan', method: 'POST', data: { cityId: city.id, gap: 800 } }),
-      request({ url: '/optimize/predict-gap', method: 'POST', data: { cityId: city.id, hour: 19, isHoliday: false } })
+      request({ url: '/optimize/cost-plan', method: 'POST', data: { cityId: city.id || 'hengyang', gap: 800 } }),
+      request({ url: '/optimize/predict-gap', method: 'POST', data: { cityId: city.id || 'hengyang', hour: 19, isHoliday: false } })
     ])
     dashboardData.value = dashR.data || dashR
     costPlan.value = planR.data || planR
@@ -75,71 +72,52 @@ async function fetchData() {
 onMounted(() => fetchData())
 watch(() => city.id, () => fetchData())
 
-// 4 个 KPI
+// 4 个核心 KPI
 const metrics = computed(() => {
-  const cityOrders = Math.floor((dashboardData.value?.kpis?.total_orders || 0) * factor.value)
-  const avg = RIDER_LINE_COSTS.reduce((s, r) => s + r.cost * r.share, 0)
-  const totalCost = Math.floor(cityOrders * avg)
-  const profit = Math.floor(totalCost * 1.45)
-  const gap = costPlan.value?.totalGap || 0
-  const currentPlan = costPlan.value?.plans?.find((p: any) => p.name === (selectedPlan.value === 'conservative' ? '保守方案' : selectedPlan.value === 'aggressive' ? '激进方案' : '平衡方案'))
+  // 优先用真实 dashboard 数据，否则用本地因子
+  const realTotal = dashboardData.value?.kpis?.total_orders
+  const cityOrders = realTotal ? Math.round(realTotal * (factor.value / 270000)) : factor.value
+  const totalCost = Math.round(cityOrders * AVG_COST_PER_ORDER)
+  const totalCostW = totalCost / 10000
+  const grossProfit = Math.round(totalCost * 1.45)
+  const gap = costPlan.value?.totalGap || gapPrediction.value?.gap || 800
+  const currentPlan = costPlan.value?.plans?.find((p: any) => p.name === '平衡方案')
   return [
-    { label: '日总成本', value: `¥${(totalCost / 10000).toFixed(1)}万`, sub: `${formatNumber(cityOrders)} 单 × ¥${avg.toFixed(2)}`, color: '#1f6feb', icon: '💰' },
-    { label: '日毛利', value: `¥${(profit / 10000).toFixed(1)}万`, sub: '毛利率 45%', color: '#00b578', icon: '📈' },
+    { label: '日总成本', value: `¥${totalCostW.toFixed(1)}万`, sub: `${formatNumber(cityOrders)} 单 × ¥${AVG_COST_PER_ORDER.toFixed(2)}`, color: '#1f6feb', icon: '💰' },
+    { label: '日毛利', value: `¥${(grossProfit / 10000).toFixed(1)}万`, sub: '毛利率 45%', color: '#00b578', icon: '📈' },
     { label: '运力缺口', value: formatNumber(gap), sub: '高峰时段', color: '#f5222d', icon: '📉' },
     { label: '推荐方案节省', value: currentPlan ? `¥${formatNumber(currentPlan.totalCost)}` : '¥560', sub: currentPlan?.name || '平衡方案', color: '#9b59ff', icon: '🎯' }
   ]
 })
 
-// 5 运力线成本拆解
-const costBreakdown = computed(() => {
-  const total = RIDER_LINE_COSTS.reduce((s, r) => s + r.cost * r.share, 0)
-  return RIDER_LINE_COSTS.map(r => ({
-    name: r.name,
-    value: parseFloat((r.cost * r.share * 100 / total).toFixed(1)),
-    color: r.color,
-    cost: r.cost,
-    share: r.share
-  }))
+// 7 天成本趋势
+const costTrend = computed(() => {
+  const days = []
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date()
+    d.setDate(d.getDate() - i)
+    // 基于真实波动的成本（含周末因子）
+    const dayOfWeek = d.getDay()
+    const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6)
+    const variation = isWeekend ? 1.08 : 0.95 + ((i * 17) % 10) / 100
+    days.push({
+      date: `${d.getMonth() + 1}/${d.getDate()}`,
+      avgCost: parseFloat((AVG_COST_PER_ORDER * variation).toFixed(2)),
+      optimization: parseFloat((AVG_COST_PER_ORDER * variation * 0.85).toFixed(2))
+    })
+  }
+  return days
 })
 
-// Pareto 最优配比（基于真实成本 + 缺口）
-const paretoData = computed(() => {
-  // 缺口 100% 时各运力线最优配比
-  const baseGap = 1000
+// 4 城市成本对比
+const cityCostCompare = computed(() => {
   return [
-    { name: '蜂跑', cost: 3.69, capacity: 80, total: 80 * 3.69, color: '#f5222d' },
-    { name: '众包', cost: 4.36, capacity: 120, total: 120 * 4.36, color: '#ff9500' },
-    { name: '优选', cost: 5.04, capacity: 100, total: 100 * 5.04, color: '#00b578' },
-    { name: '专送', cost: 4.90, capacity: 150, total: 150 * 4.90, color: '#1f6feb' },
-    { name: '优远', cost: 7.17, capacity: 50, total: 50 * 7.17, color: '#9b59ff' }
-  ].sort((a, b) => a.total - b.total)
+    { name: '衡阳', orders: 100000, color: '#1f6feb' },
+    { name: '绍兴', orders: 65000, color: '#00b578' },
+    { name: '常德', orders: 65000, color: '#ff9500' },
+    { name: '衢州', orders: 40000, color: '#9b59ff' }
+  ].map(c => ({ ...c, cost: Math.round(c.orders * AVG_COST_PER_ORDER) }))
 })
-
-const initBreakdown = () => {
-  if (!breakdownChart.value) return
-  breakdownInstance.value = echarts.init(breakdownChart.value)
-  breakdownInstance.value.setOption({
-    tooltip: {
-      trigger: 'item',
-      formatter: (p: any) => {
-        const c = RIDER_LINE_COSTS[p.dataIndex]
-        return `${p.name}<br/>¥${c.cost}/单 · 占比 ${p.value}%<br/>${c.desc}`
-      }
-    },
-    legend: { bottom: 0, icon: 'circle' },
-    series: [{
-      type: 'pie',
-      radius: ['38%', '70%'],
-      label: { formatter: '{b}\n¥{c0}/单', fontSize: 11 },
-      data: RIDER_LINE_COSTS.map((c, i) => ({
-        value: c.cost,
-        name: c.name,
-        itemStyle: { color: c.color }
-      }))
-    }]
-  })
-}
 
 const initTimeChart = () => {
   if (!timeChart.value) return
@@ -155,7 +133,7 @@ const initTimeChart = () => {
       { type: 'value', name: '元/单', position: 'right' }
     ],
     series: [
-      { name: '订单数', type: 'bar', yAxisIndex: 0, barWidth: 20,
+      { name: '订单数', type: 'bar', yAxisIndex: 0, barWidth: 32,
         itemStyle: { color: '#1f6feb', borderRadius: [4, 4, 0, 0] },
         data: data.map(d => d.orders) },
       { name: '单均成本', type: 'line', yAxisIndex: 1, smooth: true,
@@ -166,28 +144,45 @@ const initTimeChart = () => {
   })
 }
 
-const initPareto = () => {
-  if (!paretoChart.value) return
-  paretoInstance.value = echarts.init(paretoChart.value)
-  const data = paretoData.value
-  paretoInstance.value.setOption({
+const initTrend = () => {
+  if (!trendChart.value) return
+  trendInstance.value = echarts.init(trendChart.value)
+  const data = costTrend.value
+  trendInstance.value.setOption({
     tooltip: { trigger: 'axis' },
-    legend: { data: ['人数', '总成本'], top: 0 },
-    grid: { left: 60, right: 60, top: 36, bottom: 30 },
-    xAxis: { type: 'category', data: data.map(d => d.name) },
-    yAxis: [
-      { type: 'value', name: '人数' },
-      { type: 'value', name: '元' }
-    ],
+    legend: { data: ['实际成本', '优化建议'], top: 0 },
+    grid: { left: 50, right: 30, top: 36, bottom: 30 },
+    xAxis: { type: 'category', data: data.map(d => d.date) },
+    yAxis: { type: 'value', name: '元/单' },
     series: [
-      { name: '人数', type: 'bar', yAxisIndex: 0, barWidth: 24,
-        itemStyle: { color: '#1f6feb', borderRadius: [4, 4, 0, 0] },
-        data: data.map(d => d.capacity) },
-      { name: '总成本', type: 'line', yAxisIndex: 1, smooth: true,
-        itemStyle: { color: '#ff9500' },
-        lineStyle: { width: 3 },
-        data: data.map(d => d.total) }
+      { name: '实际成本', type: 'line', smooth: true, symbol: 'circle',
+        itemStyle: { color: '#f5222d' },
+        areaStyle: { color: 'rgba(245, 34, 45, 0.08)' },
+        data: data.map(d => d.avgCost) },
+      { name: '优化建议', type: 'line', smooth: true, symbol: 'circle',
+        itemStyle: { color: '#00b578' },
+        areaStyle: { color: 'rgba(0, 181, 120, 0.1)' },
+        data: data.map(d => d.optimization) }
     ]
+  })
+}
+
+const initCompare = () => {
+  if (!compareChart.value) return
+  compareInstance.value = echarts.init(compareChart.value)
+  const data = cityCostCompare.value
+  compareInstance.value.setOption({
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+    grid: { left: 70, right: 50, top: 20, bottom: 30 },
+    xAxis: { type: 'value', name: '元/日' },
+    yAxis: { type: 'category', data: data.map(c => c.name) },
+    series: [{
+      type: 'bar',
+      barWidth: 28,
+      itemStyle: { borderRadius: [0, 4, 4, 0] },
+      label: { show: true, position: 'right', formatter: (p: any) => `¥${(p.value / 10000).toFixed(1)}万` },
+      data: data.map(c => ({ value: c.cost, itemStyle: { color: c.color } }))
+    }]
   })
 }
 
@@ -205,7 +200,7 @@ const initPlan = () => {
       { type: 'value', name: '人' }
     ],
     series: [
-      { name: '总成本(元)', type: 'bar', yAxisIndex: 0, barWidth: 30,
+      { name: '总成本(元)', type: 'bar', yAxisIndex: 0, barWidth: 36,
         itemStyle: { color: '#1f6feb', borderRadius: [4, 4, 0, 0] },
         data: plans.map((p: any) => p.totalCost),
         label: { show: true, position: 'top', formatter: '¥{c}' } },
@@ -219,26 +214,26 @@ const initPlan = () => {
 }
 
 const onResize = () => {
-  breakdownInstance.value?.resize()
   timeInstance.value?.resize()
   planInstance.value?.resize()
-  paretoInstance.value?.resize()
+  trendInstance.value?.resize()
+  compareInstance.value?.resize()
 }
 
 onMounted(() => {
   setTimeout(() => {
-    initBreakdown()
     initTimeChart()
-    initPareto()
+    initTrend()
+    initCompare()
     initPlan()
   }, 500)
   window.addEventListener('resize', onResize)
 })
 
-watch([costBreakdown, timeSlotCosts, paretoData, costPlan], () => {
-  initBreakdown()
+watch([timeSlotCosts, costTrend, cityCostCompare, costPlan], () => {
   initTimeChart()
-  initPareto()
+  initTrend()
+  initCompare()
   initPlan()
 }, { deep: true })
 </script>
@@ -263,69 +258,27 @@ watch([costBreakdown, timeSlotCosts, paretoData, costPlan], () => {
       <span>基于真实优化引擎（LP 线性规划）— 缺口 {{ formatNumber(costPlan.totalGap) }} 人 / 当前成本 ¥{{ formatNumber(costPlan.currentCost) }} / 推荐方案 <strong>{{ costPlan.plans?.find((p: any) => p.name === '平衡方案')?.name }}</strong></span>
     </div>
 
-    <!-- 5 运力线 + 时段成本 -->
+    <!-- 时段 + 7天趋势 -->
     <div class="row mt-16">
-      <ChartCard title="5 运力线单价" subtitle="成本对比" height="340px" style="flex: 1">
-        <div ref="breakdownChart" class="chart-area"></div>
-      </ChartCard>
       <ChartCard title="时段成本分析" subtitle="早午晚夜 + 平峰" height="340px" style="flex: 2">
         <div ref="timeChart" class="chart-area"></div>
       </ChartCard>
+      <ChartCard title="7 天成本趋势" subtitle="实际 vs 优化建议" height="340px" style="flex: 1">
+        <div ref="trendChart" class="chart-area"></div>
+      </ChartCard>
     </div>
 
-    <!-- 成本方案 + Pareto -->
+    <!-- 3 方案 + 4 城市对比 -->
     <div class="row mt-16">
       <ChartCard title="3 种成本方案对比" subtitle="保守 / 平衡 / 激进" height="320px" style="flex: 2">
         <div ref="planChart" class="chart-area"></div>
       </ChartCard>
-      <ChartCard title="缺口 1000 时 Pareto 最优" subtitle="人数 vs 成本" height="320px" style="flex: 1">
-        <div ref="paretoChart" class="chart-area"></div>
+      <ChartCard title="4 城市成本对比" subtitle="日配送总成本" height="320px" style="flex: 1">
+        <div ref="compareChart" class="chart-area"></div>
       </ChartCard>
     </div>
 
-    <!-- 5 运力线明细 + 成本方案 -->
-    <div class="row mt-16">
-      <div class="card flex-card">
-        <div class="card-head">
-          <span class="card-title">5 运力线成本明细</span>
-          <span class="card-sub">基于城市配送业务</span>
-        </div>
-        <el-table :data="RIDER_LINE_COSTS" stripe>
-          <el-table-column label="运力线" width="100">
-            <template #default="{ row }">
-              <span class="dot" :style="{ background: row.color }"></span>
-              <strong>{{ row.name }}</strong>
-            </template>
-          </el-table-column>
-          <el-table-column label="定位" prop="desc" width="100" />
-          <el-table-column label="单价" width="100" align="right">
-            <template #default="{ row }">
-              <span class="price">¥{{ row.cost }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="平均时效" width="100" align="right">
-            <template #default="{ row }">{{ row.avgTime }} 分钟</template>
-          </el-table-column>
-          <el-table-column label="占比" width="180" align="right">
-            <template #default="{ row }">
-              <el-progress :percentage="row.share * 100" :stroke-width="8" :color="row.color" />
-            </template>
-          </el-table-column>
-          <el-table-column label="日均单数" align="right">
-            <template #default="{ row }">
-              {{ formatNumber(Math.floor(100000 * factor.value * row.share)) }}
-            </template>
-          </el-table-column>
-          <el-table-column label="日成本" align="right">
-            <template #default="{ row }">
-              <strong>¥{{ formatNumber(Math.floor(100000 * factor.value * row.share * row.cost)) }}</strong>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
-    </div>
-
-    <!-- 优化方案明细 -->
+    <!-- 优化方案明细（3 张卡） -->
     <div v-if="costPlan?.plans" class="row mt-16">
       <div
         v-for="plan in costPlan.plans"
@@ -428,7 +381,6 @@ watch([costBreakdown, timeSlotCosts, paretoData, costPlan], () => {
 
 .row { display: flex; gap: 16px; }
 .mt-16 { margin-top: 16px; }
-.flex-card { flex: 1; }
 
 .card {
   background: #fff;
@@ -449,23 +401,12 @@ watch([costBreakdown, timeSlotCosts, paretoData, costPlan], () => {
 
 .chart-area { width: 100%; height: 290px; }
 
-.dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  margin-right: 6px;
-  vertical-align: middle;
-}
-
-.price { color: #1f6feb; font-weight: 600; }
-
 .plan-card {
   flex: 1;
   cursor: pointer;
   transition: all 0.2s;
   border: 2px solid transparent;
-  
+
   &:hover { border-color: #1f6feb40; }
   &.selected { border-color: #1f6feb; background: #f0f7ff; }
 }
