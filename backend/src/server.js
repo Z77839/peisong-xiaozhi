@@ -9,6 +9,7 @@ import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import { PORT, CORS_ORIGIN, NODE_ENV, RATE_LIMIT_PER_MINUTE, QWEATHER_API_KEY, ELEME_APP_KEY, RIDER_WS_URL, ORDER_STREAM_URL, DOUBAO, DEEPSEEK, COZE, LLM_ROUTER } from './config.js'
 import { logger, requestLogger } from './services/logger.js'
+import { restoreFromBackup, scheduleBackup } from './services/backupService.js'
 
 import authRouter from './routes/auth.js'
 import citiesRouter from './routes/cities.js'
