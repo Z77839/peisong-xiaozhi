@@ -6,8 +6,10 @@ import axios from 'axios'
 import { COZE } from '../config.js'
 import { getAgentContext } from './contextService.js'
 import { trackAgentCall } from './agentTracker.js'
+import { retrieveKnowledge, getKnowledgeContext } from '../routes/knowledge.js'
 
 const AGENTS = [
+  { id: 'knowledge-retrieve', name: '知识库检索 Agent', desc: 'RAG · 检索相关运营知识', icon: '📚' },
   { id: 'task-router', name: '任务路由 Agent', desc: '识别意图·拆解任务', icon: '🔀' },
   { id: 'order-predict', name: '订单预测 Agent', desc: 'AI 模型预测各时段订单', icon: '📈' },
   { id: 'rider-analyze', name: '运力分析 Agent', desc: '5 运力线智能匹配', icon: '🚴' },
@@ -167,12 +169,31 @@ export async function runDecisionWorkflow(query, options = {}) {
 [智能体感知上下文]
 ${ctx.contextSummary}
 ${getKnowledgeContext(query)}
+
+[输出要求]
+- 必须使用「配送小智」这个产品名
+- 如果上方【运营知识库】中有相关文档，请在答案中**明确引用**（用 [参考:文档名] 格式）
+- 报告末尾添加「📚 参考知识库」列出引用的文档
+- 答案要结构化、可执行、附置信度
 [用户问题]
 ${query}`
     const llmResult = await callLLM(enrichedQuery, { prefer: 'auto', taskType: 'long' })
     if (llmResult?.content) {
       const steps = AGENTS.map((a, i) => {
         const duration = 100 + Math.floor(Math.random() * 500)
+        let output = ''
+        if (a.id === 'knowledge-retrieve') {
+          const knowledgeUsed = retrieveKnowledge(query, 3)
+          if (knowledgeUsed.length > 0) {
+            output = `已检索到 ${knowledgeUsed.length} 条相关知识：\n${knowledgeUsed.map(k => `  • ${k.title}（${k.cat}）匹配度 ${k.score}`).join('\n')}`
+          } else {
+            output = '未找到相关知识'
+          }
+        } else if (i === 1) {
+          output = `已路由到 ${llmResult.provider} (${llmResult.model})`
+        } else {
+          output = `由 ${llmResult.provider} 生成建议`
+        }
         return {
           id: a.id,
           name: a.name,
@@ -180,13 +201,14 @@ ${query}`
           icon: a.icon,
           status: 'success',
           duration,
-          output: i === 0 ? `已路由到 ${llmResult.provider} (${llmResult.model})` : `由 ${llmResult.provider} 生成建议`
+          output
         }
       })
       // 记录每个 Agent 调用
       for (const s of steps) {
         trackAgentCall({ agentName: s.name, durationMs: s.duration, status: s.status, decisionId, query })
       }
+      const knowledgeUsed = retrieveKnowledge(query, 3)
       return {
         decisionId,
         steps,
@@ -195,7 +217,8 @@ ${query}`
         model: llmResult.model,
         llm_used: true,
         coze_used: false,
-        context: ctx
+        context: ctx,
+        knowledgeUsed
       }
     }
   } catch (err) {
@@ -215,6 +238,12 @@ ${query}`
 [智能体感知上下文]
 ${ctx.contextSummary}
 ${getKnowledgeContext(query)}
+
+[输出要求]
+- 必须使用「配送小智」这个产品名
+- 如果上方【运营知识库】中有相关文档，请在答案中**明确引用**（用 [参考:文档名] 格式）
+- 报告末尾添加「📚 参考知识库」列出引用的文档
+- 答案要结构化、可执行、附置信度
 [用户问题]
 ${query}`
       const reply = await callCozeBot(enrichedQuery)
