@@ -106,7 +106,10 @@ export async function optimizeDispatch({ cityId, orders, riders }) {
 // gap(t) = base[city][hour] × day_factor × weather_factor × holiday_factor × noise
 // 准确度: MAPE 8.2%, RMSE 28.4
 
-export async function predictGap({ cityId, hour, weather, isHoliday }) {
+export async function predictGap(params = {}) {
+  // 兼容前端传 'city' 或 'cityId'
+  const { cityId, city, hour, weather, isHoliday } = params
+  const _cityId = cityId || city || 'hengyang'
   // 城市基础订单量
   const cityBase = {
     hengyang: { hourly: 417, peakHourly: 9058 },
@@ -148,7 +151,7 @@ export async function predictGap({ cityId, hour, weather, isHoliday }) {
   const baseOrder = base.hourly * hourFactor;
 
   // 假设供给（基于骑手数）
-  const riders = await loadRiderTelemetry(cityId);
+  const riders = await loadRiderTelemetry(_cityId);
   const activeRiders = riders.filter(r => r.status === 'idle' || r.status === 'delivering').length;
   const riderCapacity = activeRiders * 5; // 每骑手每小时 5 单
   const supply = Math.min(riderCapacity, baseOrder * 1.3);
