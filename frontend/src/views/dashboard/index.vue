@@ -19,7 +19,8 @@ const CAPABILITIES = [
 ]
 
 // 智能体状态（从后端实时加载）
-const agents = ref<Array<{ name: string; status: string; calls: number; avgMs: number }>>([])
+const agents = ref<Array<{ name: string;
+import KnowledgeHints from '@/components/KnowledgeHints.vue' status: string; calls: number; avgMs: number }>>([])
 const agentLoadHint = ref('点击「决策中心」运行决策后会自动记录')
 
 // 实时 KPI（从后端加载）
@@ -111,6 +112,8 @@ function goPage(path: string) {
 
 <template>
   <div class="dash-page">
+    <!-- 知识库提示 -->
+    <KnowledgeHints />
     <!-- ========== Hero: 配送小智 形象 ========== -->
     <div class="hero">
       <div class="hero-bg">
