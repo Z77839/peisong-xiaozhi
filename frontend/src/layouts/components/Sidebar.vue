@@ -24,11 +24,10 @@ const menus = [
 
   // 3. 运力管理
   {
-    path: '/rider-types',
+    path: '/rider',
     title: '运力管理',
     icon: 'Van',
     children: [
-      { path: '/rider-types', title: '运力线分析', icon: 'PieChart' },
       { path: '/rider', title: '骑手管理', icon: 'User' },
       { path: '/simulation', title: '仿真回放', icon: 'VideoPlay' }
     ]
@@ -62,7 +61,7 @@ const menus = [
 const activeMenu = computed(() => route.path)
 
 // 默认展开所有大类
-const defaultOpened = ['/decision', '/rider-types', '/order', '/data-source']
+const defaultOpened = ['/decision', '/rider', '/order', '/data-source']
 </script>
 
 <template>
