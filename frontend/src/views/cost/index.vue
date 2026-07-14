@@ -59,8 +59,8 @@ async function fetchData() {
   try {
     const [dashR, planR, gapR] = await Promise.all([
       request({ url: '/dashboard' }),
-      request({ url: '/optimize/cost-plan', method: 'POST', data: { city: city.id, gap: 800 } }),
-      request({ url: '/optimize/predict-gap', method: 'POST', data: { city: city.id, hour: 19, isHoliday: false } })
+      request({ url: '/optimize/cost-plan', method: 'POST', data: { cityId: city.id, gap: 800 } }),
+      request({ url: '/optimize/predict-gap', method: 'POST', data: { cityId: city.id, hour: 19, isHoliday: false } })
     ])
     dashboardData.value = dashR.data || dashR
     costPlan.value = planR.data || planR
