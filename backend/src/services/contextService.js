@@ -102,10 +102,19 @@ function mockWeather(cityId) {
 async function fetchQWeather(cityId) {
   const coords = CITY_COORDS[cityId] || CITY_COORDS.hengyang
   const apiKey = process.env.WEATHER_API_KEY
-  // location 用 经度,纬度（devapi 接受这种）
+  // 优先用 QWEATHER_API_HOST（Render 配的 .re.qweatherapi.com 代理）
+  // 降级用 devapi.qweather.com
+  const host = process.env.QWEATHER_API_HOST
+    ? (process.env.QWEATHER_API_HOST.startsWith('http') ? process.env.QWEATHER_API_HOST : `https://${process.env.QWEATHER_API_HOST}`)
+    : 'https://devapi.qweather.com'
+  // location 用 经度,纬度
   const loc = `${coords.lng.toFixed(2)},${coords.lat.toFixed(2)}`
-  const url = `https://devapi.qweather.com/v7/weather/now?location=${loc}&key=${apiKey}`
-  const { data } = await axios.get(url, { timeout: 5000 })
+  const url = `${host}/v7/weather/now?location=${loc}&key=${apiKey}`
+  const { data } = await axios.get(url, {
+    timeout: 5000,
+    decompress: true,  // 处理 gzip 压缩
+    headers: { 'Accept-Encoding': 'gzip,deflate' }
+  })
   if (data.code !== '200') {
     throw new Error(`qweather error code=${data.code}: ${data.code === '401' ? 'API Key 无效' : data.code}`)
   }
@@ -164,12 +173,25 @@ export async function testWeatherAPI(cityId = 'hengyang') {
 export async function getAgentContext(cityId = 'hengyang', options = {}) {
   const { override } = options
   const now = override?.datetime ? new Date(override.datetime) : new Date()
-  const hour = now.getHours()
-  const day = now.getDate()
-  const month = now.getMonth() + 1
-  const year = now.getFullYear()
-  const weekday = ['日', '一', '二', '三', '四', '五', '六'][now.getDay()]
-  const isWeekend = now.getDay() === 0 || now.getDay() === 6
+  // 使用业务时区（北京时间）读取时间，不依赖服务器 UTC
+  const beijingFmt = new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', hour12: false, weekday: 'long'
+  })
+  const parts = beijingFmt.formatToParts(now)
+  const get = (t) => parts.find(p => p.type === t)?.value || ''
+  const hour = parseInt(get('hour'), 10) % 24  // Intl 可能返回 24
+  const day = parseInt(get('day'), 10)
+  const month = parseInt(get('month'), 10)
+  const year = parseInt(get('year'), 10)
+  // weekday: '星期二' -> '二'
+  const wdStr = get('weekday') || ''
+  const weekday = wdStr.replace('星期', '')
+  // 计算周末（用北京时间周几）
+  const beijingDateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+  const beijingDate = new Date(beijingDateStr + 'T12:00:00+08:00')
+  const isWeekend = beijingDate.getDay() === 0 || beijingDate.getDay() === 6
 
   const city = cities.find((c) => c.id === cityId) || cities[0]
   const slot = getTimeSlot(hour)
@@ -203,9 +225,15 @@ export async function getAgentContext(cityId = 'hengyang', options = {}) {
   const riderStats = await getRiderStats().catch(() => null)
   const riderCtx = formatRiderContext(riderStats || {}, city.name)
 
+  // 计算分钟（同样用北京时间）
+  const minutePart = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Shanghai',
+    minute: '2-digit', hour12: false
+  }).formatToParts(now).find(p => p.type === 'minute')?.value || '00'
+
   return {
     timestamp: now.getTime(),
-    datetime: `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')} 周${weekday} ${String(hour).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`,
+    datetime: `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')} 周${weekday} ${String(hour).padStart(2, '0')}:${minutePart}`,
     city: {
       id: city.id,
       name: city.name,
