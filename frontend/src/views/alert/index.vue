@@ -4,6 +4,7 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useCityStore } from '@/store/city'
 import { API_BASE_URL } from '@/utils/apiBase'
+import KnowledgeHints from '@/components/KnowledgeHints.vue'
 
 interface Alert {
   id: string
@@ -133,6 +134,8 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="alert-page">
+    <!-- 顶部：知识库提示 -->
+    <KnowledgeHints />
     <!-- 顶部：配送小智 主动预防式 -->
     <div class="hero">
       <div class="hero-bg">
