@@ -1,74 +1,74 @@
 [
   {
     "agent_name": "知识库检索 Agent",
-    "duration_ms": 148,
+    "duration_ms": 390,
     "status": "success",
-    "decision_id": "d_1784046221634_7dn66b",
-    "query": "衡阳晚高峰",
-    "timestamp": "2026-07-14T16:24:12.975Z"
+    "decision_id": "d_1784047190871_9k3655",
+    "query": "预测今晚衡阳各商圈订单量",
+    "timestamp": "2026-07-14T16:40:13.591Z"
   },
   {
     "agent_name": "任务路由 Agent",
-    "duration_ms": 507,
+    "duration_ms": 333,
     "status": "success",
-    "decision_id": "d_1784046221634_7dn66b",
-    "query": "衡阳晚高峰",
-    "timestamp": "2026-07-14T16:24:12.976Z"
+    "decision_id": "d_1784047190871_9k3655",
+    "query": "预测今晚衡阳各商圈订单量",
+    "timestamp": "2026-07-14T16:40:13.591Z"
   },
   {
     "agent_name": "订单预测 Agent",
-    "duration_ms": 378,
+    "duration_ms": 393,
     "status": "success",
-    "decision_id": "d_1784046221634_7dn66b",
-    "query": "衡阳晚高峰",
-    "timestamp": "2026-07-14T16:24:12.976Z"
+    "decision_id": "d_1784047190871_9k3655",
+    "query": "预测今晚衡阳各商圈订单量",
+    "timestamp": "2026-07-14T16:40:13.591Z"
   },
   {
     "agent_name": "运力分析 Agent",
-    "duration_ms": 420,
+    "duration_ms": 236,
     "status": "success",
-    "decision_id": "d_1784046221634_7dn66b",
-    "query": "衡阳晚高峰",
-    "timestamp": "2026-07-14T16:24:12.976Z"
+    "decision_id": "d_1784047190871_9k3655",
+    "query": "预测今晚衡阳各商圈订单量",
+    "timestamp": "2026-07-14T16:40:13.592Z"
   },
   {
     "agent_name": "成本分析 Agent",
-    "duration_ms": 365,
+    "duration_ms": 290,
     "status": "success",
-    "decision_id": "d_1784046221634_7dn66b",
-    "query": "衡阳晚高峰",
-    "timestamp": "2026-07-14T16:24:12.977Z"
+    "decision_id": "d_1784047190871_9k3655",
+    "query": "预测今晚衡阳各商圈订单量",
+    "timestamp": "2026-07-14T16:40:13.593Z"
   },
   {
     "agent_name": "派单推荐 Agent",
-    "duration_ms": 156,
+    "duration_ms": 476,
     "status": "success",
-    "decision_id": "d_1784046221634_7dn66b",
-    "query": "衡阳晚高峰",
-    "timestamp": "2026-07-14T16:24:12.977Z"
+    "decision_id": "d_1784047190871_9k3655",
+    "query": "预测今晚衡阳各商圈订单量",
+    "timestamp": "2026-07-14T16:40:13.594Z"
   },
   {
     "agent_name": "C 端增长 Agent",
-    "duration_ms": 114,
+    "duration_ms": 162,
     "status": "success",
-    "decision_id": "d_1784046221634_7dn66b",
-    "query": "衡阳晚高峰",
-    "timestamp": "2026-07-14T16:24:12.978Z"
+    "decision_id": "d_1784047190871_9k3655",
+    "query": "预测今晚衡阳各商圈订单量",
+    "timestamp": "2026-07-14T16:40:13.595Z"
   },
   {
     "agent_name": "决策汇总 Agent",
-    "duration_ms": 552,
+    "duration_ms": 427,
     "status": "success",
-    "decision_id": "d_1784046221634_7dn66b",
-    "query": "衡阳晚高峰",
-    "timestamp": "2026-07-14T16:24:12.978Z"
+    "decision_id": "d_1784047190871_9k3655",
+    "query": "预测今晚衡阳各商圈订单量",
+    "timestamp": "2026-07-14T16:40:13.596Z"
   },
   {
     "agent_name": "报告生成 Agent",
-    "duration_ms": 424,
+    "duration_ms": 393,
     "status": "success",
-    "decision_id": "d_1784046221634_7dn66b",
-    "query": "衡阳晚高峰",
-    "timestamp": "2026-07-14T16:24:12.978Z"
+    "decision_id": "d_1784047190871_9k3655",
+    "query": "预测今晚衡阳各商圈订单量",
+    "timestamp": "2026-07-14T16:40:13.597Z"
   }
 ]
