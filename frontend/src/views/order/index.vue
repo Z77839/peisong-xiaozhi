@@ -5,6 +5,9 @@ import ChartCard from '@/components/ChartCard.vue'
 import { useCityStore } from '@/store/city'
 import { formatNumber } from '@/utils/format'
 import request from '@/api/request'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const cityStore = useCityStore()
 const city = cityStore.currentCity
@@ -48,6 +51,24 @@ async function fetchData() {
 onMounted(() => {
   fetchData()
 })
+
+// 🆕 订单/成本 → 决策中心 联动提示
+const orderSpike = computed(() => {
+  // 指标 1：预测缺口 > 0 → 需要调度
+  const gap = (dashboardData.value?.regions || [])
+    .filter((r: any) => r.level === 'grid' && r.region_name?.startsWith(city.name))
+    .reduce((s: number, r: any) => s + (r.capacity_gap || 0), 0)
+  // 指标 2：今日订单增长超阈值
+  const dailyOrders = (dashboardData.value?.kpis?.total_orders || 0) * factor.value
+  return { gap, dailyOrders, hasIssue: gap > 50 || dailyOrders > 50000 }
+})
+
+function askDecisionForOrders() {
+  const issue = orderSpike.value.gap > 50
+    ? `订单预测缺口 ${orderSpike.value.gap} 单，请给出运力调度方案`
+    : `今日订单达 ${Math.floor(orderSpike.value.dailyOrders).toLocaleString()} 单，请分析高峰时段运力需求`
+  router.push(`/decision?cityId=${city.id}&q=${encodeURIComponent(issue)}`)
+}
 
 watch(() => city.id, () => fetchData())
 
@@ -190,6 +211,24 @@ watch([hourlyOrders, regionData], () => {
 
 <template>
   <div class="page-container">
+    <!-- 🆕 订单激增 / 缺口 提示条（订单 → 决策中心） -->
+    <div v-if="orderSpike?.hasIssue" class="order-spike-banner">
+      <div class="osb-bg">📈 ORDER SURGE</div>
+      <div class="osb-content">
+        <span class="osb-ico">{{ orderSpike.gap > 50 ? '🚨' : '📈' }}</span>
+        <div class="osb-text">
+          <div class="osb-title">
+            {{ orderSpike.gap > 50
+              ? `配送小智检测到订单缺口 · ${city.name} 总缺口 <b>${orderSpike.gap}</b> 单`
+              : `配送小智检测到订单高峰 · ${city.name} 今日 <b>${formatNumber(Math.floor(orderSpike.dailyOrders))}</b> 单` }}
+          </div>
+          <div class="osb-sub">让小智一键分析运力需求并生成调度方案</div>
+        </div>
+        <button class="osb-btn" @click="askDecisionForOrders">
+          🤖 让小智分析
+        </button>
+      </div>
+    </div>
     <!-- KPI 行 -->
     <div class="stat-row">
       <div v-for="(s, i) in kpis" :key="i" class="stat-card" :style="{ borderTop: `3px solid ${s.color}` }">
@@ -271,6 +310,55 @@ watch([hourlyOrders, regionData], () => {
 
 <style lang="scss" scoped>
 @use "@/assets/styles/variables.scss" as *;
+
+/* 🆕 订单激增/缺口 提示条（订单 → 决策中心） */
+.order-spike-banner {
+  position: relative;
+  background: linear-gradient(135deg, #e6f7ff 0%, #f0f5ff 100%);
+  border: 2px solid #1f6feb;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(31, 111, 235, 0.12);
+}
+.osb-bg {
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 64px;
+  font-weight: 900;
+  color: rgba(31, 111, 235, 0.08);
+  letter-spacing: -2px;
+  user-select: none;
+  pointer-events: none;
+}
+.osb-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.osb-ico { font-size: 32px; }
+.osb-text { flex: 1; }
+.osb-title { font-size: 15px; font-weight: 700; color: #1d2129; }
+.osb-title b { color: #1f6feb; font-size: 18px; }
+.osb-sub { font-size: 12px; color: #52647c; margin-top: 2px; }
+.osb-btn {
+  background: linear-gradient(135deg, #1f6feb, #722ed1);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.osb-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(31, 111, 235, 0.4); }
 
 .page-container { padding: 20px; }
 

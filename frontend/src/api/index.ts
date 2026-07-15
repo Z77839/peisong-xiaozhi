@@ -13,7 +13,9 @@ export const orderApi = {
 
 export const riderApi = {
   analyze: (params: any) => request.post('/rider/analyze', params),
-  list: (params: any) => request.get('/rider/list', { params })
+  list: (params: any) => request.get('/rider/list', { params }),
+  // 🆕 容量检查（骑手/订单/成本页 → 决策中心联动）
+  capacity: () => request.get('/riders/capacity')
 }
 
 export const costApi = {

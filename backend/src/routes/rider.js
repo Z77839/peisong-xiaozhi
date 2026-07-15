@@ -116,7 +116,56 @@ router.delete('/extra/:id', authRequired, (req, res) => {
   res.json({ code: 200, data: result })
 })
 
-// 12. 骑手详情（必须放最后，否则会拦截 /import-stats 等子路由）
+// 🆕 12. 各城市运力容量检查（供骑手/订单/成本页调用 + 决策中心预警）
+//  根据各城市日订单 × 10% 运力需求 - 在线骑手 = 缺口
+router.get('/capacity', (req, res) => {
+  try {
+    const stats = getRiderStats()
+    const byCity = stats.byCity || {}
+    const CITIES_NEED = {
+      hengyang: { dailyOrders: 100000, needRate: 0.10, minRiders: 200 },
+      shaoxing: { dailyOrders: 65000,  needRate: 0.10, minRiders: 150 },
+      changde:  { dailyOrders: 65000,  needRate: 0.10, minRiders: 150 },
+      quzhou:   { dailyOrders: 20000,  needRate: 0.10, minRiders: 80  }
+    }
+    const cityStatus = Object.keys(CITIES_NEED).map((cityId) => {
+      const cfg = CITIES_NEED[cityId]
+      const online = byCity[cityId] || 0
+      // 高峰期需运力 = 日订单 * 10% / 1小时
+      const peakNeed = Math.ceil(cfg.dailyOrders * cfg.needRate)
+      const gap = Math.max(0, peakNeed - online)
+      const coverage = peakNeed > 0 ? Math.min(1, online / peakNeed) : 1
+      const level = gap === 0 ? 'ok' : (coverage < 0.7 ? 'critical' : (coverage < 0.9 ? 'warning' : 'ok'))
+      return {
+        cityId,
+        dailyOrders: cfg.dailyOrders,
+        onlineRiders: online,
+        peakNeed,
+        gap,
+        coverage: +(coverage * 100).toFixed(1),
+        level,
+        suggestDecision: gap > 0  // 缺口 > 0 → 建议决策中心介入
+      }
+    })
+    const totalGap = cityStatus.reduce((s, c) => s + c.gap, 0)
+    const totalOnline = cityStatus.reduce((s, c) => s + c.onlineRiders, 0)
+    res.json({
+      code: 0,
+      data: {
+        cities: cityStatus,
+        totalGap,
+        totalOnline,
+        hasShortage: totalGap > 0,
+        worstCity: cityStatus.reduce((a, b) => (a.gap > b.gap ? a : b))
+      }
+    })
+  } catch (e) {
+    console.error('[riders/capacity]', e.message)
+    res.status(200).json({ code: 0, data: { cities: [], totalGap: 0, hasShortage: false, error: e.message } })
+  }
+})
+
+// 13. 骑手详情（必须放最后，否则会拦截 /import-stats 等子路由）
 router.get('/:id', authRequired, async (req, res) => {
   try {
     const rider = await getRiderById(req.params.id)

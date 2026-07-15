@@ -5,6 +5,9 @@ import ChartCard from '@/components/ChartCard.vue'
 import { useCityStore } from '@/store/city'
 import { formatNumber } from '@/utils/format'
 import request from '@/api/request'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const cityStore = useCityStore()
 const city = cityStore.currentCity
@@ -72,6 +75,32 @@ async function fetchData() {
 
 onMounted(() => fetchData())
 watch(() => city.id, () => fetchData())
+
+// 🆕 成本 → 决策中心 联动提示
+const costAlert = computed(() => {
+  const baseCost = AVG_COST_PER_ORDER  // 4.85
+  const current = costPlan.value?.currentCostPerOrder || baseCost
+  const gap = costPlan.value?.totalGap || gapPrediction.value?.gap || 0
+  const overBudget = current > baseCost * 1.1  // 超过基准 10%
+  const highGap = gap > 500
+  if (overBudget || highGap) {
+    return {
+      type: overBudget ? 'overbudget' : 'highgap',
+      currentCost: current,
+      baseCost,
+      gap,
+      hasIssue: true
+    }
+  }
+  return { hasIssue: false }
+})
+
+function askDecisionForCost() {
+  const q = costAlert.value.type === 'overbudget'
+    ? `${city.name}单均成本达 ¥${costAlert.value.currentCost.toFixed(2)}，超出预算 ¥${costAlert.value.baseCost.toFixed(2)}，请给出成本优化方案`
+    : `${city.name}运力缺口 ${costAlert.value.gap} 单，请评估是否需要调拨临时补贴或众包`
+  router.push(`/decision?cityId=${city.id}&q=${encodeURIComponent(q)}`)
+}
 
 // 4 个核心 KPI
 const metrics = computed(() => {
@@ -241,6 +270,27 @@ watch([timeSlotCosts, costTrend, cityCostCompare, costPlan], () => {
 
 <template>
   <div class="page-container">
+    <!-- 🆕 成本超支 / 高缺口 提示条（成本 → 决策中心） -->
+    <div v-if="costAlert?.hasIssue" class="cost-alert-banner" :class="`type-${costAlert.type}`">
+      <div class="cab-bg">{{ costAlert.type === 'overbudget' ? '💸 OVERBUDGET' : '📉 HIGH GAP' }}</div>
+      <div class="cab-content">
+        <span class="cab-ico">{{ costAlert.type === 'overbudget' ? '💸' : '📉' }}</span>
+        <div class="cab-text">
+          <div class="cab-title">
+            <template v-if="costAlert.type === 'overbudget'">
+              配送小智检测到 <b>成本超支</b> · {{ city.name }} 单均 ¥{{ costAlert.currentCost.toFixed(2) }}（基准 ¥{{ costAlert.baseCost.toFixed(2) }}）
+            </template>
+            <template v-else>
+              配送小智检测到 <b>运力缺口大</b> · {{ city.name }} 缺口 {{ formatNumber(costAlert.gap) }} 单
+            </template>
+          </div>
+          <div class="cab-sub">让小智一键生成成本优化 / 调拨方案</div>
+        </div>
+        <button class="cab-btn" @click="askDecisionForCost">
+          🤖 让小智优化
+        </button>
+      </div>
+    </div>
     <!-- KPI 行 -->
     <div class="stat-row">
       <div v-for="(s, i) in metrics" :key="i" class="stat-card" :style="{ borderTop: `3px solid ${s.color}` }">
@@ -323,6 +373,66 @@ watch([timeSlotCosts, costTrend, cityCostCompare, costPlan], () => {
 
 <style lang="scss" scoped>
 @use "@/assets/styles/variables.scss" as *;
+
+/* 🆕 成本超支 / 高缺口 提示条（成本 → 决策中心） */
+.cost-alert-banner {
+  position: relative;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.cost-alert-banner.type-overbudget {
+  background: linear-gradient(135deg, #fff1f0 0%, #fff7e6 100%);
+  border: 2px solid #f5222d;
+  box-shadow: 0 4px 12px rgba(245, 34, 45, 0.15);
+}
+.cost-alert-banner.type-highgap {
+  background: linear-gradient(135deg, #fff7e6 0%, #fffbe6 100%);
+  border: 2px solid #fa8c16;
+  box-shadow: 0 4px 12px rgba(250, 141, 22, 0.15);
+}
+.cab-bg {
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 64px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  user-select: none;
+  pointer-events: none;
+  color: rgba(0, 0, 0, 0.04);
+}
+.type-overbudget .cab-bg { color: rgba(245, 34, 45, 0.08); }
+.type-highgap .cab-bg { color: rgba(250, 141, 22, 0.08); }
+.cab-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.cab-ico { font-size: 32px; }
+.cab-text { flex: 1; }
+.cab-title { font-size: 15px; font-weight: 700; color: #1d2129; }
+.cab-title b { color: #f5222d; }
+.type-highgap .cab-title b { color: #fa8c16; }
+.cab-sub { font-size: 12px; color: #52647c; margin-top: 2px; }
+.cab-btn {
+  background: linear-gradient(135deg, #1f6feb, #722ed1);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.cab-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(31, 111, 235, 0.4); }
 
 .page-container { padding: 20px; }
 

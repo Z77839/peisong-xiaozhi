@@ -5,6 +5,9 @@ import ChartCard from '@/components/ChartCard.vue'
 import { formatNumber } from '@/utils/format'
 import request from '@/api/request'
 import RiderFloatButton from '@/components/RiderFloatButton.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 // ===== 真实数据 API =====
 const loading = ref(false)
@@ -73,6 +76,23 @@ const fetchRiders = async () => {
 const filterByLifecycle = ref<string>('')
 const filterByLevel = ref<string>('')
 
+// 🆕 容量预警（骑手 → 决策中心联动）
+const capacity = ref<any>(null)
+const fetchCapacity = async () => {
+  try {
+    const r: any = await request({ url: '/riders/capacity' })
+    capacity.value = r.data || r
+  } catch (e) { console.warn('riders/capacity 失败', e) }
+}
+
+/**
+ * 🆕 跳到决策中心 + 带问题描述
+ */
+function askDecisionForShortage(c: any) {
+  const q = `${c.cityId === 'hengyang' ? '衡阳' : c.cityId === 'shaoxing' ? '绍兴' : c.cityId === 'changde' ? '常德' : '衢州'}专送缺编 ${c.gap} 人，请给出运力调度方案`
+  router.push(`/decision?cityId=${c.cityId}&q=${encodeURIComponent(q)}`)
+}
+
 const handleSearch = () => fetchRiders()
 const handleReset = () => {
   searchKw.value = ''
@@ -85,6 +105,7 @@ const handleReset = () => {
 onMounted(async () => {
   await fetchHealth()
   await fetchStats()
+  await fetchCapacity()  // 🆕
   await fetchRiders()
   initCharts()
 })
@@ -182,6 +203,32 @@ onMounted(() => {
 
 <template>
   <div class="page-container">
+    <!-- 🆕 容量预警条（骑手 → 决策中心） -->
+    <div v-if="capacity?.hasShortage" class="capacity-alert">
+      <div class="ca-bg">⚠️ CAPACITY ALERT</div>
+      <div class="ca-content">
+        <span class="ca-ico">⚠️</span>
+        <div class="ca-text">
+          <div class="ca-title">配送小智检测到运力缺口 · 全网合计 <b>{{ capacity.totalGap }}</b> 人</div>
+          <div class="ca-sub">最严重：<b>{{ capacity.worstCity.cityId === 'hengyang' ? '衡阳' : capacity.worstCity.cityId === 'shaoxing' ? '绍兴' : capacity.worstCity.cityId === 'changde' ? '常德' : '衢州' }}</b> 缺口 {{ capacity.worstCity.gap }} 人（覆盖率仅 {{ capacity.worstCity.coverage }}%）</div>
+        </div>
+        <button class="ca-btn" @click="askDecisionForShortage(capacity.worstCity)">
+          🤖 让小智分析
+        </button>
+      </div>
+      <div class="ca-tags">
+        <span
+          v-for="c in capacity.cities.filter((x: any) => x.gap > 0)"
+          :key="c.cityId"
+          class="ca-tag"
+          :class="`level-${c.level}`"
+        >
+          {{ c.cityId === 'hengyang' ? '衡阳' : c.cityId === 'shaoxing' ? '绍兴' : c.cityId === 'changde' ? '常德' : '衢州' }}
+          <b>缺 {{ c.gap }}</b>
+          <span class="ca-tag-act" @click.stop="askDecisionForShortage(c)">分析</span>
+        </span>
+      </div>
+    </div>
     <!-- 顶部数据条 -->
     <div class="stat-row">
       <div class="stat-card" style="border-top: 3px solid #1f6feb">
@@ -329,6 +376,88 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @use "@/assets/styles/variables.scss" as *;
+
+/* 🆕 容量预警条（骑手 → 决策中心） */
+.capacity-alert {
+  position: relative;
+  background: linear-gradient(135deg, #fff1f0 0%, #fff7e6 100%);
+  border: 2px solid #ff7a45;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(255, 122, 69, 0.15);
+}
+.ca-bg {
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 80px;
+  font-weight: 900;
+  color: rgba(255, 122, 69, 0.08);
+  letter-spacing: -2px;
+  user-select: none;
+  pointer-events: none;
+}
+.ca-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.ca-ico { font-size: 32px; }
+.ca-text { flex: 1; }
+.ca-title { font-size: 15px; font-weight: 700; color: #d4380d; }
+.ca-title b { color: #f5222d; font-size: 18px; }
+.ca-sub { font-size: 12px; color: #ad6800; margin-top: 2px; }
+.ca-sub b { color: #d4380d; }
+.ca-btn {
+  background: linear-gradient(135deg, #1f6feb, #722ed1);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.ca-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(31, 111, 235, 0.4); }
+.ca-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  position: relative;
+  z-index: 1;
+}
+.ca-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 4px 4px 10px;
+  background: #fff;
+  border: 1px solid #ffd591;
+  border-radius: 16px;
+  font-size: 12px;
+  color: #1d2129;
+}
+.ca-tag.level-critical { border-color: #f5222d; color: #f5222d; font-weight: 600; }
+.ca-tag.level-warning  { border-color: #fa8c16; color: #fa8c16; font-weight: 600; }
+.ca-tag b { color: #f5222d; }
+.ca-tag-act {
+  background: linear-gradient(135deg, #1f6feb, #722ed1);
+  color: #fff !important;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.ca-tag-act:hover { opacity: 0.85; }
 
 .page-container {
   padding: 20px;
