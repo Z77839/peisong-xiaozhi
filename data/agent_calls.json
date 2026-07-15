@@ -254,5 +254,69 @@
     "decision_id": "d_1784090798390_ikpt0i",
     "query": "评估晚高峰蜂跑运力是否扩容",
     "timestamp": "2026-07-15T04:47:06.865Z"
+  },
+  {
+    "agent_name": "知识库检索 Agent",
+    "duration_ms": 355,
+    "status": "success",
+    "decision_id": "d_1784092103924_jy4cx0",
+    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
+    "timestamp": "2026-07-15T05:08:59.334Z"
+  },
+  {
+    "agent_name": "任务路由 Agent",
+    "duration_ms": 527,
+    "status": "success",
+    "decision_id": "d_1784092103924_jy4cx0",
+    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
+    "timestamp": "2026-07-15T05:08:59.334Z"
+  },
+  {
+    "agent_name": "订单预测 Agent",
+    "duration_ms": 598,
+    "status": "success",
+    "decision_id": "d_1784092103924_jy4cx0",
+    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
+    "timestamp": "2026-07-15T05:08:59.335Z"
+  },
+  {
+    "agent_name": "运力分析 Agent",
+    "duration_ms": 446,
+    "status": "success",
+    "decision_id": "d_1784092103924_jy4cx0",
+    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
+    "timestamp": "2026-07-15T05:08:59.335Z"
+  },
+  {
+    "agent_name": "成本分析 Agent",
+    "duration_ms": 185,
+    "status": "success",
+    "decision_id": "d_1784092103924_jy4cx0",
+    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
+    "timestamp": "2026-07-15T05:08:59.335Z"
+  },
+  {
+    "agent_name": "派单推荐 Agent",
+    "duration_ms": 558,
+    "status": "success",
+    "decision_id": "d_1784092103924_jy4cx0",
+    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
+    "timestamp": "2026-07-15T05:08:59.336Z"
+  },
+  {
+    "agent_name": "决策汇总 Agent",
+    "duration_ms": 413,
+    "status": "success",
+    "decision_id": "d_1784092103924_jy4cx0",
+    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
+    "timestamp": "2026-07-15T05:08:59.336Z"
+  },
+  {
+    "agent_name": "报告生成 Agent",
+    "duration_ms": 480,
+    "status": "success",
+    "decision_id": "d_1784092103924_jy4cx0",
+    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
+    "timestamp": "2026-07-15T05:08:59.336Z"
   }
 ]
