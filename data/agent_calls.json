@@ -126,5 +126,69 @@
     "decision_id": "d_1784086049597_fcuyf2",
     "query": "生成衡阳专送成本优化方案",
     "timestamp": "2026-07-15T03:27:56.453Z"
+  },
+  {
+    "agent_name": "知识库检索 Agent",
+    "duration_ms": 193,
+    "status": "success",
+    "decision_id": "d_1784087885344_95qfjx",
+    "query": "评估晚高峰蜂跑运力是否扩容",
+    "timestamp": "2026-07-15T03:58:29.333Z"
+  },
+  {
+    "agent_name": "任务路由 Agent",
+    "duration_ms": 143,
+    "status": "success",
+    "decision_id": "d_1784087885344_95qfjx",
+    "query": "评估晚高峰蜂跑运力是否扩容",
+    "timestamp": "2026-07-15T03:58:29.333Z"
+  },
+  {
+    "agent_name": "订单预测 Agent",
+    "duration_ms": 528,
+    "status": "success",
+    "decision_id": "d_1784087885344_95qfjx",
+    "query": "评估晚高峰蜂跑运力是否扩容",
+    "timestamp": "2026-07-15T03:58:29.334Z"
+  },
+  {
+    "agent_name": "运力分析 Agent",
+    "duration_ms": 598,
+    "status": "success",
+    "decision_id": "d_1784087885344_95qfjx",
+    "query": "评估晚高峰蜂跑运力是否扩容",
+    "timestamp": "2026-07-15T03:58:29.335Z"
+  },
+  {
+    "agent_name": "成本分析 Agent",
+    "duration_ms": 103,
+    "status": "success",
+    "decision_id": "d_1784087885344_95qfjx",
+    "query": "评估晚高峰蜂跑运力是否扩容",
+    "timestamp": "2026-07-15T03:58:29.337Z"
+  },
+  {
+    "agent_name": "派单推荐 Agent",
+    "duration_ms": 564,
+    "status": "success",
+    "decision_id": "d_1784087885344_95qfjx",
+    "query": "评估晚高峰蜂跑运力是否扩容",
+    "timestamp": "2026-07-15T03:58:29.338Z"
+  },
+  {
+    "agent_name": "决策汇总 Agent",
+    "duration_ms": 476,
+    "status": "success",
+    "decision_id": "d_1784087885344_95qfjx",
+    "query": "评估晚高峰蜂跑运力是否扩容",
+    "timestamp": "2026-07-15T03:58:29.339Z"
+  },
+  {
+    "agent_name": "报告生成 Agent",
+    "duration_ms": 530,
+    "status": "success",
+    "decision_id": "d_1784087885344_95qfjx",
+    "query": "评估晚高峰蜂跑运力是否扩容",
+    "timestamp": "2026-07-15T03:58:29.340Z"
   }
 ]
