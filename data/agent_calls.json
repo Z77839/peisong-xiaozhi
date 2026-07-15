@@ -62,5 +62,69 @@
     "decision_id": "d_1784084226882_crzedf",
     "query": "衡阳专送成本优化方案",
     "timestamp": "2026-07-15T02:57:35.032Z"
+  },
+  {
+    "agent_name": "知识库检索 Agent",
+    "duration_ms": 565,
+    "status": "success",
+    "decision_id": "d_1784086049597_fcuyf2",
+    "query": "生成衡阳专送成本优化方案",
+    "timestamp": "2026-07-15T03:27:56.446Z"
+  },
+  {
+    "agent_name": "任务路由 Agent",
+    "duration_ms": 582,
+    "status": "success",
+    "decision_id": "d_1784086049597_fcuyf2",
+    "query": "生成衡阳专送成本优化方案",
+    "timestamp": "2026-07-15T03:27:56.446Z"
+  },
+  {
+    "agent_name": "订单预测 Agent",
+    "duration_ms": 487,
+    "status": "success",
+    "decision_id": "d_1784086049597_fcuyf2",
+    "query": "生成衡阳专送成本优化方案",
+    "timestamp": "2026-07-15T03:27:56.448Z"
+  },
+  {
+    "agent_name": "运力分析 Agent",
+    "duration_ms": 198,
+    "status": "success",
+    "decision_id": "d_1784086049597_fcuyf2",
+    "query": "生成衡阳专送成本优化方案",
+    "timestamp": "2026-07-15T03:27:56.449Z"
+  },
+  {
+    "agent_name": "成本分析 Agent",
+    "duration_ms": 379,
+    "status": "success",
+    "decision_id": "d_1784086049597_fcuyf2",
+    "query": "生成衡阳专送成本优化方案",
+    "timestamp": "2026-07-15T03:27:56.450Z"
+  },
+  {
+    "agent_name": "派单推荐 Agent",
+    "duration_ms": 237,
+    "status": "success",
+    "decision_id": "d_1784086049597_fcuyf2",
+    "query": "生成衡阳专送成本优化方案",
+    "timestamp": "2026-07-15T03:27:56.451Z"
+  },
+  {
+    "agent_name": "决策汇总 Agent",
+    "duration_ms": 260,
+    "status": "success",
+    "decision_id": "d_1784086049597_fcuyf2",
+    "query": "生成衡阳专送成本优化方案",
+    "timestamp": "2026-07-15T03:27:56.452Z"
+  },
+  {
+    "agent_name": "报告生成 Agent",
+    "duration_ms": 383,
+    "status": "success",
+    "decision_id": "d_1784086049597_fcuyf2",
+    "query": "生成衡阳专送成本优化方案",
+    "timestamp": "2026-07-15T03:27:56.453Z"
   }
 ]
