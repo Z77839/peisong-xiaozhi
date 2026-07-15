@@ -36,10 +36,14 @@ async function fetchHistory() {
       time: h.time || Date.now() - i * 86400000,
       status: h.status || 'success',
       type: currentType.value,
-      model: h.model || 'doubao'
+            model: h.model || 'doubao',
+      // 兼容多种字段名，把历史报告的内容也带上
+      content: h.content || h.report || h.text || ''
     }))
     if (generatedReports.value.length > 0) {
       selectedReport.value = generatedReports.value[0]
+      // 默认展示第一条历史报告的 markdown
+      previewContent.value = generatedReports.value[0].content || ''
     }
   } catch (e) {
     console.warn('加载历史报告失败', e)
@@ -87,7 +91,8 @@ async function generate() {
 
 const selectReport = (r: any) => {
   selectedReport.value = r
-  previewContent.value = r.content || '(点击"生成报告"查看详情)'
+  // 兼容 content/report/text 多种字段
+  previewContent.value = r.content || r.report || r.text || '(点击"生成报告"查看详情)'
 }
 
 const downloadReport = () => {
@@ -370,12 +375,32 @@ const formatTime = (ts: number) => {
 .report-content {
  .report-content {
   background: #ffffff;
+ .report-content {
+  background: #ffffff;
   border: 1px solid #e5e6eb;
   border-radius: 8px;
   padding: 20px 24px;
   max-height: 600px;
   overflow-y: auto;
-}
+  line-height: 1.7;
+  font-size: 14px;
+  color: #1f2d3d;
+
+  :deep(h1) { font-size: 22px; font-weight: 700; margin: 16px 0 12px; color: #1f2d3d; border-bottom: 2px solid #1f6feb; padding-bottom: 8px; }
+  :deep(h2) { font-size: 18px; font-weight: 600; margin: 14px 0 10px; color: #1f6feb; }
+  :deep(h3) { font-size: 16px; font-weight: 600; margin: 12px 0 8px; color: #1f2d3d; }
+  :deep(h4) { font-size: 14px; font-weight: 600; margin: 10px 0 6px; color: #1f2d3d; }
+  :deep(p)  { margin: 8px 0; }
+  :deep(ul), :deep(ol) { margin: 8px 0; padding-left: 24px; }
+  :deep(li) { margin: 4px 0; }
+  :deep(strong) { color: #1f6feb; font-weight: 600; }
+  :deep(em) { color: #00b578; font-style: normal; font-weight: 500; }
+  :deep(code) { background: #f5f7fa; padding: 2px 6px; border-radius: 3px; font-family: 'Consolas', monospace; font-size: 13px; color: #e83e8c; }
+  :deep(pre) { background: #1f2d3d; color: #f0f0f0; padding: 12px; border-radius: 6px; overflow-x: auto; }
+  :deep(blockquote) { border-left: 4px solid #1f6feb; background: #f0f7ff; padding: 8px 16px; margin: 12px 0; color: #1f2d3d; }
+  :deep(hr) { border: none; border-top: 1px dashed #d0d7de; margin: 16px 0; }
+  :deep(a) { color: #1f6feb; text-decoration: none; }
+  :deep(a:hover) { text-decoration: underline; }
 }
 
 .placeholder {
