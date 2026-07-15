@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { runMultiAgentWorkflow, type AgentRunResult } from '@/api/coze'
 import request from '@/api/request'
 import { useCityStore } from '@/store/city'
 import { formatNumber, relativeTime } from '@/utils/format'
+import { renderMarkdown } from '@/utils/markdown'
+
+// 渲染报告为 HTML
+const renderedReport = computed(() => renderMarkdown(result.value?.report || ''))
 
 const cityStore = useCityStore()
 
@@ -632,7 +636,8 @@ function copyReport() {
             <span class="rs-title">详细报告</span>
             <button class="rs-copy" @click="copyReport">📋 复制</button>
           </div>
-          <pre class="report-body">{{ result.report }}</pre>
+          <div v-if="result.report" class="report-body md-content" v-html="renderedReport"></div>
+          <div v-else class="report-body empty">暂无报告</div>
         </div>
 
         <!-- 🔍 Agent 调用追踪（借鉴 Langfuse 思路） -->
@@ -1326,9 +1331,9 @@ function copyReport() {
 .rs-copy:hover { background: #1f6feb; color: #fff; border-color: #1f6feb; }
 .report-body {
   font-family: $font-family;
-  white-space: pre-wrap;
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #1f2d3d;
   background: #f5f7fa;
   padding: 20px 24px;
   border-radius: 8px;
@@ -1336,6 +1341,32 @@ function copyReport() {
   max-height: 480px;
   overflow-y: auto;
   border-left: 4px solid #1f6feb;
+  word-wrap: break-word;
+}
+.md-content {
+  :deep(h1) { font-size: 22px; font-weight: 700; margin: 18px 0 12px; color: #1f2d3d; border-bottom: 2px solid #1f6feb; padding-bottom: 8px; }
+  :deep(h2) { font-size: 18px; font-weight: 600; margin: 16px 0 10px; color: #1f6feb; padding-left: 10px; border-left: 3px solid #1f6feb; }
+  :deep(h3) { font-size: 16px; font-weight: 600; margin: 14px 0 8px; color: #1f2d3d; }
+  :deep(h4) { font-size: 14px; font-weight: 600; margin: 12px 0 6px; color: #52647c; }
+  :deep(p)  { margin: 8px 0; }
+  :deep(ul), :deep(ol) { margin: 10px 0; padding-left: 28px; }
+  :deep(li) { margin: 6px 0; line-height: 1.7; }
+  :deep(strong) { color: #1f6feb; font-weight: 600; background: rgba(31, 111, 235, 0.08); padding: 0 4px; border-radius: 3px; }
+  :deep(em) { color: #00b578; font-style: normal; font-weight: 500; }
+  :deep(code) { background: #fff; padding: 2px 6px; border-radius: 3px; font-family: 'Consolas', monospace; font-size: 13px; color: #e83e8c; border: 1px solid #e5e6eb; }
+  :deep(pre) { background: #1f2d3d; color: #f0f0f0; padding: 14px; border-radius: 6px; overflow-x: auto; margin: 12px 0; }
+  :deep(blockquote) { border-left: 4px solid #1f6feb; background: #fff; padding: 10px 16px; margin: 12px 0; color: #1f2d3d; border-radius: 0 6px 6px 0; }
+  :deep(hr) { border: none; border-top: 1px dashed #c0c8d0; margin: 18px 0; }
+  :deep(a) { color: #1f6feb; text-decoration: none; }
+  :deep(a:hover) { text-decoration: underline; }
+  :deep(table) { border-collapse: collapse; width: 100%; margin: 12px 0; }
+  :deep(th), :deep(td) { border: 1px solid #e5e6eb; padding: 8px 12px; text-align: left; }
+  :deep(th) { background: #fff; font-weight: 600; }
+}
+.empty {
+  color: #909399;
+  text-align: center;
+  font-style: italic;
 }
 
 /* 底部 CTA */
