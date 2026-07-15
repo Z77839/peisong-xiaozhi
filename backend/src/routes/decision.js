@@ -28,14 +28,31 @@ router.post('/feedback', (req, res) => {
   res.json({ code: 0, data: { ok: true, feedback: fb } })
 })
 
+// 🆕 列出历史决策（带 feedback）—— 必须在 /:id 之前定义，否则 /history 会被当成 id="history"
+router.get('/history', (req, res) => {
+  try {
+    const list = getDecisionHistory(null, 50) || []
+    // 合并 feedback
+    const enriched = list.map((d) => ({ ...d, feedback: feedbacks.get(d.id) || getFeedback(d.id) || null }))
+    res.json({ code: 0, data: enriched })
+  } catch (e) {
+    console.error('[GET /history]', e.message, e.stack)
+    // 降级：返回空列表（不阻塞前端）
+    res.json({ code: 0, data: [], warning: 'history load failed: ' + e.message })
+  }
+})
+
 // 🆕 按 ID 取单条决策详情（带 feedback）
 router.get('/:id', (req, res) => {
   try {
     const { id } = req.params
+    // 避免和 /history 冲突（兜底）
+    if (id === 'history') return router.handle(req, res, () => {})
     const fb = feedbacks.get(id) || getFeedback(id)
     // 简化：直接从 history 找
     const history = getDecisionHistory(null, 200) || []
-    const rec = history.find((d) => d.id === id)
+    const historyList = Array.isArray(history) ? history : []
+    const rec = historyList.find((d) => d.id === id)
     if (!rec) {
       // 如果找不到，构造一个最小可回放记录
       return res.json({
@@ -87,19 +104,6 @@ router.post('/run', async (req, res) => {
     res.json({ code: 0, data: result })
   } catch (err) {
     res.status(500).json({ code: 500, message: err.message })
-  }
-})
-
-router.get('/history', (req, res) => {
-  try {
-    const list = getDecisionHistory(null, 50) || []
-    // 合并 feedback
-    const enriched = list.map((d) => ({ ...d, feedback: feedbacks.get(d.id) || getFeedback(d.id) || null }))
-    res.json({ code: 0, data: enriched })
-  } catch (e) {
-    console.error('[GET /history]', e.message, e.stack)
-    // 降级：返回空列表（不阻塞前端）
-    res.json({ code: 0, data: [], warning: 'history load failed: ' + e.message })
   }
 })
 
