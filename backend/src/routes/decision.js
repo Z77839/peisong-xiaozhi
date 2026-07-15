@@ -29,9 +29,14 @@ router.post('/feedback', (req, res) => {
 })
 
 // 🆕 列出历史决策（带 feedback）—— 必须在 /:id 之前定义，否则 /history 会被当成 id="history"
-router.get('/history', (req, res) => {
+router.get('/history', async (req, res) => {
   try {
-    const list = getDecisionHistory(null, 50) || []
+    let list = await getDecisionHistory(null, 50)
+    // 兑底：data/decisions.json 可能被备份恢复为 null / {}，都要包成数组
+    if (!Array.isArray(list)) {
+      console.warn('[GET /history] getDecisionHistory 返回非数组:', typeof list, '— 降级为 []')
+      list = []
+    }
     // 合并 feedback
     const enriched = list.map((d) => ({ ...d, feedback: feedbacks.get(d.id) || getFeedback(d.id) || null }))
     res.json({ code: 0, data: enriched })
@@ -43,14 +48,14 @@ router.get('/history', (req, res) => {
 })
 
 // 🆕 按 ID 取单条决策详情（带 feedback）
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params
     // 避免和 /history 冲突（兜底）
     if (id === 'history') return router.handle(req, res, () => {})
     const fb = feedbacks.get(id) || getFeedback(id)
     // 简化：直接从 history 找
-    const history = getDecisionHistory(null, 200) || []
+    const history = await getDecisionHistory(null, 200)
     const historyList = Array.isArray(history) ? history : []
     const rec = historyList.find((d) => d.id === id)
     if (!rec) {
