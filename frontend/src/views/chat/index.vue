@@ -165,11 +165,9 @@ onMounted(() => {
               </div>
             </div>
 
-            <!-- 报告正文 -->
-            <div v-if="m.content || m.result" class="report-block">
-              <div v-if="m.content" class="report-content">
-                <pre>{{ m.content }}</pre>
-              </div>
+           <!-- 报告正文 -->
+<div v-if="m.content || m.result" class="report-block">
+  <div v-if="m.content" class="md report-content" v-html="renderMd(m.content)"></div>
 
               <!-- 关键指标卡片 -->
               <div v-if="m.result" class="result-cards">
