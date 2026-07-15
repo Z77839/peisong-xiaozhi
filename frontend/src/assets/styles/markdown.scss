@@ -1,0 +1,184 @@
+// ============== Markdown 渲染样式 ==============
+// 配合 utils/markdown.ts（marked）使用
+// marked 输出原生 <h1> <p> <ul> <code> <pre> <table> 等标签
+// 这里只加视觉美化，结构由 marked 负责
+
+@use "./variables.scss" as *;
+
+.md {
+  color: $text-primary;
+  font-size: 14px;
+  line-height: 1.7;
+  word-break: break-word;
+
+  // 段落
+  p {
+    margin: 0 0 12px;
+    color: $text-regular;
+    &:last-child { margin-bottom: 0; }
+  }
+
+  // 标题
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: $text-primary;
+    margin: 20px 0 10px;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    &:first-child { margin-top: 0; }
+  }
+  h1 { font-size: 22px; padding-bottom: 8px; border-bottom: 1px solid $border-light; }
+  h2 {
+    font-size: 18px;
+    padding: 6px 10px;
+    border-left: 3px solid $primary;
+    background: $primary-light;
+    border-radius: 0 4px 4px 0;
+  }
+  h3 {
+    font-size: 16px;
+    color: $primary;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 16px;
+      background: $primary;
+      border-radius: 2px;
+    }
+  }
+  h4 { font-size: 15px; color: $text-primary; }
+  h5, h6 { font-size: 14px; color: $text-primary; }
+
+  // 强调
+  strong { color: $text-primary; font-weight: 600; }
+  em { color: $text-primary; font-style: italic; }
+
+  // 列表
+  ul, ol {
+    margin: 0 0 12px;
+    padding-left: 0;
+    list-style: none;
+  }
+  ul li, ol li {
+    position: relative;
+    padding: 4px 0 4px 22px;
+    color: $text-regular;
+  }
+  ul li::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 12px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: $primary;
+  }
+  ol {
+    counter-reset: md-ol;
+    li { counter-increment: md-ol; }
+    li::before {
+      content: counter(md-ol) ".";
+      position: absolute;
+      color: $primary;
+      font-weight: 600;
+      font-size: 13px;
+      top: 4px;
+      left: 0;
+    }
+  }
+
+  // 引用
+  blockquote {
+    margin: 0 0 12px;
+    padding: 10px 14px;
+    background: $bg-hover;
+    border-left: 3px solid $primary-light;
+    color: $text-secondary;
+    border-radius: 0 4px 4px 0;
+  }
+
+  // 行内代码
+  code {
+    background: $bg-hover;
+    color: $primary;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: "JetBrains Mono", "SFMono-Regular", "Menlo", monospace;
+    font-size: 13px;
+    border: 1px solid $border-light;
+  }
+
+  // 代码块
+  pre {
+    margin: 0 0 12px;
+    padding: 12px 14px;
+    background: #1e1e1e;
+    color: #e4e4e4;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: "JetBrains Mono", "SFMono-Regular", "Menlo", monospace;
+    font-size: 12.5px;
+    line-height: 1.6;
+
+    code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: 0;
+    }
+  }
+
+  // 链接
+  a {
+    color: $primary;
+    text-decoration: none;
+    border-bottom: 1px dashed $primary-light;
+    transition: color 0.15s;
+    &:hover {
+      color: $primary-hover;
+      border-bottom-color: $primary;
+    }
+  }
+
+  // 表格
+  table {
+    width: 100%;
+    margin: 0 0 14px;
+    border-collapse: collapse;
+    font-size: 13px;
+    border: 1px solid $border-base;
+    border-radius: 6px;
+    overflow: hidden;
+    th, td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid $border-light;
+    }
+    th {
+      background: $bg-hover;
+      color: $text-primary;
+      font-weight: 600;
+    }
+    tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: rgba($primary, 0.03); }
+  }
+
+  // 分隔线
+  hr {
+    border: 0;
+    height: 1px;
+    background: $border-light;
+    margin: 16px 0;
+  }
+
+  // 图片
+  img {
+    max-width: 100%;
+    border-radius: 4px;
+  }
+}
