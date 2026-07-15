@@ -30,28 +30,33 @@ router.post('/feedback', (req, res) => {
 
 // 🆕 按 ID 取单条决策详情（带 feedback）
 router.get('/:id', (req, res) => {
-  const { id } = req.params
-  const fb = feedbacks.get(id) || getFeedback(id)
-  // 简化：直接从 history 找
-  const history = getDecisionHistory(null, 200)
-  const rec = history.find((d) => d.id === id)
-  if (!rec) {
-    // 如果找不到，构造一个最小可回放记录
-    return res.json({
-      code: 0,
-      data: {
-        id,
-        query: req.query.q || '(载入的历史决策)',
-        cityId: req.query.cityId || 'hengyang',
-        report: '此决策由告警/派单页面跳转载入。详细报告请重新生成。',
-        feedback: fb,
-        steps: [],
-        riskLevel: 'medium',
-        confidence: 80
-      }
-    })
+  try {
+    const { id } = req.params
+    const fb = feedbacks.get(id) || getFeedback(id)
+    // 简化：直接从 history 找
+    const history = getDecisionHistory(null, 200) || []
+    const rec = history.find((d) => d.id === id)
+    if (!rec) {
+      // 如果找不到，构造一个最小可回放记录
+      return res.json({
+        code: 0,
+        data: {
+          id,
+          query: req.query.q || '(载入的历史决策)',
+          cityId: req.query.cityId || 'hengyang',
+          report: '此决策由告警/派单页面跳转载入。详细报告请重新生成。',
+          feedback: fb,
+          steps: [],
+          riskLevel: 'medium',
+          confidence: 80
+        }
+      })
+    }
+    res.json({ code: 0, data: { ...rec, feedback: fb } })
+  } catch (e) {
+    console.error('[GET /:id]', e.message, e.stack)
+    res.status(200).json({ code: 0, data: { id: req.params.id, error: 'load failed', message: e.message } })
   }
-  res.json({ code: 0, data: { ...rec, feedback: fb } })
 })
 
 router.post('/run', async (req, res) => {
@@ -86,10 +91,16 @@ router.post('/run', async (req, res) => {
 })
 
 router.get('/history', (req, res) => {
-  const list = getDecisionHistory(null, 50)
-  // 合并 feedback
-  const enriched = list.map((d) => ({ ...d, feedback: feedbacks.get(d.id) || getFeedback(d.id) || null }))
-  res.json({ code: 0, data: enriched })
+  try {
+    const list = getDecisionHistory(null, 50) || []
+    // 合并 feedback
+    const enriched = list.map((d) => ({ ...d, feedback: feedbacks.get(d.id) || getFeedback(d.id) || null }))
+    res.json({ code: 0, data: enriched })
+  } catch (e) {
+    console.error('[GET /history]', e.message, e.stack)
+    // 降级：返回空列表（不阻塞前端）
+    res.json({ code: 0, data: [], warning: 'history load failed: ' + e.message })
+  }
 })
 
 export default router
