@@ -7,7 +7,7 @@ import { API_BASE_URL } from '@/utils/apiBase'
 
 const service = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 30000
+  timeout: 120000
 })
 
 service.interceptors.request.use(
@@ -49,7 +49,12 @@ service.interceptors.response.use(
         window.location.hash = '/login'
       }
     }
-    ElMessage.error(error.message || '网络异常')
+    // 区分 timeout 和其他网络错误
+    if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
+      ElMessage.warning('决策生成中（豆包 LLM 需 20-30 秒），请稍候再试或刷新页面')
+    } else {
+      ElMessage.error(error.message || '网络异常')
+    }
     return Promise.reject(error)
   }
 )
