@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { runDecisionWorkflow } from '../services/cozeService.js'
-import { saveDecision, getDecisionHistory, saveFeedback, getFeedback } from '../services/decisionStore.js'
+import { saveDecision, getDecisionHistory } from '../services/db.js'
+import { saveFeedback, getFeedback } from '../services/decisionStore.js'
 
 const router = Router()
 
