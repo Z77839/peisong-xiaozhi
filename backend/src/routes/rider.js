@@ -121,7 +121,14 @@ router.delete('/extra/:id', authRequired, (req, res) => {
 router.get('/capacity', (req, res) => {
   try {
     const stats = getRiderStats()
+    // ✅ 修正：byCity 是按中文名索引（'衡阳'/'绍兴'等），不是 cityId
     const byCity = stats.byCity || {}
+    const CITY_NAME_MAP = {
+      hengyang: '衡阳',
+      shaoxing: '绍兴',
+      changde:  '常德',
+      quzhou:   '衢州'
+    }
     const CITIES_NEED = {
       hengyang: { dailyOrders: 100000, needRate: 0.10, minRiders: 200 },
       shaoxing: { dailyOrders: 65000,  needRate: 0.10, minRiders: 150 },
@@ -130,7 +137,7 @@ router.get('/capacity', (req, res) => {
     }
     const cityStatus = Object.keys(CITIES_NEED).map((cityId) => {
       const cfg = CITIES_NEED[cityId]
-      const online = byCity[cityId] || 0
+      const online = byCity[CITY_NAME_MAP[cityId]] || 0
       // 高峰期需运力 = 日订单 * 10% / 1小时
       const peakNeed = Math.ceil(cfg.dailyOrders * cfg.needRate)
       const gap = Math.max(0, peakNeed - online)
@@ -138,6 +145,7 @@ router.get('/capacity', (req, res) => {
       const level = gap === 0 ? 'ok' : (coverage < 0.7 ? 'critical' : (coverage < 0.9 ? 'warning' : 'ok'))
       return {
         cityId,
+        cityName: CITY_NAME_MAP[cityId],
         dailyOrders: cfg.dailyOrders,
         onlineRiders: online,
         peakNeed,
