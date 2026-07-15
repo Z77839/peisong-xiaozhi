@@ -3,8 +3,10 @@ import { ref, onMounted, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useCityStore } from '@/store/city'
 import { formatNumber } from '@/utils/format'
+import { renderMarkdown } from '@/utils/markdown'
 import request from '@/api/request'
 
+const renderedContent = computed(() => renderMarkdown(previewContent.value))
 const cityStore = useCityStore()
 const city = cityStore.currentCity
 
