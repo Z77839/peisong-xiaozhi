@@ -210,8 +210,8 @@ const formatTime = (ts: number) => {
             </div>
           </div>
 
-          <!-- 报告内容 -->
-          <pre v-if="previewContent" class="report-content">{{ previewContent }}</pre>
+         <!-- 报告内容 -->
+<div v-if="previewContent" class="md report-content" v-html="renderedContent"></div>
           <div v-else class="placeholder">
             <el-icon size="48" color="#909399"><Document /></el-icon>
             <p>选择左侧历史报告查看，或点击「生成报告」创建新报告</p>
@@ -368,18 +368,14 @@ const formatTime = (ts: number) => {
 .step-status { color: #00b578; }
 
 .report-content {
-  background: #fafafa;
-  border: 1px solid #e8e8e8;
-  border-radius: 6px;
-  padding: 16px;
-  font-family: Consolas, 'Courier New', monospace;
-  font-size: 12px;
-  line-height: 1.8;
-  color: #1f2d3d;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  max-height: 500px;
+ .report-content {
+  background: #ffffff;
+  border: 1px solid #e5e6eb;
+  border-radius: 8px;
+  padding: 20px 24px;
+  max-height: 600px;
   overflow-y: auto;
+}
 }
 
 .placeholder {
