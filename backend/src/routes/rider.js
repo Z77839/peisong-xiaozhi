@@ -122,7 +122,11 @@ router.get('/capacity', (req, res) => {
   try {
     const stats = getRiderStats()
     // ✅ 修正：byCity 是按中文名索引（'衡阳'/'绍兴'等），不是 cityId
-    const byCity = stats.byCity || {}
+    // 兑底：stats 为 null 或 data 目录未加载 CSV 时，用 demo 在线率
+    const byCity = (stats && stats.byCity) || {}
+    const hasRealData = Object.keys(byCity).length > 0
+    // 总量估计：render 实例拿不到 riders_full.csv 时，按 27186 总数估算
+    const DEMO_ONLINE_RATE = { hengyang: 0.40, shaoxing: 0.30, changde: 0.25, quzhou: 0.20 }
     const CITY_NAME_MAP = {
       hengyang: '衡阳',
       shaoxing: '绍兴',
@@ -137,7 +141,11 @@ router.get('/capacity', (req, res) => {
     }
     const cityStatus = Object.keys(CITIES_NEED).map((cityId) => {
       const cfg = CITIES_NEED[cityId]
-      const online = byCity[CITY_NAME_MAP[cityId]] || 0
+      let online = byCity[CITY_NAME_MAP[cityId]] || 0
+      // 兑底：未拿到真实数据时，用 demo 估算（27186 总数 × 在线率）
+      if (!hasRealData) {
+        online = Math.floor(27186 * DEMO_ONLINE_RATE[cityId] / 4)  // 除以 4 城分摊
+      }
       // 高峰期需运力 = 日订单 * 10% / 1小时
       const peakNeed = Math.ceil(cfg.dailyOrders * cfg.needRate)
       const gap = Math.max(0, peakNeed - online)
@@ -152,7 +160,8 @@ router.get('/capacity', (req, res) => {
         gap,
         coverage: +(coverage * 100).toFixed(1),
         level,
-        suggestDecision: gap > 0  // 缺口 > 0 → 建议决策中心介入
+        suggestDecision: gap > 0,  // 缺口 > 0 → 建议决策中心介入
+        estimated: !hasRealData
       }
     })
     const totalGap = cityStatus.reduce((s, c) => s + c.gap, 0)
