@@ -131,12 +131,16 @@ function parseDateFromQuery(q: string): Date | null {
   return null
 }
 
-onMounted(() => {
+onMounted(async () => {
   fetchContext()
-  // 从 URL 参数读取（从预警中心跳转过来）
+  await loadHistory()  // 🆕 加载后端历史
+
+  // 从 URL 参数读取（从预警中心 / 派单 / 告警跳转过来）
   const params = new URLSearchParams(window.location.search || window.location.hash.split('?')[1] || '')
   const preQ = params.get('q')
   const preCity = params.get('cityId')
+  const preHistoryId = params.get('historyId')
+  const fromAlert = params.get('fromAlert')
   if (preQ) {
     queryText.value = decodeURIComponent(preQ)
   }
@@ -147,6 +151,35 @@ onMounted(() => {
   const alertId = params.get('alertId')
   if (alertId) {
     ElMessage.info(`已加载预警 #${alertId}，可继续调整后生成决策`)
+  }
+  // 🆕 从告警/派单回跳：载入指定历史决策
+  if (preHistoryId) {
+    try {
+      const r: any = await request({ url: `/decision/${encodeURIComponent(preHistoryId)}` })
+      const rec = r?.data || r
+      if (rec && (rec.query || rec.report)) {
+        result.value = {
+          report: rec.report,
+          predicted_orders: rec.predictedOrders,
+          cost_estimate: rec.costEstimate,
+          risk_level: rec.riskLevel,
+          confidence: rec.confidence || 92,
+          steps: rec.steps || [],
+          tracking: rec.tracking || null,
+          context: rec.context || null,
+          coze_used: rec.cozeUsed
+        }
+        showResult.value = true
+        queryText.value = rec.query || queryText.value
+        if (rec.feedback) {
+          ElMessage.success(`已载入历史决策（${fromAlert ? '告警回跳' : '派单回跳'}） · 执行状态：${rec.feedback.result === 'success' ? '✅ 已完成' : '⏳ 待执行'}`)
+        } else {
+          ElMessage.info(`已载入历史决策 · 来自告警/派单的回跳`)
+        }
+      }
+    } catch (e) {
+      ElMessage.warning('历史决策加载失败，请重试')
+    }
   }
 })
 watch(() => cityStore.currentCityId, fetchContext)
@@ -160,11 +193,35 @@ const result = ref<AgentRunResult | null>(null)
 const showResult = ref(false)
 const showInjection = ref(true)  // 默认展开
 
-const history = ref<any[]>([
-  { id: '1', text: '衡阳专送成本优化方案', time: Date.now() - 3600000, status: 'success' },
-  { id: '2', text: '蒸湘区运力缺口分析', time: Date.now() - 7200000, status: 'success' },
-  { id: '3', text: '团长激活率提升 SOP', time: Date.now() - 10800000, status: 'success' }
-])
+const history = ref<any[]>([])
+const historyLoading = ref(false)
+const historyFeedbacks = ref<Record<string, any>>({})  // decisionId -> feedback 状态
+
+async function loadHistory() {
+  historyLoading.value = true
+  try {
+    const r: any = await request({ url: '/decision/history' })
+    // 后端返回 {data: [...]}，兼容多种格式
+    const list = Array.isArray(r) ? r : (r?.data || r?.history || [])
+    history.value = (list || []).map((h: any) => ({
+      id: h.id,
+      text: h.query || h.text,
+      time: h.createdAt ? new Date(h.createdAt).getTime() : (h.time || Date.now()),
+      status: h.status || 'success',
+      cityId: h.cityId,
+      feedback: h.feedback || null  // 🆕 派单/告警回写状态
+    }))
+  } catch (e) {
+    console.warn('[history load]', e)
+    //  fallback：本地 mock
+    history.value = [
+      { id: '1', text: '衡阳专送成本优化方案', time: Date.now() - 3600000, status: 'success' },
+      { id: '2', text: '蒸湘区运力缺口分析', time: Date.now() - 7200000, status: 'success' }
+    ]
+  } finally {
+    historyLoading.value = false
+  }
+}
 
 function fillTemplate(text: string) {
   queryText.value = text
@@ -713,13 +770,27 @@ function copyReport() {
 
     <!-- 4. 历史 -->
     <div class="history-section" v-if="!showResult">
-      <h3>历史决策记录</h3>
+      <h3>
+        📂 历史决策记录
+        <span class="hs-count">({{ history.length }})</span>
+        <button class="hs-refresh" @click="loadHistory" :disabled="historyLoading">
+          {{ historyLoading ? '加载中...' : '🔄 刷新' }}
+        </button>
+      </h3>
+      <div v-if="history.length === 0 && !historyLoading" class="empty-history">
+        <div class="eh-ico">📭</div>
+        <div>暂无历史决策 — 上面输入问题生成你的第一个决策吧</div>
+      </div>
       <div class="history-list">
-        <div v-for="h in history" :key="h.id" class="history-item" @click="queryText = h.text">
+        <div v-for="h in history" :key="h.id" class="history-item" @click="$router.push(`/decision?historyId=${h.id}`)">
           <div class="hi-icon">📝</div>
           <div class="hi-text">{{ h.text }}</div>
           <div class="hi-time">{{ relativeTime(h.time) }}</div>
-          <el-tag size="small" type="success" effect="plain">已完成</el-tag>
+          <!-- 🆕 反馈状态标签 -->
+          <el-tag v-if="h.feedback?.result === 'success'" size="small" type="success" effect="dark">🚴 已派单</el-tag>
+          <el-tag v-else-if="h.feedback?.result === 'partial'" size="small" type="warning" effect="plain">⚠️ 部分派单</el-tag>
+          <el-tag v-else-if="h.feedback?.result === 'failed'" size="small" type="danger" effect="plain">❌ 未执行</el-tag>
+          <el-tag v-else size="small" type="info" effect="plain">⏳ 待执行</el-tag>
         </div>
       </div>
     </div>
@@ -1407,7 +1478,13 @@ function copyReport() {
 .slide-up-leave-to { opacity: 0; transform: translateY(-20px); }
 
 /* ===== 历史 ===== */
-.history-section { margin-top: 32px; h3 { font-size: 14px; color: $text-secondary; margin-bottom: 12px; } }
+.history-section { margin-top: 32px; h3 { font-size: 14px; color: $text-secondary; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; } }
+.hs-count { color: $text-placeholder; font-weight: 400; }
+.hs-refresh { margin-left: auto; padding: 3px 10px; background: #fff; border: 1px solid $border-light; border-radius: 12px; font-size: 11px; color: $primary; cursor: pointer; }
+.hs-refresh:hover:not(:disabled) { background: $primary-light; }
+.hs-refresh:disabled { opacity: 0.5; cursor: not-allowed; }
+.empty-history { text-align: center; padding: 40px 0; color: $text-placeholder; }
+.eh-ico { font-size: 36px; margin-bottom: 8px; }
 .history-list { display: flex; flex-direction: column; gap: 8px; }
 .history-item {
   display: flex;

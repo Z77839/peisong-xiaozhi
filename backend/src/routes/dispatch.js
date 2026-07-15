@@ -7,6 +7,7 @@
 import { Router } from 'express'
 import { cities } from '../data/cities.js'
 import { riderTypes } from '../data/rider-types.js'
+import { saveFeedback } from '../services/decisionStore.js'  // 🆕 派单回写决策反馈
 
 const router = Router()
 
@@ -138,15 +139,32 @@ function buildReason(rider, order) {
  * 一键派单
  */
 router.post('/execute', (req, res) => {
-  const { orderId, riderId } = req.body || {}
+  const { orderId, riderId, decisionId } = req.body || {}  // 🆕 decisionId 从决策中心传来
   if (!orderId || !riderId) {
     return res.status(400).json({ code: 400, message: 'orderId/riderId 必填' })
+  }
+  // 🆕 如果有 decisionId，自动回写反馈
+  if (decisionId) {
+    try {
+      saveFeedback(decisionId, {
+        dispatchId: `dp_${Date.now()}`,
+        result: 'success',
+        message: `已派单 orderId=${orderId} → riderId=${riderId}`,
+        riderCount: 1,
+        createdAt: new Date().toISOString()
+      })
+      console.log(`[Dispatch] 已回写决策 ${decisionId}: 派单成功`)
+    } catch (e) {
+      console.warn('[Dispatch] 回写决策反馈失败（非致命）:', e.message)
+    }
   }
   res.json({
     code: 0,
     data: {
+      id: `dp_${Date.now()}`,
       orderId,
       riderId,
+      decisionId: decisionId || null,  // 🆕 回传给前端
       status: 'dispatched',
       dispatchedAt: new Date().toISOString(),
       message: '配送小智已完成智能派单',

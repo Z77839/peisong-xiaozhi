@@ -20,6 +20,7 @@ interface Alert {
   confidence: number
   triggerTime: string
   status: string
+  sourceDecisionId?: string  // 🆕 触发此告警的决策 ID（点此跳回决策中心）
 }
 
 interface AlertContext {
@@ -91,6 +92,13 @@ async function ackAlert(alert: Alert) {
   await request({ url: `/alert/ack/${alert.id}`, method: 'POST' })
   alert.status = 'acked'
   ElMessage.success('已确认')
+}
+
+/**
+ * 🆕 跳回触发此告警的决策历史
+ */
+function goToSourceDecision(decisionId: string, alertTitle: string) {
+  $router.push(`/decision?historyId=${encodeURIComponent(decisionId)}&fromAlert=1&q=${encodeURIComponent('针对预警: ' + alertTitle)}`)
 }
 
 function timeAgo(iso: string) {
@@ -287,6 +295,14 @@ onBeforeUnmount(() => {
               {{ alert.status === 'acked' ? '✓ 已确认' : alert.status === 'executing' ? '⚙️ 执行中' : alert.status }}
             </span>
             <span class="ac-city">📍 {{ alert.cityName }}</span>
+            <!-- 🆕 来源决策回链 -->
+            <button
+              v-if="alert.sourceDecisionId"
+              class="link-to-decision"
+              @click="goToSourceDecision(alert.sourceDecisionId, alert.title)"
+            >
+              🧠 查看触发决策
+            </button>
           </div>
         </div>
       </div>

@@ -1,7 +1,57 @@
 import { Router } from 'express'
 import { runDecisionWorkflow } from '../services/cozeService.js'
+import { saveDecision, getDecisionHistory, saveFeedback, getFeedback } from '../services/decisionStore.js'
 
 const router = Router()
+
+// 🆕 内存级决策存储（JSON 模式 + 演示用）
+// 跨重启靠 backupService 持久化到 GitHub data-backup 分支
+const feedbacks = new Map()  // decisionId -> feedback
+
+// 🆕 派单/告警模块回调：回写决策执行结果
+router.post('/feedback', (req, res) => {
+  const { decisionId, dispatchId, alertId, result, message, riderCount } = req.body || {}
+  if (!decisionId) return res.status(400).json({ code: 400, message: 'decisionId 必填' })
+  const fb = {
+    decisionId,
+    dispatchId: dispatchId || null,
+    alertId: alertId || null,
+    result: result || 'success',  // success | failed | partial
+    message: message || '',
+    riderCount: riderCount || 0,
+    createdAt: new Date().toISOString()
+  }
+  feedbacks.set(decisionId, fb)
+  saveFeedback(decisionId, fb)
+  console.log(`[Decision] feedback received: ${decisionId} → ${result}${riderCount ? ' (' + riderCount + ' 单)' : ''}`)
+  res.json({ code: 0, data: { ok: true, feedback: fb } })
+})
+
+// 🆕 按 ID 取单条决策详情（带 feedback）
+router.get('/:id', (req, res) => {
+  const { id } = req.params
+  const fb = feedbacks.get(id) || getFeedback(id)
+  // 简化：直接从 history 找
+  const history = getDecisionHistory(null, 200)
+  const rec = history.find((d) => d.id === id)
+  if (!rec) {
+    // 如果找不到，构造一个最小可回放记录
+    return res.json({
+      code: 0,
+      data: {
+        id,
+        query: req.query.q || '(载入的历史决策)',
+        cityId: req.query.cityId || 'hengyang',
+        report: '此决策由告警/派单页面跳转载入。详细报告请重新生成。',
+        feedback: fb,
+        steps: [],
+        riskLevel: 'medium',
+        confidence: 80
+      }
+    })
+  }
+  res.json({ code: 0, data: { ...rec, feedback: fb } })
+})
 
 router.post('/run', async (req, res) => {
   const { query, cityId, override } = req.body || {}
@@ -10,6 +60,24 @@ router.post('/run', async (req, res) => {
   }
   try {
     const result = await runDecisionWorkflow(query, { cityId, override: override || {} })
+    // 存档（用决策 ID 作 key）
+    try {
+      saveDecision({
+        id: result.id || `d_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+        userId: null,
+        query,
+        cityId,
+        predictedOrders: result.predicted_orders,
+        costEstimate: result.cost_estimate,
+        riskLevel: result.risk_level,
+        report: result.report,
+        steps: result.steps,
+        tracking: result.tracking,
+        cozeUsed: result.coze_used
+      })
+    } catch (saveErr) {
+      console.warn('[Decision] save failed (non-fatal):', saveErr.message)
+    }
     res.json({ code: 0, data: result })
   } catch (err) {
     res.status(500).json({ code: 500, message: err.message })
@@ -17,15 +85,10 @@ router.post('/run', async (req, res) => {
 })
 
 router.get('/history', (req, res) => {
-  const now = Date.now()
-  res.json({
-    code: 0,
-    data: [
-      { id: '1', text: '衡阳专送成本优化方案', time: now - 3600000, status: 'success' },
-      { id: '2', text: '蒸湘区运力缺口分析', time: now - 7200000, status: 'success' },
-      { id: '3', text: '团长激活率提升 SOP', time: now - 10800000, status: 'success' }
-    ]
-  })
+  const list = getDecisionHistory(null, 50)
+  // 合并 feedback
+  const enriched = list.map((d) => ({ ...d, feedback: feedbacks.get(d.id) || getFeedback(d.id) || null }))
+  res.json({ code: 0, data: enriched })
 })
 
 export default router

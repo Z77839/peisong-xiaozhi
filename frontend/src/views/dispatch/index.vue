@@ -43,6 +43,8 @@ const route = useRoute()
 const fromDecision = ref(!!route.query.gap || !!route.query.q)
 const decisionGap = ref(Number(route.query.gap) || 0)
 const decisionQuery = ref(route.query.q as string || '')
+// 🆕 从 URL 读取来源决策 ID（从决策中心跳过来时携带）
+const sourceDecisionId = ref(route.query.decisionId as string || '')
 const orders = ref<Order[]>([])
 const riders = ref<Rider[]>([])
 const recommendations = ref<Recommendation[]>([])
@@ -109,10 +111,10 @@ async function fetchModelInfo() {
 async function dispatchOne(orderId: string, riderId: string, riderName: string) {
   dispatching.value = orderId
   try {
-    await fetch(`${API_BASE_URL}/dispatch/execute`, {
+    const r: any = await fetch(`${API_BASE_URL}/dispatch/execute`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ orderId, riderId })
+      body: JSON.stringify({ orderId, riderId, decisionId: sourceDecisionId.value })
     }).then((r) => r.json())
     ElMessage.success(`配送小智：已派单给 ${riderName}`)
     // 从 orders 移除
@@ -120,6 +122,26 @@ async function dispatchOne(orderId: string, riderId: string, riderName: string) 
     recommendations.value = recommendations.value.filter((r) => r.order.id !== orderId)
     stats.value.totalOrders = orders.value.length
     stats.value.dispatchedRate = +((1 - orders.value.length / 6) * 100).toFixed(0) + 0
+
+    // 🆕 派单成功 → 回写决策中心（只在有来源决策时）
+    if (sourceDecisionId.value) {
+      try {
+        await request({
+          url: '/decision/feedback',
+          method: 'POST',
+          data: {
+            decisionId: sourceDecisionId.value,
+            dispatchId: r?.data?.id || r?.id,
+            result: 'success',
+            message: `已派单给 ${riderName}`,
+            riderCount: 1
+          }
+        })
+        ElMessage.success('✅ 派单结果已同步到决策中心')
+      } catch (e) {
+        console.warn('[feedback]', e)
+      }
+    }
   } finally {
     dispatching.value = null
   }
@@ -128,12 +150,31 @@ async function dispatchOne(orderId: string, riderId: string, riderName: string) 
 async function batchDispatch() {
   if (!orders.value.length) return
   const orderIds = orders.value.map((o) => o.id)
-  await fetch(`${API_BASE_URL}/dispatch/batch`, {
+  const r: any = await fetch(`${API_BASE_URL}/dispatch/batch`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ cityId: cityStore.currentCityId, orderIds })
   }).then((r) => r.json())
   ElMessage.success(`配送小智：已批量派发 ${orderIds.length} 单`)
+
+  // 🆕 批量派单成功 → 回写决策中心
+  if (sourceDecisionId.value) {
+    try {
+      await request({
+        url: '/decision/feedback',
+        method: 'POST',
+        data: {
+          decisionId: sourceDecisionId.value,
+          result: 'success',
+          message: `批量派发 ${orderIds.length} 单`,
+          riderCount: orderIds.length
+        }
+      })
+      ElMessage.success('✅ 批量派单结果已同步到决策中心')
+    } catch (e) {
+      console.warn('[batch feedback]', e)
+    }
+  }
   void fetchDispatch()
 }
 

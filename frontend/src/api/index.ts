@@ -33,7 +33,18 @@ export const reportApi = {
 
 export const decisionApi = {
   recommend: (params: any) => request.post('/decision/recommend', params),
-  history: () => request.get('/decision/history')
+  history: () => request.get('/decision/history'),
+  // 🆕 派单/告警模块回写决策执行结果
+  feedback: (params: { decisionId: string; dispatchId?: string; alertId?: string; result: 'success' | 'failed' | 'partial'; message?: string; riderCount?: number }) =>
+    request.post('/decision/feedback', params),
+  // 🆕 按 ID 取单条决策详情（用于从告警/派单回跳）
+  getById: (id: string) => request.get(`/decision/${encodeURIComponent(id)}`)
+}
+
+// 🆕 派单模块回写
+export const dispatchApi = {
+  execute: (params: { cityId: string; orderId: string; riderId: string; decisionId?: string }) =>
+    request.post('/dispatch/execute', params)
 }
 
 export const knowledgeApi = {
