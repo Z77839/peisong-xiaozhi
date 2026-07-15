@@ -3,7 +3,9 @@ import { ref, nextTick, onMounted } from 'vue'
 import { streamMultiAgentWorkflow, type AgentStep, type AgentRunResult } from '@/api/coze'
 import AgentStepCard from '@/components/AgentStep.vue'
 import { formatNumber } from '@/utils/format'
+import { renderMarkdown } from '@/utils/markdown'
 
+const renderMd = (txt: string) => renderMarkdown(txt)
 interface Message {
   id: string
   role: 'user' | 'assistant'
