@@ -36,7 +36,7 @@ async function fetchHistory() {
       time: h.time || Date.now() - i * 86400000,
       status: h.status || 'success',
       type: currentType.value,
-            model: h.model || 'doubao',
+      model: h.model || 'doubao',
       // 兼容多种字段名，把历史报告的内容也带上
       content: h.content || h.report || h.text || ''
     }))
@@ -261,12 +261,12 @@ const formatTime = (ts: number) => {
   text-align: center;
   cursor: pointer;
   transition: all 0.2s;
-  
+
   &:hover {
     border-color: #1f6feb;
     background: #f0f7ff;
   }
-  
+
   &.active {
     border-color: #1f6feb;
     background: #e8f1ff;
@@ -295,12 +295,12 @@ const formatTime = (ts: number) => {
   margin-bottom: 8px;
   cursor: pointer;
   transition: all 0.2s;
-  
+
   &:hover {
     background: #f0f7ff;
     border-color: #1f6feb;
   }
-  
+
   &.active {
     background: #e8f1ff;
     border-color: #1f6feb;
@@ -373,9 +373,6 @@ const formatTime = (ts: number) => {
 .step-status { color: #00b578; }
 
 .report-content {
- .report-content {
-  background: #ffffff;
- .report-content {
   background: #ffffff;
   border: 1px solid #e5e6eb;
   border-radius: 8px;
@@ -407,7 +404,7 @@ const formatTime = (ts: number) => {
   text-align: center;
   padding: 60px 0;
   color: #909399;
-  
+
   p { margin-top: 12px; font-size: 14px; }
 }
 </style>
