@@ -3,8 +3,8 @@
     "id": 1,
     "userId": "u_1",
     "action": "login_success",
-    "ip": "10.30.47.4",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-14T16:26:14.469Z"
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "curl/8.5.0",
+    "createdAt": "2026-07-25T13:36:06.576Z"
   }
 ]
