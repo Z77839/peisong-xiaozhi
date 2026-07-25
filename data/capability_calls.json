@@ -1,0 +1,18 @@
+[
+  {
+    "capability_name": "任务路由能力",
+    "duration_ms": 123,
+    "status": "success",
+    "decision_id": "d1",
+    "query": "hello",
+    "timestamp": "2026-07-25T13:54:52.344Z"
+  },
+  {
+    "capability_name": "任务路由能力",
+    "duration_ms": 234,
+    "status": "success",
+    "decision_id": "d2",
+    "query": "x",
+    "timestamp": "2026-07-25T13:54:52.345Z"
+  }
+]
