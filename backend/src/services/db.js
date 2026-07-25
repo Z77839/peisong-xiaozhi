@@ -131,7 +131,7 @@ export async function updateUserLastLogin(userId) {
 // ============================================
 export async function saveDecision(decision) {
   const record = {
-    id: `d_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    id: decision.id || `d_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
     userId: decision.userId,
     query: decision.query,
     cityId: decision.cityId,
@@ -197,14 +197,14 @@ export async function logAudit({ userId, action, resource, resourceId, details, 
 }
 
 // ============================================
-// Agent 调用日志
+// 决策智能体能力调用日志
 // ============================================
-export async function logAgentCall({ decisionId, agentName, status, durationMs, input, output, errorMessage, startedAt, finishedAt }) {
+export async function logCapabilityCall({ decisionId, capabilityName, status, durationMs, input, output, errorMessage, startedAt, finishedAt }) {
   if (USE_POSTGRES) {
     await pool.query(
-      `INSERT INTO agent_call_logs (decision_id, agent_name, status, duration_ms, input, output, error_message, started_at, finished_at)
+      `INSERT INTO capability_call_logs (decision_id, capability_name, status, duration_ms, input, output, error_message, started_at, finished_at)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
-      [decisionId, agentName, status, durationMs, JSON.stringify(input || {}), JSON.stringify(output || {}),
+      [decisionId, capabilityName, status, durationMs, JSON.stringify(input || {}), JSON.stringify(output || {}),
        errorMessage, startedAt, finishedAt]
     )
   }
@@ -226,4 +226,4 @@ export async function dbHealthCheck() {
   return { status: 'ok', type: 'json-fallback' }
 }
 
-export default { pool, USE_POSTGRES, findUserByUsername, saveDecision, getDecisionHistory, logAudit, logAgentCall, dbHealthCheck }
+export default { pool, USE_POSTGRES, findUserByUsername, saveDecision, getDecisionHistory, logAudit, logCapabilityCall, dbHealthCheck }

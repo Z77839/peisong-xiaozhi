@@ -170,7 +170,7 @@ export async function testWeatherAPI(cityId = 'hengyang') {
  *  - 不传：使用真实当前时间 + 真实/mock 天气
  *  - 传：用于「时间机器」演示（前端可切不同时间看 AI 输出）
  */
-export async function getAgentContext(cityId = 'hengyang', options = {}) {
+export async function getDecisionContext(cityId = 'hengyang', options = {}) {
   const { override } = options
   const now = override?.datetime ? new Date(override.datetime) : new Date()
   // 使用业务时区（北京时间）读取时间，不依赖服务器 UTC
@@ -281,6 +281,9 @@ export async function getAgentContext(cityId = 'hengyang', options = {}) {
     ].filter(Boolean).join('；')
   }
 }
+
+export const getAgentContext = getDecisionContext
+
 /**
  * 格式化真实骑手数据为决策上下文
  */

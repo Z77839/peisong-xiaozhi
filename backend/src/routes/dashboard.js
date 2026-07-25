@@ -123,13 +123,13 @@ router.get('/capabilities', async (req, res) => {
       }
     }
 
-    // 3. 平均耗时：来自 agent_calls.json 真实 Agent 调用平均 ms
-    const AGENT_CALLS_FILE = path.resolve(process.cwd(), 'data/agent_calls.json')
+    // 3. 平均耗时：来自 capability_calls.json 真实能力调用平均 ms
+    const CAPABILITY_CALLS_FILE = path.resolve(process.cwd(), 'data/capability_calls.json')
     let avgDurationMs = 0
     let totalCalls = 0
-    if (fs.existsSync(AGENT_CALLS_FILE)) {
+    if (fs.existsSync(CAPABILITY_CALLS_FILE)) {
       try {
-        const calls = JSON.parse(fs.readFileSync(AGENT_CALLS_FILE, 'utf-8'))
+        const calls = JSON.parse(fs.readFileSync(CAPABILITY_CALLS_FILE, 'utf-8'))
         if (calls.length > 0) {
           totalCalls = calls.length
           const sumMs = calls.reduce((s, c) => s + (c.durationMs || 0), 0)
@@ -155,8 +155,8 @@ router.get('/capabilities', async (req, res) => {
       } catch (e) {}
     }
 
-    // 6. Agent 协同数：8 个工作 Agent（不含 knowledge-retrieve）
-    const WORKING_AGENTS = 8
+    // 6. 决策智能体内部能力数：8 个工作能力（不含 knowledge-retrieve）
+    const WORKING_CAPABILITIES = 8
 
     res.json({
       code: 200,
@@ -176,7 +176,7 @@ router.get('/capabilities', async (req, res) => {
         order: {
           value: avgDurationSec + 's',
           label: '平均耗时',
-          source: 'Agent 调用追踪（' + totalCalls + ' 条记录）',
+          source: '决策智能体能力调用追踪（' + totalCalls + ' 条记录）',
           raw: { totalCalls, avgMs: avgDurationMs }
         },
         recommend: {
@@ -192,10 +192,10 @@ router.get('/capabilities', async (req, res) => {
           raw: { total: knowledgeTotal }
         },
         decision: {
-          value: WORKING_AGENTS + ' 个',
-          label: 'Agent 协同',
-          source: '后端 AGENTS 数组',
-          raw: { agents: WORKING_AGENTS }
+          value: '决策智能体',
+          label: '统一决策入口',
+          source: '后端决策智能体（内部 8 能力）',
+          raw: { capabilities: WORKING_CAPABILITIES }
         }
       }
     })
@@ -269,12 +269,12 @@ router.get('/', async (req, res) => {
         byLifecycle: riderStats.byLifecycle,
         byCity: riderStats.byCity
       } : null,
-      agent_calls: agentStats,  // 真实 Agent 调用统计
+      agent_calls: agentStats,
       agent_insights: {
         summary: '衡阳晚高峰缺口最大，建议预调 120 名蜂跑 + 优选骑手',
         agents: [
-          { name: '运力预测 Agent', output: '未来 2 小时缺口 428 人', confidence: 92 },
-          { name: '成本分析 Agent', output: '蜂跑成本最优 ¥3.69', confidence: 88 }
+          { name: '决策智能体 · 运力预测能力', output: '未来 2 小时缺口 428 人', confidence: 92 },
+          { name: '决策智能体 · 成本分析能力', output: '蜂跑成本最优 ¥3.69', confidence: 88 }
         ]
       }
     }

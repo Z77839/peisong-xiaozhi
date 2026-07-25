@@ -33,7 +33,7 @@ export async function restoreFromBackup() {
   // 列分支下的文件
   const files = [
     'knowledge_index.json',
-    'agent_calls.json',
+    'capability_calls.json',
     'audit.json',
     'chat-sessions.json',
     'riders_extra.json',

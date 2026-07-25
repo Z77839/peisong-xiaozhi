@@ -55,7 +55,7 @@ function generateAlerts() {
           { id: 'subsidy', label: '启用高峰补贴', cost: 32000, estimatedGap: 1500 },
           { id: 'transfer', label: '跨区调拨 80 名', cost: 4200, estimatedGap: 600 }
         ],
-        agent: '运力预判 Agent',
+        agent: '决策智能体',
         confidence: 92,
         triggerTime: new Date(now.getTime() - 18 * 60000).toISOString(),
         status: 'active'
@@ -79,7 +79,7 @@ function generateAlerts() {
           { id: 'survey', label: '排查骑手状态', cost: 0, estimatedGap: 0 },
           { id: 'boost', label: '追加众包召募', cost: 6500, estimatedGap: 200 }
         ],
-        agent: '调度监控 Agent',
+        agent: '决策智能体',
         confidence: 85,
         triggerTime: new Date(now.getTime() - 8 * 60000).toISOString(),
         status: 'active'
@@ -103,7 +103,7 @@ function generateAlerts() {
           { id: 'subsidy', label: '20-40 分钟短补贴', cost: 18000, estimatedGap: 800 },
           { id: 'cross', label: '暂停跨区远单', cost: 0, estimatedGap: 200 }
         ],
-        agent: '天气风险 Agent',
+        agent: '决策智能体',
         confidence: 89,
         triggerTime: new Date(now.getTime() - 35 * 60000).toISOString(),
         status: 'active'
@@ -132,7 +132,7 @@ function generateAlerts() {
           { id: 'recruit', label: '启动临时骑手招募', cost: 12000, estimatedGap: 400 },
           { id: 'subsidy', label: '节日高峰补贴预案', cost: 48000, estimatedGap: 1000 }
         ],
-        agent: '节假日预判 Agent',
+        agent: '决策智能体',
         confidence: 78,
         triggerTime: new Date(now.getTime() - 120 * 60000).toISOString(),
         status: 'active'
@@ -211,7 +211,7 @@ router.post('/action', (req, res) => {
       actionId,
       cityId,
       ...r,
-      executedBy: '配送小智 · 调度执行 Agent',
+      executedBy: '配送小智 · 决策智能体',
       executedAt: new Date().toISOString()
     }
   })
