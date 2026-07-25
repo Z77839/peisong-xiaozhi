@@ -1,5 +1,21 @@
 [
   {
+    "id": "decision-flow-test-001",
+    "userId": "u_test",
+    "query": "测试决策链路",
+    "cityId": "hengyang",
+    "predictedOrders": 1200,
+    "costEstimate": 3800,
+    "riskLevel": "medium",
+    "report": "测试报告",
+    "steps": [],
+    "tracking": {
+      "agentCount": 1
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-25T14:03:03.390Z"
+  },
+  {
     "id": "d_1784987789593_3bzas4",
     "userId": null,
     "query": "测试重构品牌",
