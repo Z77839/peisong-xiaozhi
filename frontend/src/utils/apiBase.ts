@@ -1,11 +1,15 @@
 // API 基础 URL - 全局统一
-// GitHub Pages 部署时 → 走 Render 后端
+// CI打包部署时 → 读取环境变量Render后端
 // 本地开发（5173）时 → 走相对路径（同源代理到 3000）
 
 export const API_BASE_URL = (() => {
+  // 流水线打包优先读取注入的线上后端地址
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return `${import.meta.env.VITE_API_BASE_URL}/api`;
+  }
   if (typeof window === 'undefined') return '/api';
   const host = window.location.hostname;
-  // GitHub Pages 部署
+  // GitHub Pages 部署兼容
   if (host.includes('github.io')) {
     return 'https://peisong-backend.onrender.com/api';
   }
@@ -13,7 +17,7 @@ export const API_BASE_URL = (() => {
   if (host === 'localhost' || host === '127.0.0.1') {
     return '/api';
   }
-  // 其他（自部署 / 内网）— 用同源
+  // 其他环境同源请求
   return '/api';
 })();
 
