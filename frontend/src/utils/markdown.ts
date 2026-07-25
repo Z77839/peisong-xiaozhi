@@ -7,7 +7,6 @@ const md = new MarkdownIt({
   typographer: true
 })
 
-// 输出经过XSS消毒的安全HTML
 export function renderSafeMarkdown(rawMarkdown: string) {
   const rawHtml = md.render(rawMarkdown)
   const safeHtml = DOMPurify.sanitize(rawHtml)
