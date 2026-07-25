@@ -14,5 +14,13 @@
     "ip": "::ffff:127.0.0.1",
     "userAgent": "node",
     "createdAt": "2026-07-25T13:37:52.179Z"
+  },
+  {
+    "id": 3,
+    "userId": "u_1",
+    "action": "login_success",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "node",
+    "createdAt": "2026-07-25T13:38:35.990Z"
   }
 ]

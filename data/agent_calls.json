@@ -62,5 +62,69 @@
     "decision_id": "d_1784986673013_lpfc25",
     "query": "测试决策链路",
     "timestamp": "2026-07-25T13:37:53.016Z"
+  },
+  {
+    "agent_name": "知识库检索 Agent",
+    "duration_ms": 539,
+    "status": "success",
+    "decision_id": "d_1784986716050_uaaosu",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:38:36.050Z"
+  },
+  {
+    "agent_name": "任务路由 Agent",
+    "duration_ms": 345,
+    "status": "success",
+    "decision_id": "d_1784986716050_uaaosu",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:38:36.051Z"
+  },
+  {
+    "agent_name": "订单预测 Agent",
+    "duration_ms": 119,
+    "status": "success",
+    "decision_id": "d_1784986716050_uaaosu",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:38:36.051Z"
+  },
+  {
+    "agent_name": "运力分析 Agent",
+    "duration_ms": 475,
+    "status": "success",
+    "decision_id": "d_1784986716050_uaaosu",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:38:36.051Z"
+  },
+  {
+    "agent_name": "成本分析 Agent",
+    "duration_ms": 250,
+    "status": "success",
+    "decision_id": "d_1784986716050_uaaosu",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:38:36.051Z"
+  },
+  {
+    "agent_name": "派单推荐 Agent",
+    "duration_ms": 145,
+    "status": "success",
+    "decision_id": "d_1784986716050_uaaosu",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:38:36.052Z"
+  },
+  {
+    "agent_name": "决策汇总 Agent",
+    "duration_ms": 198,
+    "status": "success",
+    "decision_id": "d_1784986716050_uaaosu",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:38:36.052Z"
+  },
+  {
+    "agent_name": "报告生成 Agent",
+    "duration_ms": 281,
+    "status": "success",
+    "decision_id": "d_1784986716050_uaaosu",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:38:36.052Z"
   }
 ]
