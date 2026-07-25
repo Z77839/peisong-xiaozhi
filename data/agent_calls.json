@@ -1,322 +1,66 @@
 [
   {
     "agent_name": "知识库检索 Agent",
-    "duration_ms": 371,
+    "duration_ms": 401,
     "status": "success",
-    "decision_id": "d_1784084226882_crzedf",
-    "query": "衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T02:57:35.026Z"
+    "decision_id": "d_1784986673013_lpfc25",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:37:53.015Z"
   },
   {
     "agent_name": "任务路由 Agent",
-    "duration_ms": 196,
+    "duration_ms": 543,
     "status": "success",
-    "decision_id": "d_1784084226882_crzedf",
-    "query": "衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T02:57:35.027Z"
+    "decision_id": "d_1784986673013_lpfc25",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:37:53.015Z"
   },
   {
     "agent_name": "订单预测 Agent",
-    "duration_ms": 330,
+    "duration_ms": 477,
     "status": "success",
-    "decision_id": "d_1784084226882_crzedf",
-    "query": "衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T02:57:35.027Z"
+    "decision_id": "d_1784986673013_lpfc25",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:37:53.015Z"
   },
   {
     "agent_name": "运力分析 Agent",
-    "duration_ms": 431,
+    "duration_ms": 202,
     "status": "success",
-    "decision_id": "d_1784084226882_crzedf",
-    "query": "衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T02:57:35.028Z"
+    "decision_id": "d_1784986673013_lpfc25",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:37:53.015Z"
   },
   {
     "agent_name": "成本分析 Agent",
-    "duration_ms": 376,
+    "duration_ms": 436,
     "status": "success",
-    "decision_id": "d_1784084226882_crzedf",
-    "query": "衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T02:57:35.029Z"
+    "decision_id": "d_1784986673013_lpfc25",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:37:53.016Z"
   },
   {
     "agent_name": "派单推荐 Agent",
-    "duration_ms": 398,
+    "duration_ms": 354,
     "status": "success",
-    "decision_id": "d_1784084226882_crzedf",
-    "query": "衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T02:57:35.030Z"
-  },
-  {
-    "agent_name": "决策汇总 Agent",
-    "duration_ms": 213,
-    "status": "success",
-    "decision_id": "d_1784084226882_crzedf",
-    "query": "衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T02:57:35.031Z"
-  },
-  {
-    "agent_name": "报告生成 Agent",
-    "duration_ms": 593,
-    "status": "success",
-    "decision_id": "d_1784084226882_crzedf",
-    "query": "衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T02:57:35.032Z"
-  },
-  {
-    "agent_name": "知识库检索 Agent",
-    "duration_ms": 565,
-    "status": "success",
-    "decision_id": "d_1784086049597_fcuyf2",
-    "query": "生成衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T03:27:56.446Z"
-  },
-  {
-    "agent_name": "任务路由 Agent",
-    "duration_ms": 582,
-    "status": "success",
-    "decision_id": "d_1784086049597_fcuyf2",
-    "query": "生成衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T03:27:56.446Z"
-  },
-  {
-    "agent_name": "订单预测 Agent",
-    "duration_ms": 487,
-    "status": "success",
-    "decision_id": "d_1784086049597_fcuyf2",
-    "query": "生成衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T03:27:56.448Z"
-  },
-  {
-    "agent_name": "运力分析 Agent",
-    "duration_ms": 198,
-    "status": "success",
-    "decision_id": "d_1784086049597_fcuyf2",
-    "query": "生成衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T03:27:56.449Z"
-  },
-  {
-    "agent_name": "成本分析 Agent",
-    "duration_ms": 379,
-    "status": "success",
-    "decision_id": "d_1784086049597_fcuyf2",
-    "query": "生成衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T03:27:56.450Z"
-  },
-  {
-    "agent_name": "派单推荐 Agent",
-    "duration_ms": 237,
-    "status": "success",
-    "decision_id": "d_1784086049597_fcuyf2",
-    "query": "生成衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T03:27:56.451Z"
-  },
-  {
-    "agent_name": "决策汇总 Agent",
-    "duration_ms": 260,
-    "status": "success",
-    "decision_id": "d_1784086049597_fcuyf2",
-    "query": "生成衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T03:27:56.452Z"
-  },
-  {
-    "agent_name": "报告生成 Agent",
-    "duration_ms": 383,
-    "status": "success",
-    "decision_id": "d_1784086049597_fcuyf2",
-    "query": "生成衡阳专送成本优化方案",
-    "timestamp": "2026-07-15T03:27:56.453Z"
-  },
-  {
-    "agent_name": "知识库检索 Agent",
-    "duration_ms": 193,
-    "status": "success",
-    "decision_id": "d_1784087885344_95qfjx",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T03:58:29.333Z"
-  },
-  {
-    "agent_name": "任务路由 Agent",
-    "duration_ms": 143,
-    "status": "success",
-    "decision_id": "d_1784087885344_95qfjx",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T03:58:29.333Z"
-  },
-  {
-    "agent_name": "订单预测 Agent",
-    "duration_ms": 528,
-    "status": "success",
-    "decision_id": "d_1784087885344_95qfjx",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T03:58:29.334Z"
-  },
-  {
-    "agent_name": "运力分析 Agent",
-    "duration_ms": 598,
-    "status": "success",
-    "decision_id": "d_1784087885344_95qfjx",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T03:58:29.335Z"
-  },
-  {
-    "agent_name": "成本分析 Agent",
-    "duration_ms": 103,
-    "status": "success",
-    "decision_id": "d_1784087885344_95qfjx",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T03:58:29.337Z"
-  },
-  {
-    "agent_name": "派单推荐 Agent",
-    "duration_ms": 564,
-    "status": "success",
-    "decision_id": "d_1784087885344_95qfjx",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T03:58:29.338Z"
-  },
-  {
-    "agent_name": "决策汇总 Agent",
-    "duration_ms": 476,
-    "status": "success",
-    "decision_id": "d_1784087885344_95qfjx",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T03:58:29.339Z"
-  },
-  {
-    "agent_name": "报告生成 Agent",
-    "duration_ms": 530,
-    "status": "success",
-    "decision_id": "d_1784087885344_95qfjx",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T03:58:29.340Z"
-  },
-  {
-    "agent_name": "知识库检索 Agent",
-    "duration_ms": 495,
-    "status": "success",
-    "decision_id": "d_1784090798390_ikpt0i",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T04:47:06.863Z"
-  },
-  {
-    "agent_name": "任务路由 Agent",
-    "duration_ms": 445,
-    "status": "success",
-    "decision_id": "d_1784090798390_ikpt0i",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T04:47:06.863Z"
-  },
-  {
-    "agent_name": "订单预测 Agent",
-    "duration_ms": 179,
-    "status": "success",
-    "decision_id": "d_1784090798390_ikpt0i",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T04:47:06.863Z"
-  },
-  {
-    "agent_name": "运力分析 Agent",
-    "duration_ms": 149,
-    "status": "success",
-    "decision_id": "d_1784090798390_ikpt0i",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T04:47:06.864Z"
-  },
-  {
-    "agent_name": "成本分析 Agent",
-    "duration_ms": 106,
-    "status": "success",
-    "decision_id": "d_1784090798390_ikpt0i",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T04:47:06.864Z"
-  },
-  {
-    "agent_name": "派单推荐 Agent",
-    "duration_ms": 370,
-    "status": "success",
-    "decision_id": "d_1784090798390_ikpt0i",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T04:47:06.865Z"
+    "decision_id": "d_1784986673013_lpfc25",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:37:53.016Z"
   },
   {
     "agent_name": "决策汇总 Agent",
     "duration_ms": 223,
     "status": "success",
-    "decision_id": "d_1784090798390_ikpt0i",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T04:47:06.865Z"
+    "decision_id": "d_1784986673013_lpfc25",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:37:53.016Z"
   },
   {
     "agent_name": "报告生成 Agent",
-    "duration_ms": 484,
+    "duration_ms": 312,
     "status": "success",
-    "decision_id": "d_1784090798390_ikpt0i",
-    "query": "评估晚高峰蜂跑运力是否扩容",
-    "timestamp": "2026-07-15T04:47:06.865Z"
-  },
-  {
-    "agent_name": "知识库检索 Agent",
-    "duration_ms": 355,
-    "status": "success",
-    "decision_id": "d_1784092103924_jy4cx0",
-    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
-    "timestamp": "2026-07-15T05:08:59.334Z"
-  },
-  {
-    "agent_name": "任务路由 Agent",
-    "duration_ms": 527,
-    "status": "success",
-    "decision_id": "d_1784092103924_jy4cx0",
-    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
-    "timestamp": "2026-07-15T05:08:59.334Z"
-  },
-  {
-    "agent_name": "订单预测 Agent",
-    "duration_ms": 598,
-    "status": "success",
-    "decision_id": "d_1784092103924_jy4cx0",
-    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
-    "timestamp": "2026-07-15T05:08:59.335Z"
-  },
-  {
-    "agent_name": "运力分析 Agent",
-    "duration_ms": 446,
-    "status": "success",
-    "decision_id": "d_1784092103924_jy4cx0",
-    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
-    "timestamp": "2026-07-15T05:08:59.335Z"
-  },
-  {
-    "agent_name": "成本分析 Agent",
-    "duration_ms": 185,
-    "status": "success",
-    "decision_id": "d_1784092103924_jy4cx0",
-    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
-    "timestamp": "2026-07-15T05:08:59.335Z"
-  },
-  {
-    "agent_name": "派单推荐 Agent",
-    "duration_ms": 558,
-    "status": "success",
-    "decision_id": "d_1784092103924_jy4cx0",
-    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
-    "timestamp": "2026-07-15T05:08:59.336Z"
-  },
-  {
-    "agent_name": "决策汇总 Agent",
-    "duration_ms": 413,
-    "status": "success",
-    "decision_id": "d_1784092103924_jy4cx0",
-    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
-    "timestamp": "2026-07-15T05:08:59.336Z"
-  },
-  {
-    "agent_name": "报告生成 Agent",
-    "duration_ms": 480,
-    "status": "success",
-    "decision_id": "d_1784092103924_jy4cx0",
-    "query": "分析衡阳晚高峰运力情况，给出成本优化建议",
-    "timestamp": "2026-07-15T05:08:59.336Z"
+    "decision_id": "d_1784986673013_lpfc25",
+    "query": "测试决策链路",
+    "timestamp": "2026-07-25T13:37:53.016Z"
   }
 ]
