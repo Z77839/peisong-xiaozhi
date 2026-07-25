@@ -5,7 +5,7 @@
     "status": "success",
     "decision_id": "d1",
     "query": "hello",
-    "timestamp": "2026-07-25T13:54:52.344Z"
+    "timestamp": "2026-07-25T14:02:55.237Z"
   },
   {
     "capability_name": "任务路由能力",
@@ -13,6 +13,6 @@
     "status": "success",
     "decision_id": "d2",
     "query": "x",
-    "timestamp": "2026-07-25T13:54:52.345Z"
+    "timestamp": "2026-07-25T14:02:55.238Z"
   }
 ]
