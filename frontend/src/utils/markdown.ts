@@ -12,3 +12,6 @@ export function renderSafeMarkdown(rawMarkdown: string) {
   const safeHtml = DOMPurify.sanitize(rawHtml)
   return safeHtml
 }
+
+// 兼容页面里 import { renderMarkdown } 的旧写法
+export const renderMarkdown = renderSafeMarkdown
