@@ -17,6 +17,7 @@
         "dompurify": "^3.4.12",
         "echarts": "^5.4.0",
         "element-plus": "^2.4.0",
+        "markdown-it": "^14.3.0",
         "marked": "^9.1.6",
         "nprogress": "^0.2.0",
         "pinia": "^2.1.7",
