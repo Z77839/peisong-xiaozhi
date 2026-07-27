@@ -1,450 +1,66 @@
 [
   {
     "capability_name": "知识库检索能力",
-    "duration_ms": 359,
+    "duration_ms": 215,
     "status": "success",
-    "decision_id": "d_1785157729305_v9j7yg",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:57.789Z"
+    "decision_id": "d_1785159957796_oqkedo",
+    "query": "4 城市配送单均成本能压到 4 元以下吗",
+    "timestamp": "2026-07-27T13:46:25.247Z"
   },
   {
     "capability_name": "任务路由能力",
-    "duration_ms": 170,
+    "duration_ms": 519,
     "status": "success",
-    "decision_id": "d_1785157729305_v9j7yg",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:57.790Z"
+    "decision_id": "d_1785159957796_oqkedo",
+    "query": "4 城市配送单均成本能压到 4 元以下吗",
+    "timestamp": "2026-07-27T13:46:25.248Z"
   },
   {
     "capability_name": "订单预测能力",
-    "duration_ms": 333,
+    "duration_ms": 214,
     "status": "success",
-    "decision_id": "d_1785157729305_v9j7yg",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:57.798Z"
+    "decision_id": "d_1785159957796_oqkedo",
+    "query": "4 城市配送单均成本能压到 4 元以下吗",
+    "timestamp": "2026-07-27T13:46:25.248Z"
   },
   {
     "capability_name": "运力分析能力",
-    "duration_ms": 263,
+    "duration_ms": 446,
     "status": "success",
-    "decision_id": "d_1785157729305_v9j7yg",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:57.812Z"
+    "decision_id": "d_1785159957796_oqkedo",
+    "query": "4 城市配送单均成本能压到 4 元以下吗",
+    "timestamp": "2026-07-27T13:46:25.249Z"
   },
   {
     "capability_name": "成本分析能力",
-    "duration_ms": 590,
+    "duration_ms": 233,
     "status": "success",
-    "decision_id": "d_1785157729305_v9j7yg",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:57.827Z"
+    "decision_id": "d_1785159957796_oqkedo",
+    "query": "4 城市配送单均成本能压到 4 元以下吗",
+    "timestamp": "2026-07-27T13:46:25.250Z"
   },
   {
     "capability_name": "派单推荐能力",
-    "duration_ms": 550,
+    "duration_ms": 405,
     "status": "success",
-    "decision_id": "d_1785157729305_v9j7yg",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:57.841Z"
+    "decision_id": "d_1785159957796_oqkedo",
+    "query": "4 城市配送单均成本能压到 4 元以下吗",
+    "timestamp": "2026-07-27T13:46:25.251Z"
   },
   {
     "capability_name": "决策汇总能力",
-    "duration_ms": 513,
+    "duration_ms": 268,
     "status": "success",
-    "decision_id": "d_1785157729305_v9j7yg",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:57.851Z"
+    "decision_id": "d_1785159957796_oqkedo",
+    "query": "4 城市配送单均成本能压到 4 元以下吗",
+    "timestamp": "2026-07-27T13:46:25.252Z"
   },
   {
     "capability_name": "报告生成能力",
-    "duration_ms": 247,
+    "duration_ms": 599,
     "status": "success",
-    "decision_id": "d_1785157729305_v9j7yg",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:57.877Z"
-  },
-  {
-    "capability_name": "知识库检索能力",
-    "duration_ms": 578,
-    "status": "success",
-    "decision_id": "d_1785157738866_2p67i0",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:58.866Z"
-  },
-  {
-    "capability_name": "任务路由能力",
-    "duration_ms": 560,
-    "status": "success",
-    "decision_id": "d_1785157738866_2p67i0",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:58.866Z"
-  },
-  {
-    "capability_name": "订单预测能力",
-    "duration_ms": 502,
-    "status": "success",
-    "decision_id": "d_1785157738866_2p67i0",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:58.867Z"
-  },
-  {
-    "capability_name": "运力分析能力",
-    "duration_ms": 437,
-    "status": "success",
-    "decision_id": "d_1785157738866_2p67i0",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:58.867Z"
-  },
-  {
-    "capability_name": "成本分析能力",
-    "duration_ms": 288,
-    "status": "success",
-    "decision_id": "d_1785157738866_2p67i0",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:58.868Z"
-  },
-  {
-    "capability_name": "派单推荐能力",
-    "duration_ms": 126,
-    "status": "success",
-    "decision_id": "d_1785157738866_2p67i0",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:58.868Z"
-  },
-  {
-    "capability_name": "决策汇总能力",
-    "duration_ms": 511,
-    "status": "success",
-    "decision_id": "d_1785157738866_2p67i0",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:58.869Z"
-  },
-  {
-    "capability_name": "报告生成能力",
-    "duration_ms": 572,
-    "status": "success",
-    "decision_id": "d_1785157738866_2p67i0",
-    "query": "cache verify 2026",
-    "timestamp": "2026-07-27T13:08:58.869Z"
-  },
-  {
-    "capability_name": "知识库检索能力",
-    "duration_ms": 162,
-    "status": "success",
-    "decision_id": "d_1785157814424_ulmawa",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:40.413Z"
-  },
-  {
-    "capability_name": "任务路由能力",
-    "duration_ms": 388,
-    "status": "success",
-    "decision_id": "d_1785157814424_ulmawa",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:40.413Z"
-  },
-  {
-    "capability_name": "订单预测能力",
-    "duration_ms": 415,
-    "status": "success",
-    "decision_id": "d_1785157814424_ulmawa",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:40.414Z"
-  },
-  {
-    "capability_name": "运力分析能力",
-    "duration_ms": 438,
-    "status": "success",
-    "decision_id": "d_1785157814424_ulmawa",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:40.414Z"
-  },
-  {
-    "capability_name": "成本分析能力",
-    "duration_ms": 381,
-    "status": "success",
-    "decision_id": "d_1785157814424_ulmawa",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:40.415Z"
-  },
-  {
-    "capability_name": "派单推荐能力",
-    "duration_ms": 393,
-    "status": "success",
-    "decision_id": "d_1785157814424_ulmawa",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:40.415Z"
-  },
-  {
-    "capability_name": "决策汇总能力",
-    "duration_ms": 469,
-    "status": "success",
-    "decision_id": "d_1785157814424_ulmawa",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:40.416Z"
-  },
-  {
-    "capability_name": "报告生成能力",
-    "duration_ms": 212,
-    "status": "success",
-    "decision_id": "d_1785157814424_ulmawa",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:40.416Z"
-  },
-  {
-    "capability_name": "知识库检索能力",
-    "duration_ms": 198,
-    "status": "success",
-    "decision_id": "d_1785157855200_h8bkt8",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:55.201Z"
-  },
-  {
-    "capability_name": "任务路由能力",
-    "duration_ms": 301,
-    "status": "success",
-    "decision_id": "d_1785157855200_h8bkt8",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:55.204Z"
-  },
-  {
-    "capability_name": "订单预测能力",
-    "duration_ms": 549,
-    "status": "success",
-    "decision_id": "d_1785157855200_h8bkt8",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:55.247Z"
-  },
-  {
-    "capability_name": "运力分析能力",
-    "duration_ms": 252,
-    "status": "success",
-    "decision_id": "d_1785157855200_h8bkt8",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:55.248Z"
-  },
-  {
-    "capability_name": "成本分析能力",
-    "duration_ms": 103,
-    "status": "success",
-    "decision_id": "d_1785157855200_h8bkt8",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:55.254Z"
-  },
-  {
-    "capability_name": "派单推荐能力",
-    "duration_ms": 144,
-    "status": "success",
-    "decision_id": "d_1785157855200_h8bkt8",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:55.259Z"
-  },
-  {
-    "capability_name": "决策汇总能力",
-    "duration_ms": 575,
-    "status": "success",
-    "decision_id": "d_1785157855200_h8bkt8",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:55.267Z"
-  },
-  {
-    "capability_name": "报告生成能力",
-    "duration_ms": 297,
-    "status": "success",
-    "decision_id": "d_1785157855200_h8bkt8",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:10:55.272Z"
-  },
-  {
-    "capability_name": "知识库检索能力",
-    "duration_ms": 139,
-    "status": "success",
-    "decision_id": "d_1785157835903_5rtyr9",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:11:00.757Z"
-  },
-  {
-    "capability_name": "任务路由能力",
-    "duration_ms": 459,
-    "status": "success",
-    "decision_id": "d_1785157835903_5rtyr9",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:11:00.760Z"
-  },
-  {
-    "capability_name": "订单预测能力",
-    "duration_ms": 133,
-    "status": "success",
-    "decision_id": "d_1785157835903_5rtyr9",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:11:00.776Z"
-  },
-  {
-    "capability_name": "运力分析能力",
-    "duration_ms": 382,
-    "status": "success",
-    "decision_id": "d_1785157835903_5rtyr9",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:11:00.810Z"
-  },
-  {
-    "capability_name": "成本分析能力",
-    "duration_ms": 269,
-    "status": "success",
-    "decision_id": "d_1785157835903_5rtyr9",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:11:00.872Z"
-  },
-  {
-    "capability_name": "派单推荐能力",
-    "duration_ms": 225,
-    "status": "success",
-    "decision_id": "d_1785157835903_5rtyr9",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:11:00.898Z"
-  },
-  {
-    "capability_name": "决策汇总能力",
-    "duration_ms": 398,
-    "status": "success",
-    "decision_id": "d_1785157835903_5rtyr9",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:11:00.905Z"
-  },
-  {
-    "capability_name": "报告生成能力",
-    "duration_ms": 399,
-    "status": "success",
-    "decision_id": "d_1785157835903_5rtyr9",
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-27T13:11:00.915Z"
-  },
-  {
-    "capability_name": "知识库检索能力",
-    "duration_ms": 426,
-    "status": "success",
-    "decision_id": "d_1785158740804_m3uj3r",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:13.012Z"
-  },
-  {
-    "capability_name": "任务路由能力",
-    "duration_ms": 141,
-    "status": "success",
-    "decision_id": "d_1785158740804_m3uj3r",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:13.012Z"
-  },
-  {
-    "capability_name": "订单预测能力",
-    "duration_ms": 376,
-    "status": "success",
-    "decision_id": "d_1785158740804_m3uj3r",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:13.013Z"
-  },
-  {
-    "capability_name": "运力分析能力",
-    "duration_ms": 373,
-    "status": "success",
-    "decision_id": "d_1785158740804_m3uj3r",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:13.013Z"
-  },
-  {
-    "capability_name": "成本分析能力",
-    "duration_ms": 338,
-    "status": "success",
-    "decision_id": "d_1785158740804_m3uj3r",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:13.014Z"
-  },
-  {
-    "capability_name": "派单推荐能力",
-    "duration_ms": 307,
-    "status": "success",
-    "decision_id": "d_1785158740804_m3uj3r",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:13.014Z"
-  },
-  {
-    "capability_name": "决策汇总能力",
-    "duration_ms": 530,
-    "status": "success",
-    "decision_id": "d_1785158740804_m3uj3r",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:13.015Z"
-  },
-  {
-    "capability_name": "报告生成能力",
-    "duration_ms": 229,
-    "status": "success",
-    "decision_id": "d_1785158740804_m3uj3r",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:13.015Z"
-  },
-  {
-    "capability_name": "知识库检索能力",
-    "duration_ms": 155,
-    "status": "success",
-    "decision_id": "d_1785158787250_shwf0k",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:27.251Z"
-  },
-  {
-    "capability_name": "任务路由能力",
-    "duration_ms": 468,
-    "status": "success",
-    "decision_id": "d_1785158787250_shwf0k",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:27.260Z"
-  },
-  {
-    "capability_name": "订单预测能力",
-    "duration_ms": 116,
-    "status": "success",
-    "decision_id": "d_1785158787250_shwf0k",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:27.313Z"
-  },
-  {
-    "capability_name": "运力分析能力",
-    "duration_ms": 447,
-    "status": "success",
-    "decision_id": "d_1785158787250_shwf0k",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:27.402Z"
-  },
-  {
-    "capability_name": "成本分析能力",
-    "duration_ms": 240,
-    "status": "success",
-    "decision_id": "d_1785158787250_shwf0k",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:27.424Z"
-  },
-  {
-    "capability_name": "派单推荐能力",
-    "duration_ms": 444,
-    "status": "success",
-    "decision_id": "d_1785158787250_shwf0k",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:27.444Z"
-  },
-  {
-    "capability_name": "决策汇总能力",
-    "duration_ms": 591,
-    "status": "success",
-    "decision_id": "d_1785158787250_shwf0k",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:27.449Z"
-  },
-  {
-    "capability_name": "报告生成能力",
-    "duration_ms": 579,
-    "status": "success",
-    "decision_id": "d_1785158787250_shwf0k",
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "timestamp": "2026-07-27T13:26:27.453Z"
+    "decision_id": "d_1785159957796_oqkedo",
+    "query": "4 城市配送单均成本能压到 4 元以下吗",
+    "timestamp": "2026-07-27T13:46:25.253Z"
   }
 ]
