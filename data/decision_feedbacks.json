@@ -1,12 +1,12 @@
 {
-  "decision-smoke-test": {
-    "decisionId": "decision-smoke-test",
-    "dispatchId": null,
+  "d_smoke_test": {
+    "decisionId": "d_smoke_test",
+    "dispatchId": "dp_smoke_1",
     "alertId": null,
     "result": "success",
     "message": "smoke test",
-    "riderCount": 0,
-    "createdAt": "2026-07-25T13:38:36.070Z",
-    "updatedAt": "2026-07-25T13:38:36.070Z"
+    "riderCount": 1,
+    "createdAt": "2026-07-27T10:39:12.545Z",
+    "updatedAt": "2026-07-27T10:39:12.545Z"
   }
 }

@@ -1,29 +1,13 @@
 [
   {
-    "id": "decision-flow-test-001",
-    "userId": "u_test",
-    "query": "测试决策链路",
-    "cityId": "hengyang",
-    "predictedOrders": 1200,
-    "costEstimate": 3800,
-    "riskLevel": "medium",
-    "report": "测试报告",
-    "steps": [],
-    "tracking": {
-      "agentCount": 1
-    },
-    "cozeUsed": false,
-    "createdAt": "2026-07-25T14:03:03.390Z"
-  },
-  {
-    "id": "d_1784987789593_3bzas4",
+    "id": "d_1785148751856_r88q01",
     "userId": null,
-    "query": "测试重构品牌",
+    "query": "预测今晚衡阳各商圈订单量",
     "cityId": "hengyang",
-    "predictedOrders": 9174,
-    "costEstimate": 129786,
-    "riskLevel": "high",
-    "report": "{\"summary\":\"多运力成本优化方案\",\"recommendation\":\"优选+众包组合\",\"savings\":\"12.3%\",\"model\":\"mock\",\"note\":\"⚠️ 豆包未配置\"}",
+    "predictedOrders": 834,
+    "costEstimate": 25607.999999999996,
+    "riskLevel": "low",
+    "report": "# 配送小智·2026年7月27日衡阳晚高峰各商圈订单量预测报告\n## 一、预测核心前提\n1. 时间窗口：今晚18:00-20:00（周一晚高峰，平台需求等级标注为「极高」）\n2. 城市环境：湖南衡阳，体感温度29°C，湿度87%，夏季闷热天气将提升居家/办公场景外卖需求\n3. 当日属性：工作日，订单以白领晚餐、家庭简易餐为主\n4. 运力背景：平台总活跃骑手27162人，本城驻点骑手167人（熟悉本地商圈配送路径）\n\n## 二、各商圈订单量预测（单位：单）\n结合商圈人口密度、业态分布预测：\n1. 蒸湘区核心商圈（万达/步步高/弘阳广场周边）：区间4800-5500单，占全市晚高峰订单35%-38%，需求峰值18:40-19:20\n2. 雁峰区核心商圈（苏宁广场/岳屏广场周边）：区间3200-3700单，占比23%-26%，需求峰值18:50-19:30\n3. 珠晖区核心商圈（酃湖万达/金甲岭商圈周边）：区间2800-3300单，占比20%-22%，需求峰值19:00-19:40\n4. 产业园区/高校周边（松木经开区/衡阳师范学院东校区等）：区间1800-2200单，占比12%-15%，需求峰值18:30-19:10\n\n## 三、预测置信度\n整体预测置信度：82%\n- 高置信度支撑：时段属性（晚高峰）、当日属性（工作日）、天气影响三类核心需求因子明确，匹配平台历史同类型时段数据\n- 中等偏差因素：各商圈商户爆单、用户临时需求可能导致±5%的区间波动\n\n## 四、可执行建议\n1. 运力调度：优先将本城驻点骑手分配至蒸湘、雁峰核心商圈，发挥其路径熟悉优势\n2. 风险预警：19:00后重点关注珠晖区商圈骑手缺口，提前统筹机动运力补位\n3. 成本控制：调度铂金/钻石等级骑手参与跨商圈应急单，利用其高配送效率降低超时成本\n\n📚 参考知识库\n本次预测基于感知上下文及常规运营规则，未引用特定知识库文档。",
     "steps": [
       {
         "id": "knowledge-retrieve",
@@ -31,7 +15,7 @@
         "desc": "RAG · 检索相关运营知识",
         "icon": "📚",
         "status": "success",
-        "duration": 348,
+        "duration": 515,
         "output": "未找到相关知识"
       },
       {
@@ -40,8 +24,8 @@
         "desc": "识别意图·拆解任务",
         "icon": "🔀",
         "status": "success",
-        "duration": 129,
-        "output": "已路由到 mock (mock)"
+        "duration": 229,
+        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
       },
       {
         "id": "order-predict",
@@ -49,8 +33,8 @@
         "desc": "AI 模型预测各时段订单",
         "icon": "📈",
         "status": "success",
-        "duration": 166,
-        "output": "由 mock 生成建议"
+        "duration": 529,
+        "output": "由 doubao 生成建议"
       },
       {
         "id": "rider-analyze",
@@ -58,8 +42,8 @@
         "desc": "5 运力线智能匹配",
         "icon": "🚴",
         "status": "success",
-        "duration": 245,
-        "output": "由 mock 生成建议"
+        "duration": 264,
+        "output": "由 doubao 生成建议"
       },
       {
         "id": "cost-analyze",
@@ -67,8 +51,8 @@
         "desc": "多运力成本 Pareto",
         "icon": "💰",
         "status": "success",
-        "duration": 177,
-        "output": "由 mock 生成建议"
+        "duration": 235,
+        "output": "由 doubao 生成建议"
       },
       {
         "id": "dispatch-rec",
@@ -76,8 +60,8 @@
         "desc": "蜂跑+众包+专送智能调度",
         "icon": "📦",
         "status": "success",
-        "duration": 192,
-        "output": "由 mock 生成建议"
+        "duration": 168,
+        "output": "由 doubao 生成建议"
       },
       {
         "id": "decision-merge",
@@ -85,8 +69,8 @@
         "desc": "综合评估·生成报告",
         "icon": "🧠",
         "status": "success",
-        "duration": 522,
-        "output": "由 mock 生成建议"
+        "duration": 440,
+        "output": "由 doubao 生成建议"
       },
       {
         "id": "report-gen",
@@ -94,215 +78,11 @@
         "desc": "结构化输出",
         "icon": "📊",
         "status": "success",
-        "duration": 474,
-        "output": "由 mock 生成建议"
+        "duration": 355,
+        "output": "由 doubao 生成建议"
       }
     ],
     "cozeUsed": false,
-    "createdAt": "2026-07-25T13:56:29.598Z"
-  },
-  {
-    "id": "decision-flow-test-001",
-    "userId": "u_test",
-    "query": "测试决策链路",
-    "cityId": "hengyang",
-    "predictedOrders": 1200,
-    "costEstimate": 3800,
-    "riskLevel": "medium",
-    "report": "测试报告",
-    "steps": [],
-    "tracking": {
-      "agentCount": 1
-    },
-    "cozeUsed": false,
-    "createdAt": "2026-07-25T13:55:00.462Z"
-  },
-  {
-    "id": "d_1784986716050_uaaosu",
-    "userId": null,
-    "query": "测试决策链路",
-    "cityId": "hengyang",
-    "predictedOrders": 9174,
-    "costEstimate": 128476.49999999997,
-    "riskLevel": "high",
-    "report": "{\"summary\":\"多运力成本优化方案\",\"recommendation\":\"优选+众包组合\",\"savings\":\"12.3%\",\"model\":\"mock\",\"note\":\"⚠️ 豆包未配置\"}",
-    "steps": [
-      {
-        "id": "knowledge-retrieve",
-        "name": "知识库检索 Agent",
-        "desc": "RAG · 检索相关运营知识",
-        "icon": "📚",
-        "status": "success",
-        "duration": 539,
-        "output": "未找到相关知识"
-      },
-      {
-        "id": "task-router",
-        "name": "任务路由 Agent",
-        "desc": "识别意图·拆解任务",
-        "icon": "🔀",
-        "status": "success",
-        "duration": 345,
-        "output": "已路由到 mock (mock)"
-      },
-      {
-        "id": "order-predict",
-        "name": "订单预测 Agent",
-        "desc": "AI 模型预测各时段订单",
-        "icon": "📈",
-        "status": "success",
-        "duration": 119,
-        "output": "由 mock 生成建议"
-      },
-      {
-        "id": "rider-analyze",
-        "name": "运力分析 Agent",
-        "desc": "5 运力线智能匹配",
-        "icon": "🚴",
-        "status": "success",
-        "duration": 475,
-        "output": "由 mock 生成建议"
-      },
-      {
-        "id": "cost-analyze",
-        "name": "成本分析 Agent",
-        "desc": "多运力成本 Pareto",
-        "icon": "💰",
-        "status": "success",
-        "duration": 250,
-        "output": "由 mock 生成建议"
-      },
-      {
-        "id": "dispatch-rec",
-        "name": "派单推荐 Agent",
-        "desc": "蜂跑+众包+专送智能调度",
-        "icon": "📦",
-        "status": "success",
-        "duration": 145,
-        "output": "由 mock 生成建议"
-      },
-      {
-        "id": "decision-merge",
-        "name": "决策汇总 Agent",
-        "desc": "综合评估·生成报告",
-        "icon": "🧠",
-        "status": "success",
-        "duration": 198,
-        "output": "由 mock 生成建议"
-      },
-      {
-        "id": "report-gen",
-        "name": "报告生成 Agent",
-        "desc": "结构化输出",
-        "icon": "📊",
-        "status": "success",
-        "duration": 281,
-        "output": "由 mock 生成建议"
-      }
-    ],
-    "cozeUsed": false,
-    "createdAt": "2026-07-25T13:38:36.055Z"
-  },
-  {
-    "id": "d_1784986673013_lpfc25",
-    "userId": null,
-    "query": "测试决策链路",
-    "cityId": "hengyang",
-    "predictedOrders": 9174,
-    "costEstimate": 130950,
-    "riskLevel": "high",
-    "report": "{\"summary\":\"多运力成本优化方案\",\"recommendation\":\"优选+众包组合\",\"savings\":\"12.3%\",\"model\":\"mock\",\"note\":\"⚠️ 豆包未配置\"}",
-    "steps": [
-      {
-        "id": "knowledge-retrieve",
-        "name": "知识库检索 Agent",
-        "desc": "RAG · 检索相关运营知识",
-        "icon": "📚",
-        "status": "success",
-        "duration": 401,
-        "output": "未找到相关知识"
-      },
-      {
-        "id": "task-router",
-        "name": "任务路由 Agent",
-        "desc": "识别意图·拆解任务",
-        "icon": "🔀",
-        "status": "success",
-        "duration": 543,
-        "output": "已路由到 mock (mock)"
-      },
-      {
-        "id": "order-predict",
-        "name": "订单预测 Agent",
-        "desc": "AI 模型预测各时段订单",
-        "icon": "📈",
-        "status": "success",
-        "duration": 477,
-        "output": "由 mock 生成建议"
-      },
-      {
-        "id": "rider-analyze",
-        "name": "运力分析 Agent",
-        "desc": "5 运力线智能匹配",
-        "icon": "🚴",
-        "status": "success",
-        "duration": 202,
-        "output": "由 mock 生成建议"
-      },
-      {
-        "id": "cost-analyze",
-        "name": "成本分析 Agent",
-        "desc": "多运力成本 Pareto",
-        "icon": "💰",
-        "status": "success",
-        "duration": 436,
-        "output": "由 mock 生成建议"
-      },
-      {
-        "id": "dispatch-rec",
-        "name": "派单推荐 Agent",
-        "desc": "蜂跑+众包+专送智能调度",
-        "icon": "📦",
-        "status": "success",
-        "duration": 354,
-        "output": "由 mock 生成建议"
-      },
-      {
-        "id": "decision-merge",
-        "name": "决策汇总 Agent",
-        "desc": "综合评估·生成报告",
-        "icon": "🧠",
-        "status": "success",
-        "duration": 223,
-        "output": "由 mock 生成建议"
-      },
-      {
-        "id": "report-gen",
-        "name": "报告生成 Agent",
-        "desc": "结构化输出",
-        "icon": "📊",
-        "status": "success",
-        "duration": 312,
-        "output": "由 mock 生成建议"
-      }
-    ],
-    "cozeUsed": false,
-    "createdAt": "2026-07-25T13:37:53.020Z"
-  },
-  {
-    "id": "decision-flow-test-001",
-    "userId": "u_test",
-    "query": "测试决策链路",
-    "cityId": "hengyang",
-    "predictedOrders": 1200,
-    "costEstimate": 3800,
-    "riskLevel": "medium",
-    "report": "测试报告",
-    "steps": [],
-    "tracking": {
-      "agentCount": 1
-    },
-    "cozeUsed": false,
-    "createdAt": "2026-07-25T13:34:50.533Z"
+    "createdAt": "2026-07-27T10:39:11.856Z"
   }
 ]
