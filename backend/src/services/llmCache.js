@@ -31,11 +31,16 @@ export function makeKey(query, options = {}) {
  */
 export function get(key) {
   const entry = cache.get(key)
-  if (!entry) return null
-  if (Date.now() > entry.expiresAt) {
-    cache.delete(key)
+  if (!entry) {
+    console.log(`[LLM Cache] MISS (key=${String(key).slice(0, 50)}..., size=${cache.size})`)
     return null
   }
+  if (Date.now() > entry.expiresAt) {
+    cache.delete(key)
+    console.log(`[LLM Cache] EXPIRED (key=${String(key).slice(0, 50)}...)`)
+    return null
+  }
+  console.log(`[LLM Cache] ⚡ HIT (key=${String(key).slice(0, 50)}..., ageMs=${Date.now() - (entry.expiresAt - TTL_MS)})`)
   return entry.result
 }
 
@@ -52,6 +57,7 @@ export function set(key, result) {
     }
   }
   cache.set(key, { result, expiresAt: Date.now() + TTL_MS })
+  console.log(`[LLM Cache] SET (key=${String(key).slice(0, 50)}..., size=${cache.size})`)
 }
 
 /**
