@@ -58,22 +58,23 @@ let refreshTimer: number | null = null
 async function fetchDispatch() {
   loading.value = true
   try {
+    // axios 拦截器已解包 code:0 响应，r 就是 data 本体
     const r: any = await request({ url: `/dispatch?cityId=${cityStore.currentCityId}` })
-    orders.value = r.data.orders
-    riders.value = r.data.riders
-    recommendations.value = r.data.recommendations
-    stats.value = r.data.stats
+    orders.value = r.orders
+    riders.value = r.riders
+    recommendations.value = r.recommendations
+    stats.value = r.stats
 
     // ★ 调用真实优化引擎（MILP）
     const optInput = {
-      orders: r.data.orders.map((o: any) => ({
+      orders: r.orders.map((o: any) => ({
         id: o.id,
         location: { lat: 26.89 + Math.random() * 0.1, lng: 112.57 + Math.random() * 0.1 },
         deadline: 30,
         priority: o.priority,
         value: o.reward * 10
       })),
-      riders: r.data.riders.slice(0, 20).filter((r: any) => r.online).map((r: any) => ({
+      riders: r.riders.slice(0, 20).filter((r: any) => r.online).map((r: any) => ({
         id: r.id,
         name: r.name,
         location: { lat: 26.89 + Math.random() * 0.1, lng: 112.57 + Math.random() * 0.1 },
