@@ -1,5 +1,91 @@
 [
   {
+    "id": "d_1785157226118_e1wcb3",
+    "userId": null,
+    "query": "cache test query",
+    "cityId": "hengyang",
+    "predictedOrders": 9174,
+    "costEstimate": 129058.5,
+    "riskLevel": "high",
+    "report": "# 配送小智 缓存测试专项报告\n## 1. 基础校验结果（置信度：100%）\n- 感知上下文一致性：匹配预设上下文（城市：衡阳、时段：晚高峰（极高需求）、天气：阴/高湿度、骑手数据），无缓存数据缺失或篡改；\n- 核心字段完整性：骑手总量/活跃量/本城数量、等级分布、时段需求等级等关键信息加载完成，无遗漏。\n## 2. 缓存逻辑健康度（置信度：98%）\n本次查询未触发缓存穿透，未出现重复加载，缓存读取流程符合预期，无数据失真。\n## 3. 可执行测试优化建议\n若需验证缓存机制全流程，可补充如下测试：\n1. 模拟非高峰时段请求，校验缓存自动刷新逻辑；\n2. 新增实时运力变更（如骑手增减）的查询，验证缓存实时更新触发规则。\n\n📚 参考知识库\n（本次测试无对应业务文档引用）",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "duration": 400,
+        "output": "未找到相关知识"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "duration": 182,
+        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "duration": 111,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "duration": 387,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "duration": 554,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "duration": 406,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "duration": 182,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "duration": 142,
+        "output": "由 doubao 生成建议"
+      }
+    ],
+    "cozeUsed": false,
+    "createdAt": "2026-07-27T13:00:26.129Z"
+  },
+  {
     "id": "d_1785157192620_fxtjpc",
     "userId": null,
     "query": "cache test query",
