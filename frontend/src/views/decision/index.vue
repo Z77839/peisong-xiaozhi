@@ -12,7 +12,7 @@ const renderedReport = computed(() => renderMarkdown(result.value?.report || '')
 
 const cityStore = useCityStore()
 
-// 8 个真实业务 Agent
+// 决策 agent 协同组
 const AGENTS = [
   { id: 'knowledge-retrieve', name: '知识库检索', desc: 'RAG · 检索相关运营知识', icon: '📚' },
   { id: 'task-router', name: '任务路由', desc: '识别意图·拆解任务', icon: '🔀' },
@@ -524,7 +524,7 @@ function copyReport() {
       <button class="flow-toggle" @click="showFlow = !showFlow">
         <el-icon><Setting /></el-icon>
         {{ showFlow ? '收起' : '展开' }}工作流详情
-        <span class="badge">{{ AGENTS.length }} Agent 协同</span>
+        <span class="badge">决策 agent 协同</span>
       </button>
 
       <transition name="fold">
@@ -710,12 +710,12 @@ function copyReport() {
           <div v-else class="report-body empty">暂无报告</div>
         </div>
 
-        <!-- 🔍 Agent 调用追踪（借鉴 Langfuse 思路） -->
+        <!-- 🔍 决策 agent 调用追踪（借鉴 Langfuse 思路） -->
         <div v-if="result.tracking" class="tracking-section">
           <div class="ts-header">
             <span class="ts-ico">🔍</span>
-            <span class="ts-title">Agent 调用追踪</span>
-            <span class="ts-sub">借鉴 Langfuse 可观测性设计 · 完整记录每个 Agent 耗时</span>
+            <span class="ts-title">决策 agent 调用追踪</span>
+            <span class="ts-sub">借鉴 Langfuse 可观测性设计 · 完整记录每个决策 agent 耗时</span>
           </div>
 
           <div class="ts-summary">
@@ -1348,7 +1348,7 @@ function copyReport() {
 .fade-enter-active, .fade-leave-active { transition: opacity 0.2s ease; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
 
-/* Agent 协同链 */
+/* 决策 agent 协同链 */
 .agent-flow {
   padding: 28px 36px;
   background: #fafbff;
@@ -1519,7 +1519,7 @@ function copyReport() {
   .agent-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
-// 🔍 Agent 调用追踪样式
+// 🔍 决策 agent 调用追踪样式
 .tracking-section {
   background: #fff;
   border: 1px solid $border-light;
