@@ -86,12 +86,6 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '智能派单', icon: 'TakeawayBox' }
       },
       {
-        path: 'simulation',
-        name: 'Simulation',
-        component: () => import('@/views/simulation/index.vue'),
-        meta: { title: '仿真回放', icon: 'VideoPlay' }
-      },
-      {
         path: 'data-source',
         name: 'DataSource',
         component: () => import('@/views/data-source/index.vue'),

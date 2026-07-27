@@ -23,7 +23,7 @@ import aiInsightsRouter from './routes/ai-insights.js'
 import contextRouter from './routes/context.js'
 import alertRouter from './routes/alert.js'
 import dispatchRouter from './routes/dispatch.js'
-import simulationRouter from './routes/simulation.js'
+// simulationRouter 已删除（赛前不需要仿真回放）
 import optimizeRouter from './routes/optimize.js'
 import adaptersRouter from './routes/adapters.js'
 import debugRouter from './routes/debug.js'
@@ -139,7 +139,7 @@ app.use('/api/ai-insights', aiInsightsRouter)
 app.use('/api/context', contextRouter)
 app.use('/api/alert', alertRouter)
 app.use('/api/dispatch', dispatchRouter)
-app.use('/api/simulation', simulationRouter)
+// app.use('/api/simulation', simulationRouter)  // 已删除
 app.use('/api/optimize', optimizeRouter)
 app.use('/api/adapters', adaptersRouter)
 app.use('/api/knowledge', knowledgeRouter)
