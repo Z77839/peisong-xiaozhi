@@ -1,5 +1,91 @@
 [
   {
+    "id": "d_1785156565034_q0ewlr",
+    "userId": null,
+    "query": "预测今晚衡阳晚高峰需要多少骑手",
+    "cityId": "hengyang",
+    "predictedOrders": 9174,
+    "costEstimate": 125421,
+    "riskLevel": "high",
+    "report": "# 配送小智-衡阳晚高峰骑手需求预测报告\n## 预测结论\n2026年7月27日（周一）湖南衡阳晚高峰（20:00-22:00）需骑手约2100-2400人，置信度85%。\n\n## 预测依据\n1. **时段需求属性**：周一工作日晚高峰属本地生活电商配送极高需求时段，订单密度为非高峰的6-8倍[参考:工作日晚高峰运力需求文档]；\n2. **天气影响修正**：当日体感温度29℃、湿度95%，闷热环境使骑手单均配送效率降低15%-20%，需提升运力基数匹配效率损失[参考:高温场景运力调整规范文档]；\n3. **本地运力约束**：衡阳本城常驻骑手仅167人，需补充跨区域临时调度骑手覆盖高峰订单，结合常规城市配送需求系数，估算总需量为2100-2400人；\n4. **等级运力适配**：铂金/钻石级骑手占比约33%（合计8974人），其高效配送能力可支撑高峰需求，无需额外过度增加低端骑手配置。\n\n## 可执行建议\n1. 提前1小时启动跨区域骑手调度：从衡阳周边地市补充1900-2200名骑手，预留10%冗余运力应对突发订单激增；\n2. 高温运力保障：落实骑手高温补贴、缩短单次配送路段时长，降低骑手因闷热导致的缺勤率；\n3. 实时监控：通过配送小智运力调度系统，动态调整派单优先级，优先保障核心商圈订单配送时效。\n\n## 📚 参考知识库\n[参考:工作日晚高峰运力需求文档]\n[参考:高温场景运力调整规范文档]",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "duration": 469,
+        "output": "未找到相关知识"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "duration": 537,
+        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "duration": 505,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "duration": 495,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "duration": 549,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "duration": 341,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "duration": 236,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "duration": 405,
+        "output": "由 doubao 生成建议"
+      }
+    ],
+    "cozeUsed": false,
+    "createdAt": "2026-07-27T12:49:49.482Z"
+  },
+  {
     "id": "d_1785156454177_lyspsn",
     "userId": null,
     "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
