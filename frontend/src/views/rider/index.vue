@@ -33,18 +33,18 @@ const lifecycles = ref<string[]>([])
 const fetchHealth = async () => {
   try {
     const r: any = await request({ url: '/riders/health' })
-    health.value = r.data
+    health.value = r
   } catch (e) { console.warn('riders health 失败', e) }
 }
 
 const fetchStats = async () => {
   try {
     const r: any = await request({ url: '/riders/stats' })
-    stats.value = r.data
+    stats.value = r
     // 提取城市/等级/生命周期
-    cities.value = Object.keys(r.data.byCity).map(c => ({ label: `${c} (${r.data.byCity[c]})`, value: c }))
-    levels.value = Object.keys(r.data.byLevel)
-    lifecycles.value = Object.keys(r.data.byLifecycle)
+    cities.value = Object.keys(r.byCity).map(c => ({ label: `${c} (${r.byCity[c]})`, value: c }))
+    levels.value = Object.keys(r.byLevel)
+    lifecycles.value = Object.keys(r.byLifecycle)
   } catch (e) { console.warn('riders stats 失败', e) }
 }
 

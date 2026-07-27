@@ -58,10 +58,11 @@ const filteredAlerts = computed(() => {
 async function fetchAlerts() {
   loading.value = true
   try {
+    // axios 拦截器已解包 code:0 响应，r 是 data 本体
     const r: any = await request({ url: `/alert?cityId=${cityStore.currentCityId}` })
-    alerts.value = r.data.alerts
-    alertStats.value = r.data.stats
-    context.value = r.data.context
+    alerts.value = r.alerts
+    alertStats.value = r.stats
+    context.value = r.context
   } finally {
     loading.value = false
   }
@@ -79,7 +80,7 @@ async function executeAction(alert: Alert, action: any) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ alertId: alert.id, actionId: action.id, cityId: alert.cityId })
     }).then((r) => r.json())
-    ElMessage.success(`配送小智：${r.data.message}（${r.data.eta}）`)
+    ElMessage.success(`配送小智：${r.message}（${r.eta}）`)
     // 标记已执行
     alert.status = 'executing'
     void fetchAlerts()
