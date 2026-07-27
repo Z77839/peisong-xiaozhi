@@ -28,8 +28,8 @@ const menus = [
     title: '运力管理',
     icon: 'Van',
     children: [
-      { path: '/rider', title: '骑手管理', icon: 'User' },
-      { path: '/simulation', title: '仿真回放', icon: 'VideoPlay' }
+      { path: '/rider', title: '骑手管理', icon: 'User' }
+      // 仿真回放 临时隐藏（赛前不需要；路由仍保留方便手动访问）
     ]
   },
 
