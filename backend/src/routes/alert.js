@@ -41,7 +41,7 @@ function generateAlerts() {
         type: 'capacity_gap',
         typeLabel: '运力缺口',
         title: `${city.name} 预测 ${peakGap} 名骑手缺口`,
-        desc: `${city.province}·${city.name} 当前在线 ${ridersOnline.toLocaleString()} 名，预计晚高峰缺口 ${peakGap.toLocaleString()} 名。配送小智建议提前 90 分钟调度。`,
+        desc: `${city.province}·${city.name} 当前在线 ${ridersOnline.toLocaleString()} 名，预计晚高峰缺口 ${peakGap.toLocaleString()} 名。`,
         cityId: city.id,
         cityName: city.name,
         metrics: {
