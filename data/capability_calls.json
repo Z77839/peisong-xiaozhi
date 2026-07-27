@@ -126,5 +126,69 @@
     "decision_id": "d_1785157126266_volhod",
     "query": "预测今晚衡阳晚高峰需要多少骑手",
     "timestamp": "2026-07-27T12:59:22.850Z"
+  },
+  {
+    "capability_name": "知识库检索能力",
+    "duration_ms": 199,
+    "status": "success",
+    "decision_id": "d_1785157180451_qokdn6",
+    "query": "预测今晚衡阳晚高峰需要多少骑手",
+    "timestamp": "2026-07-27T12:59:40.452Z"
+  },
+  {
+    "capability_name": "任务路由能力",
+    "duration_ms": 527,
+    "status": "success",
+    "decision_id": "d_1785157180451_qokdn6",
+    "query": "预测今晚衡阳晚高峰需要多少骑手",
+    "timestamp": "2026-07-27T12:59:40.452Z"
+  },
+  {
+    "capability_name": "订单预测能力",
+    "duration_ms": 543,
+    "status": "success",
+    "decision_id": "d_1785157180451_qokdn6",
+    "query": "预测今晚衡阳晚高峰需要多少骑手",
+    "timestamp": "2026-07-27T12:59:40.453Z"
+  },
+  {
+    "capability_name": "运力分析能力",
+    "duration_ms": 322,
+    "status": "success",
+    "decision_id": "d_1785157180451_qokdn6",
+    "query": "预测今晚衡阳晚高峰需要多少骑手",
+    "timestamp": "2026-07-27T12:59:40.455Z"
+  },
+  {
+    "capability_name": "成本分析能力",
+    "duration_ms": 110,
+    "status": "success",
+    "decision_id": "d_1785157180451_qokdn6",
+    "query": "预测今晚衡阳晚高峰需要多少骑手",
+    "timestamp": "2026-07-27T12:59:40.456Z"
+  },
+  {
+    "capability_name": "派单推荐能力",
+    "duration_ms": 424,
+    "status": "success",
+    "decision_id": "d_1785157180451_qokdn6",
+    "query": "预测今晚衡阳晚高峰需要多少骑手",
+    "timestamp": "2026-07-27T12:59:40.457Z"
+  },
+  {
+    "capability_name": "决策汇总能力",
+    "duration_ms": 538,
+    "status": "success",
+    "decision_id": "d_1785157180451_qokdn6",
+    "query": "预测今晚衡阳晚高峰需要多少骑手",
+    "timestamp": "2026-07-27T12:59:40.458Z"
+  },
+  {
+    "capability_name": "报告生成能力",
+    "duration_ms": 311,
+    "status": "success",
+    "decision_id": "d_1785157180451_qokdn6",
+    "query": "预测今晚衡阳晚高峰需要多少骑手",
+    "timestamp": "2026-07-27T12:59:40.460Z"
   }
 ]
