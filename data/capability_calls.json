@@ -190,5 +190,69 @@
     "decision_id": "d_1785156565034_q0ewlr",
     "query": "预测今晚衡阳晚高峰需要多少骑手",
     "timestamp": "2026-07-27T12:49:49.479Z"
+  },
+  {
+    "capability_name": "知识库检索能力",
+    "duration_ms": 317,
+    "status": "success",
+    "decision_id": "d_1785156652305_9t2wsp",
+    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
+    "timestamp": "2026-07-27T12:51:15.864Z"
+  },
+  {
+    "capability_name": "任务路由能力",
+    "duration_ms": 508,
+    "status": "success",
+    "decision_id": "d_1785156652305_9t2wsp",
+    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
+    "timestamp": "2026-07-27T12:51:15.864Z"
+  },
+  {
+    "capability_name": "订单预测能力",
+    "duration_ms": 176,
+    "status": "success",
+    "decision_id": "d_1785156652305_9t2wsp",
+    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
+    "timestamp": "2026-07-27T12:51:15.866Z"
+  },
+  {
+    "capability_name": "运力分析能力",
+    "duration_ms": 316,
+    "status": "success",
+    "decision_id": "d_1785156652305_9t2wsp",
+    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
+    "timestamp": "2026-07-27T12:51:15.867Z"
+  },
+  {
+    "capability_name": "成本分析能力",
+    "duration_ms": 107,
+    "status": "success",
+    "decision_id": "d_1785156652305_9t2wsp",
+    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
+    "timestamp": "2026-07-27T12:51:15.868Z"
+  },
+  {
+    "capability_name": "派单推荐能力",
+    "duration_ms": 408,
+    "status": "success",
+    "decision_id": "d_1785156652305_9t2wsp",
+    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
+    "timestamp": "2026-07-27T12:51:15.869Z"
+  },
+  {
+    "capability_name": "决策汇总能力",
+    "duration_ms": 192,
+    "status": "success",
+    "decision_id": "d_1785156652305_9t2wsp",
+    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
+    "timestamp": "2026-07-27T12:51:15.870Z"
+  },
+  {
+    "capability_name": "报告生成能力",
+    "duration_ms": 370,
+    "status": "success",
+    "decision_id": "d_1785156652305_9t2wsp",
+    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
+    "timestamp": "2026-07-27T12:51:15.871Z"
   }
 ]
