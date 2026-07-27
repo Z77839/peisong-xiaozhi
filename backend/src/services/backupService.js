@@ -162,16 +162,25 @@ async function fetchFile(filename) {
 async function getBranchHead() {
   const r = await ghRequest('GET', `/repos/${REPO}/git/ref/heads/${BRANCH}`)
   if (r.status === 200) return r.data.object.sha
-  // 分支不存在，创建
+  // 🆕 诊断日志：之前这里静默失败、上层报 "no branch"，调试极其痛苦
+  // 现在把 GitHub 实际返回的 status + body 头部打出来，一眼能看出是 401（token 错）/
+  // 404（权限不够 / 仓库不对）/ 5xx（GitHub 故障）
+  console.warn(`[Backup] getBranchHead 失败: GET git/ref/heads/${BRANCH} → status=${r.status}`)
+  console.warn(`[Backup] GitHub response: ${typeof r.data === 'string' ? r.data.slice(0, 300) : JSON.stringify(r.data).slice(0, 300)}`)
+  // 尝试创建分支
   const mainR = await ghRequest('GET', `/repos/${REPO}/git/ref/heads/main`)
-  if (mainR.status !== 200) return null
+  if (mainR.status !== 200) {
+    console.warn(`[Backup] 拿 main 分支头也失败: status=${mainR.status}`)
+    return null
+  }
   const mainSha = mainR.data.object.sha
-  // 创建新分支
   const createR = await ghRequest('POST', `/repos/${REPO}/git/refs`, {
     ref: `refs/heads/${BRANCH}`,
     sha: mainSha
   })
   if (createR.status === 201) return mainSha
+  console.warn(`[Backup] 创建分支 ${BRANCH} 失败: status=${createR.status}`)
+  console.warn(`[Backup] GitHub response: ${typeof createR.data === 'string' ? createR.data.slice(0, 300) : JSON.stringify(createR.data).slice(0, 300)}`)
   return null
 }
 
