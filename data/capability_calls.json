@@ -318,5 +318,69 @@
     "decision_id": "d_1785157226118_e1wcb3",
     "query": "cache test query",
     "timestamp": "2026-07-27T13:00:26.126Z"
+  },
+  {
+    "capability_name": "知识库检索能力",
+    "duration_ms": 476,
+    "status": "success",
+    "decision_id": "d_1785157243926_x3ermu",
+    "query": "cache test query",
+    "timestamp": "2026-07-27T13:00:43.927Z"
+  },
+  {
+    "capability_name": "任务路由能力",
+    "duration_ms": 285,
+    "status": "success",
+    "decision_id": "d_1785157243926_x3ermu",
+    "query": "cache test query",
+    "timestamp": "2026-07-27T13:00:43.927Z"
+  },
+  {
+    "capability_name": "订单预测能力",
+    "duration_ms": 522,
+    "status": "success",
+    "decision_id": "d_1785157243926_x3ermu",
+    "query": "cache test query",
+    "timestamp": "2026-07-27T13:00:43.928Z"
+  },
+  {
+    "capability_name": "运力分析能力",
+    "duration_ms": 101,
+    "status": "success",
+    "decision_id": "d_1785157243926_x3ermu",
+    "query": "cache test query",
+    "timestamp": "2026-07-27T13:00:43.928Z"
+  },
+  {
+    "capability_name": "成本分析能力",
+    "duration_ms": 259,
+    "status": "success",
+    "decision_id": "d_1785157243926_x3ermu",
+    "query": "cache test query",
+    "timestamp": "2026-07-27T13:00:43.929Z"
+  },
+  {
+    "capability_name": "派单推荐能力",
+    "duration_ms": 191,
+    "status": "success",
+    "decision_id": "d_1785157243926_x3ermu",
+    "query": "cache test query",
+    "timestamp": "2026-07-27T13:00:43.930Z"
+  },
+  {
+    "capability_name": "决策汇总能力",
+    "duration_ms": 353,
+    "status": "success",
+    "decision_id": "d_1785157243926_x3ermu",
+    "query": "cache test query",
+    "timestamp": "2026-07-27T13:00:43.931Z"
+  },
+  {
+    "capability_name": "报告生成能力",
+    "duration_ms": 235,
+    "status": "success",
+    "decision_id": "d_1785157243926_x3ermu",
+    "query": "cache test query",
+    "timestamp": "2026-07-27T13:00:43.932Z"
   }
 ]
