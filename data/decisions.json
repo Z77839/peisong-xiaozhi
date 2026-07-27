@@ -1,5 +1,91 @@
 [
   {
+    "id": "d_1785157835903_5rtyr9",
+    "userId": null,
+    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
+    "cityId": "hengyang",
+    "predictedOrders": 9174,
+    "costEstimate": 128185.49999999999,
+    "riskLevel": "high",
+    "report": "【配送小智 蒸湘万达商圈今晚（2026.7.27）各时段订单量预测报告】\n1. 预测核心依据：蒸湘万达商圈近6个月工作日夜宵时段订单规律、当前（21:10）高湿度闷热气象下居民外卖需求提升、周一晚间商圈消费特征（堂食转外卖、娱乐配套点餐需求）\n2. 时段订单量预测（单位：单）：\n   - 21:00-22:00：120-150  置信度：85%\n   - 22:00-23:00：180-210  置信度：90%\n   - 23:00-00:00：200-230  置信度：92%\n   - 00:00-01:00：80-110   置信度：88%\n   - 01:00-03:00：20-40    置信度：80%\n3. 可执行建议：针对22:00-00:00订单高峰，优先调度铂金/钻石级骑手（共8974人）支援蒸湘万达商圈，同步关注本地驻点骑手（167人）到岗状态，提前应对运力缺口\n📚 参考知识库：无",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "duration": 139,
+        "output": "未找到相关知识"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "duration": 459,
+        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "duration": 133,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "duration": 382,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "duration": 269,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "duration": 225,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "duration": 398,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "duration": 399,
+        "output": "由 doubao 生成建议"
+      }
+    ],
+    "cozeUsed": false,
+    "createdAt": "2026-07-27T13:11:00.928Z"
+  },
+  {
     "id": "d_1785157855200_h8bkt8",
     "userId": null,
     "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
