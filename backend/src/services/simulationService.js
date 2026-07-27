@@ -6,7 +6,7 @@
  *
  * 时间轴事件：
  * 17:00 - 起始状态（订单 800/min，缺口 320）
- * 17:30 - 缺口涨至 800，运力预判 Agent 触发预警
+ * 17:30 - 缺口涨至 800，决策智能体触发预警
  * 18:00 - 缺口涨至 2100，配送小智启用高峰补贴
  * 18:15 - 补贴生效，缺口降回 1300
  * 18:30 - 第二波订单，缺口涨至 1800，跨区调拨 80 名
@@ -18,13 +18,13 @@
 
 const SIM_TIMELINE = [
   { time: '17:00', orders: 800, gap: 320, riders: 480, online: 480, action: null, alertLevel: 'low', agent: null, message: '基线状态 · 配送小智开始持续监控' },
-  { time: '17:30', orders: 1200, gap: 800, riders: 480, online: 480, action: null, alertLevel: 'medium', agent: '运力预判 Agent', message: '检测到缺口上升 → 触发主动预警' },
-  { time: '18:00', orders: 2100, gap: 2100, riders: 480, online: 460, action: 'subsidy', alertLevel: 'high', agent: '天气风险 Agent', message: '⚠️ 晚高峰 + 雨天叠加 · 建议启用高峰补贴' },
-  { time: '18:15', orders: 1900, gap: 1300, riders: 480, online: 470, action: 'subsidy_done', alertLevel: 'medium', agent: '调度执行 Agent', message: '✅ 高峰补贴已生效 (¥18,000)，缺口回落 38%' },
-  { time: '18:30', orders: 2200, gap: 1800, riders: 480, online: 480, action: 'transfer', alertLevel: 'high', agent: '运力预判 Agent', message: '⚠️ 第二波订单到达，建议跨区调拨 80 名' },
-  { time: '19:00', orders: 1600, gap: 600, riders: 560, online: 540, action: 'transfer_done', alertLevel: 'medium', agent: '调度执行 Agent', message: '✅ 80 名跨区骑手到位，缺口降 67%' },
-  { time: '19:30', orders: 1200, gap: 300, riders: 600, online: 580, action: 'boost', alertLevel: 'low', agent: '运力预判 Agent', message: '🚀 蜂跑运力到位 120 名，缺口进一步收缩' },
-  { time: '20:00', orders: 800, gap: 200, riders: 600, online: 560, action: null, alertLevel: 'low', agent: '预警监控 Agent', message: '高峰回落 · 配送小智持续监控' },
+  { time: '17:30', orders: 1200, gap: 800, riders: 480, online: 480, action: null, alertLevel: 'medium', agent: '决策智能体', message: '检测到缺口上升 → 触发主动预警' },
+  { time: '18:00', orders: 2100, gap: 2100, riders: 480, online: 460, action: 'subsidy', alertLevel: 'high', agent: '决策智能体', message: '⚠️ 晚高峰 + 雨天叠加 · 建议启用高峰补贴' },
+  { time: '18:15', orders: 1900, gap: 1300, riders: 480, online: 470, action: 'subsidy_done', alertLevel: 'medium', agent: '决策智能体', message: '✅ 高峰补贴已生效 (¥18,000)，缺口回落 38%' },
+  { time: '18:30', orders: 2200, gap: 1800, riders: 480, online: 480, action: 'transfer', alertLevel: 'high', agent: '决策智能体', message: '⚠️ 第二波订单到达，建议跨区调拨 80 名' },
+  { time: '19:00', orders: 1600, gap: 600, riders: 560, online: 540, action: 'transfer_done', alertLevel: 'medium', agent: '决策智能体', message: '✅ 80 名跨区骑手到位，缺口降 67%' },
+  { time: '19:30', orders: 1200, gap: 300, riders: 600, online: 580, action: 'boost', alertLevel: 'low', agent: '决策智能体', message: '🚀 蜂跑运力到位 120 名，缺口进一步收缩' },
+  { time: '20:00', orders: 800, gap: 200, riders: 600, online: 560, action: null, alertLevel: 'low', agent: '决策智能体', message: '高峰回落 · 配送小智持续监控' },
   { time: '21:00', orders: 400, gap: 0, riders: 600, online: 480, action: 'finish', alertLevel: 'low', agent: '配送小智 · 总结', message: '✨ 高峰平稳度过 · 总成本节省 ¥42,000' }
 ]
 

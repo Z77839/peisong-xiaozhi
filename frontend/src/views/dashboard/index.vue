@@ -13,8 +13,8 @@ const CAPABILITIES_META: any[] = [
   { key: 'dispatch', name: '调度成本', icon: '⚖️', color: '#722ed1', desc: '5 运力线智能匹配 + 成本 Pareto', valueLabel: '最低单价' },
   { key: 'order', name: '智能派单', icon: '🚴', color: '#13c2c2', desc: '距离/负载/准时率综合评分 TOP 3', valueLabel: '平均耗时' },
   { key: 'recommend', name: '辅助推荐', icon: '✨', color: '#fa8c16', desc: '增配/补贴/调拨一键建议', valueLabel: '实时建议' },
-  { key: 'alert', name: '主动预警', icon: '🚨', color: '#f5222d', desc: '7×24 持续监控 · 提前 90 分钟', valueLabel: '主动识别' },
-  { key: 'decision', name: '决策报告', icon: '📊', color: '#52c41a', desc: '8 Agent 协同 · 一键生成报告', valueLabel: 'Agent 协同' }
+  { key: 'alert', name: '主动预警', icon: '🚨', color: '#f5222d', desc: '7×24 持续监控', valueLabel: '主动识别' },
+  { key: 'decision', name: '决策报告', icon: '📊', color: '#52c41a', desc: '决策 agent 协同 · 一键生成报告', valueLabel: '决策 agent 协同' }
 ]
 const capabilities = ref<any[]>(CAPABILITIES_META.map(m => ({ ...m, value: '--' })))
 
@@ -140,11 +140,11 @@ function goPage(path: string) {
                 </span>
                 <span class="meta-item">
                   <i class="m-ico">🤝</i>
-                  <span class="m-label">8 Agent 协同</span>
+                  <span class="m-label">决策 agent 协同</span>
                 </span>
                 <span class="meta-item">
                   <i class="m-ico">🎯</i>
-                  <span class="m-label">提前 90 分钟预警</span>
+                  <span class="m-label">主动预警</span>
                 </span>
               </div>
               <div class="hero-actions">
@@ -304,7 +304,7 @@ function goPage(path: string) {
     <div class="agents-section">
       <div class="section-head">
         <h2>🤖 Agent 协同状态</h2>
-        <span class="sh-sub">8 Agent 实时在线 · 累计调用 {{ agents.reduce((s, a) => s + a.calls, 0).toLocaleString() }} 次{{ agentLoadHint ? ' · ' + agentLoadHint : '' }}</span>
+        <span class="sh-sub">决策 agent 实时在线 · 累计调用 {{ agents.reduce((s, a) => s + a.calls, 0).toLocaleString() }} 次{{ agentLoadHint ? ' · ' + agentLoadHint : '' }}</span>
       </div>
       <div class="agent-list">
         <div v-for="agent in agents" :key="agent.name" class="agent-row">

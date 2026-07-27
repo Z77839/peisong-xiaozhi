@@ -11,16 +11,28 @@ services:
     healthCheckPath: /api/health
     autoDeploy: true
     envVars:
+      # ============ 必填（无默认值，不填则进程 exit(1)）============
       - key: NODE_ENV
         value: production
-      - key: CORS_ORIGIN
-        value: '*'
+      - key: JWT_SECRET
+        sync: false
+        # ⚠️ 生成方法：node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+        # 必须由 Render Dashboard 手动填入，不进仓库
+      # ============ 端口 / CORS ============
       - key: PORT
         value: 3000
+      - key: CORS_ORIGIN
+        value: '*'   # 生产建议改为 https://z77839.github.io,https://<自定义域名>
+      # ============ LLM 模型路由（可选，至少配一个才能调真模型，否则降级 mock）============
       - key: COZE_BOT_ID
         sync: false
       - key: COZE_API_KEY
         sync: false
+      - key: ARK_API_KEY             # 豆包
+        sync: false
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      # ============ 4 个真实数据接入端口（可选；不配则使用 mock）============
       - key: QWEATHER_API_KEY
         sync: false
       - key: ELEME_APP_KEY
@@ -32,4 +44,12 @@ services:
       - key: RIDER_WS_URL
         sync: false
       - key: ORDER_STREAM_URL
+        sync: false
+      # ============ 数据持久化（GitHub data-backup 分支）============
+      # 必须配 PAT（不是 GitHub Actions 的 GITHUB_TOKEN），否则 Render 重启后所有 JSON 写丢失
+      - key: GH_BACKUP_TOKEN
+        sync: false
+      # ============ 可选：PostgreSQL（生产环境推荐）============
+      # 不配则 backend 自动降级为 JSON 模式（重启数据靠 GitHub 备份恢复）
+      - key: DATABASE_URL
         sync: false

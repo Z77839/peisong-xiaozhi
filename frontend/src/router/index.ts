@@ -71,7 +71,7 @@ const routes: RouteRecordRaw[] = [
         path: 'demo',
         name: 'Demo',
         component: () => import('@/views-v8-demo/App.vue'),
-        meta: { title: 'AI 配送演示 (v8)', icon: 'MagicStick' }
+        meta: { title: 'AI 配送演示 (v8)', icon: 'MagicStick', hidden: true, __comment: '历史演示页，临时隐藏；可手动从 URL /demo 进入' }
       },
       {
         path: 'alert',

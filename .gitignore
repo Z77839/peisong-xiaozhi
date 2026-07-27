@@ -41,7 +41,12 @@ coverage/
 .nyc_output/
 
 # ========== 后端产物 ==========
-backend/data/chat-sessions.json
+# 所有运行时生成的业务数据（包含用户 bcrypt hash、决策历史、告警）
+# 持久化靠 backend/src/services/backupService.js 提交到 GitHub data-backup 分支
+backend/data/*.json
+!backend/data/riders_README.md
+!backend/data/riders_schema.sql
+!backend/data/knowledge_seed.json
 backend/dist/
 
 # ========== 前端构建产物 ==========

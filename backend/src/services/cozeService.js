@@ -1,5 +1,6 @@
 /**
  * Coze v3 调用服务
+ * 对外以决策智能体为单一品牌，内部保留 8 个能力节点
  * 后端代理前端，保护 Bot ID 和 API Key
  */
 import axios from 'axios'
@@ -9,15 +10,15 @@ import { trackAgentCall } from './agentTracker.js'
 import { retrieveKnowledge, getKnowledgeContext } from '../routes/knowledge.js'
 import { predictGap, optimizeCostPlan } from './optimizationEngine.js'
 
-const AGENTS = [
-  { id: 'knowledge-retrieve', name: '知识库检索 Agent', desc: 'RAG · 检索相关运营知识', icon: '📚' },
-  { id: 'task-router', name: '任务路由 Agent', desc: '识别意图·拆解任务', icon: '🔀' },
-  { id: 'order-predict', name: '订单预测 Agent', desc: 'AI 模型预测各时段订单', icon: '📈' },
-  { id: 'rider-analyze', name: '运力分析 Agent', desc: '5 运力线智能匹配', icon: '🚴' },
-  { id: 'cost-analyze', name: '成本分析 Agent', desc: '多运力成本 Pareto', icon: '💰' },
-  { id: 'dispatch-rec', name: '派单推荐 Agent', desc: '蜂跑+众包+专送智能调度', icon: '📦' },
-  { id: 'decision-merge', name: '决策汇总 Agent', desc: '综合评估·生成报告', icon: '🧠' },
-  { id: 'report-gen', name: '报告生成 Agent', desc: '结构化输出', icon: '📊' }
+const CAPABILITIES = [
+  { id: 'knowledge-retrieve', name: '知识库检索能力', desc: 'RAG · 检索相关运营知识', icon: '📚' },
+  { id: 'task-router', name: '任务路由能力', desc: '识别意图·拆解任务', icon: '🔀' },
+  { id: 'order-predict', name: '订单预测能力', desc: 'AI 模型预测各时段订单', icon: '📈' },
+  { id: 'rider-analyze', name: '运力分析能力', desc: '5 运力线智能匹配', icon: '🚴' },
+  { id: 'cost-analyze', name: '成本分析能力', desc: '多运力成本 Pareto', icon: '💰' },
+  { id: 'dispatch-rec', name: '派单推荐能力', desc: '蜂跑+众包+专送智能调度', icon: '📦' },
+  { id: 'decision-merge', name: '决策汇总能力', desc: '综合评估·生成报告', icon: '🧠' },
+  { id: 'report-gen', name: '报告生成能力', desc: '结构化输出', icon: '📊' }
 ]
 
 /**
@@ -58,7 +59,7 @@ export async function callCozeBot(message) {
 export function mockWorkflow(query) {
   const q = (query || '').toLowerCase()
   const now = Date.now()
-  const steps = AGENTS.map((a) => ({
+  const steps = CAPABILITIES.map((a) => ({
     id: a.id,
     name: a.name,
     desc: a.desc,
@@ -119,10 +120,10 @@ export function mockWorkflow(query) {
   const totalMs = Date.now() - now
   const tracking = {
     totalMs,
-    agentCount: steps.length,
+    capabilityCount: steps.length,
     successCount: steps.filter(s => s.status === 'success').length,
     warningCount: steps.filter(s => s.status === 'warning').length,
-    agents: steps.map(s => ({
+    capabilities: steps.map(s => ({
       name: s.name,
       icon: s.icon,
       status: s.status,
@@ -175,7 +176,7 @@ ${getKnowledgeContext(query)}
 ${query}`
     const llmResult = await callLLM(enrichedQuery, { prefer: 'auto', taskType: 'long' })
     if (llmResult?.content) {
-      const steps = AGENTS.map((a, i) => {
+      const steps = CAPABILITIES.map((a, i) => {
         const duration = 100 + Math.floor(Math.random() * 500)
         let output = ''
         if (a.id === 'knowledge-retrieve') {
@@ -200,9 +201,9 @@ ${query}`
           output
         }
       })
-      // 记录每个 Agent 调用
+      // 记录每个能力调用
       for (const s of steps) {
-        trackAgentCall({ agentName: s.name, durationMs: s.duration, status: s.status, decisionId, query })
+        trackAgentCall({ capabilityName: s.name, durationMs: s.duration, status: s.status, decisionId, query })
       }
       const knowledgeUsed = retrieveKnowledge(query, 3)
 
@@ -271,10 +272,10 @@ ${query}`
       const reply = await callCozeBot(enrichedQuery)
       const parsed = safeJsonParse(reply)
       if (parsed?.steps) {
-        // 记录 Coze Agent 调用
+        // 记录 Coze 能力调用
         for (const s of parsed.steps) {
           trackAgentCall({
-            agentName: s.name || 'coze-agent',
+            capabilityName: s.name || 'coze-capability',
             durationMs: 500,
             status: 'success',
             decisionId,
@@ -288,10 +289,10 @@ ${query}`
     }
   }
   const result = mockWorkflow(query)
-  // 记录 Mock Agent 调用
+  // 记录 Mock 能力调用
   for (const s of result.steps || []) {
     trackAgentCall({
-      agentName: s.name,
+      capabilityName: s.name,
       durationMs: s.duration || (s.finishedAt - s.startedAt) || 0,
       status: s.status || 'success',
       decisionId,

@@ -37,6 +37,9 @@ jobs:
         env:
           # GitHub Pages 子路径：https://用户名.github.io/peisong-xiaozhi/
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          # 真实 Render 后端地址（仅前端公开 URL，不含任何密钥）
+          # 在 Repo → Settings → Secrets and variables → Actions 里配置
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
         run: npm run build
 
       - name: Upload Pages artifact

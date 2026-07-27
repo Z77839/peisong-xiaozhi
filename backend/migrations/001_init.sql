@@ -57,11 +57,11 @@ CREATE INDEX idx_decision_user ON decision_history(user_id);
 CREATE INDEX idx_decision_city ON decision_history(city_id);
 CREATE INDEX idx_decision_created ON decision_history(created_at DESC);
 
--- Agent 调用日志表（用于 observability）
-CREATE TABLE IF NOT EXISTS agent_call_logs (
+-- 决策智能体能力调用日志表（用于 observability）
+CREATE TABLE IF NOT EXISTS capability_call_logs (
   id            BIGSERIAL PRIMARY KEY,
   decision_id   BIGINT REFERENCES decision_history(id) ON DELETE CASCADE,
-  agent_name    VARCHAR(100) NOT NULL,
+  capability_name VARCHAR(100) NOT NULL,
   status        VARCHAR(20) NOT NULL,    -- success / warning / error
   duration_ms   INT NOT NULL,
   input         JSONB,
@@ -72,9 +72,9 @@ CREATE TABLE IF NOT EXISTS agent_call_logs (
   created_at    TIMESTAMPTZ DEFAULT NOW()
 );
 
-CREATE INDEX idx_agent_decision ON agent_call_logs(decision_id);
-CREATE INDEX idx_agent_status ON agent_call_logs(status);
-CREATE INDEX idx_agent_started ON agent_call_logs(started_at DESC);
+CREATE INDEX idx_capability_decision ON capability_call_logs(decision_id);
+CREATE INDEX idx_capability_status ON capability_call_logs(status);
+CREATE INDEX idx_capability_started ON capability_call_logs(started_at DESC);
 
 -- 城市表
 CREATE TABLE IF NOT EXISTS cities (

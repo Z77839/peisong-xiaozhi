@@ -115,8 +115,14 @@ router.get('/', (req, res) => {
       availableRiders: riders.filter((r) => r.online && !r.busy).length,
       busyRiders: riders.filter((r) => r.busy).length,
       offlineRiders: riders.filter((r) => !r.online).length,
+      // ⚠️ 以下两个数字是“调参预置值”，不来自真实派单历史
+      // 前端需要将其标记为“演示值”
       dispatchedRate: 0.78,
-      avgDispatchTime: 1.4
+      avgDispatchTime: 1.4,
+      _meta: {
+        dispatchedRate: { isDemo: true, demoReason: '调参预置值，未接入真实派单历史数据' },
+        avgDispatchTime: { isDemo: true, demoReason: '调参预置值，未接入真实派单历史数据' }
+      }
     }
 
     res.json({ code: 0, data: { orders, riders, recommendations, stats } })
@@ -138,7 +144,7 @@ function buildReason(rider, order) {
  * POST /api/dispatch/execute
  * 一键派单
  */
-router.post('/execute', (req, res) => {
+router.post('/execute', async (req, res) => {
   const { orderId, riderId, decisionId } = req.body || {}  // 🆕 decisionId 从决策中心传来
   if (!orderId || !riderId) {
     return res.status(400).json({ code: 400, message: 'orderId/riderId 必填' })
@@ -146,7 +152,7 @@ router.post('/execute', (req, res) => {
   // 🆕 如果有 decisionId，自动回写反馈
   if (decisionId) {
     try {
-      saveFeedback(decisionId, {
+      await saveFeedback(decisionId, {
         dispatchId: `dp_${Date.now()}`,
         result: 'success',
         message: `已派单 orderId=${orderId} → riderId=${riderId}`,
@@ -168,7 +174,7 @@ router.post('/execute', (req, res) => {
       status: 'dispatched',
       dispatchedAt: new Date().toISOString(),
       message: '配送小智已完成智能派单',
-      agent: '派单推荐 Agent'
+      agent: '决策智能体'
     }
   })
 })
@@ -190,7 +196,7 @@ router.post('/batch', (req, res) => {
       cityId,
       totalDispatched: results.length,
       results,
-      agent: '批量派单 Agent',
+      agent: '决策智能体',
       message: `配送小智已批量派发 ${results.length} 单`
     }
   })

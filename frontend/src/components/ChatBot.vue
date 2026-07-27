@@ -173,7 +173,7 @@ const handleKeydown = (e: KeyboardEvent) => {
               <div class="cb-title">配送小智 AI 助手</div>
               <div class="cb-status">
                 <span class="status-dot"></span>
-                {{ streaming ? '8 Agent 协同处理中...' : '已就绪 · ' + cityStore.currentCity.name }}
+                {{ streaming ? '决策 agent 协同处理中...' : '已就绪 · ' + cityStore.currentCity.name }}
               </div>
             </div>
           </div>
