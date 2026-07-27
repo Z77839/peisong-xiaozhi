@@ -59,8 +59,8 @@ const menus = [
 
 const activeMenu = computed(() => route.path)
 
-// 默认展开所有大类
-const defaultOpened = ['/decision', '/rider', '/order', '/data-source']
+// 默认折叠所有大类目（子项点击才展开；比赛演示更清爽）
+const defaultOpened: string[] = []
 </script>
 
 <template>
