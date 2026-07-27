@@ -2,35 +2,35 @@
   {
     "id": "u_1",
     "username": "admin",
-    "passwordHash": "$2a$12$LCbF.LuC69sp1GUWGQOY2Oiio9kpo8KPBCC4dsx88YmJl.jfGAZda",
+    "passwordHash": "$2a$12$UJrgoHvibavkUl5eQuxk1.epAnJ4IT2gi19VOJVCE7KHP43I8mKeW",
     "nickname": "系统管理员",
     "role": "admin",
     "org": "配送小智总部",
     "isActive": true,
-    "createdAt": "2026-07-27T12:12:42.646Z",
-    "updatedAt": "2026-07-27T12:12:42.646Z",
-    "lastLoginAt": "2026-07-27T12:12:51.406Z"
+    "createdAt": "2026-07-27T12:26:25.899Z",
+    "updatedAt": "2026-07-27T12:26:25.899Z",
+    "lastLoginAt": "2026-07-27T12:26:34.615Z"
   },
   {
     "id": "u_2",
     "username": "operator",
-    "passwordHash": "$2a$12$5mk/ie1GzTB0rkCiI32un.Gd61WrW1RPfYm1hIWaaSwyHvbyrs8zG",
+    "passwordHash": "$2a$12$WYQlcI6iCTfEUZSASFeUNuGKsO2L8TVgPsbHxRCvHLe/bCdvrViny",
     "nickname": "运营分析师",
     "role": "operator",
     "org": "衡阳运营中心",
     "isActive": true,
-    "createdAt": "2026-07-27T12:12:42.646Z",
-    "updatedAt": "2026-07-27T12:12:42.646Z"
+    "createdAt": "2026-07-27T12:26:25.899Z",
+    "updatedAt": "2026-07-27T12:26:25.899Z"
   },
   {
     "id": "u_3",
     "username": "analyst",
-    "passwordHash": "$2a$12$129uXgg1a/.O64ABHz2wMOzq5zxOTx7asJIf7.uK18NisCuz4Xp9i",
+    "passwordHash": "$2a$12$Mjy7Dk/5cWT/46p3RhM/W.cUfToB6Xgwjpwmpewgiog88kCT/BG92",
     "nickname": "数据分析师",
     "role": "analyst",
     "org": "总部数据部",
     "isActive": true,
-    "createdAt": "2026-07-27T12:12:42.646Z",
-    "updatedAt": "2026-07-27T12:12:42.646Z"
+    "createdAt": "2026-07-27T12:26:25.899Z",
+    "updatedAt": "2026-07-27T12:26:25.899Z"
   }
 ]
