@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { runMultiAgentWorkflow, type AgentRunResult } from '@/api/coze'
 import request from '@/api/request'
 import { useCityStore } from '@/store/city'
 import { formatNumber, relativeTime } from '@/utils/format'
 import { renderMarkdown } from '@/utils/markdown'
+
+const $router = useRouter()
 
 // 渲染报告为 HTML
 const renderedReport = computed(() => renderMarkdown(result.value?.report || ''))
