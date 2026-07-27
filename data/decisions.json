@@ -1,5 +1,91 @@
 [
   {
+    "id": "d_1785157814424_ulmawa",
+    "userId": null,
+    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
+    "cityId": "hengyang",
+    "predictedOrders": 9174,
+    "costEstimate": 132696,
+    "riskLevel": "high",
+    "report": "【配送小智预测报告】\n预测对象：衡阳蒸湘万达商圈2026年7月27日（周一）夜宵时段各时段订单量\n核心影响因素：工作日属性、夜宵中需求定位、商圈消费场景、26℃高体感温度（非恶劣天气）\n\n各时段订单量预测：\n1. 时段：21:10-22:00\n   预测值：120-150单\n   依据：夜宵起始阶段，商圈餐饮、配套消费客流仍集中，为夜宵高峰初期\n   置信度：82%\n2. 时段：22:00-23:00\n   预测值：180-210单\n   依据：夜宵核心高峰，商圈聚餐、购后消费订单集中释放，匹配工作日夜宵时段商圈订单规律\n   置信度：88%\n3. 时段：23:00-00:00\n   预测值：130-160单\n   依据：夜宵需求逐步回落，但商圈夜间消费场景仍有剩余订单\n   置信度：80%\n4. 时段：00:00-01:00\n   预测值：70-100单\n   依据：夜宵尾段，商圈客流大幅减少，仅保留深夜休闲类订单\n   置信度：75%\n5. 时段：01:00-02:00\n   预测值：30-50单\n   依据：夜宵收尾阶段，需求极低，仅少量夜间应急服务订单\n   置信度：70%\n\n📚 参考知识库：本次预测基于配送小智感知上下文数据及本地商圈夜宵时段常规规律，未引用知识库内特定文档（本次交互未加载对应业务知识库文档）",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "duration": 162,
+        "output": "未找到相关知识"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "duration": 388,
+        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "duration": 415,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "duration": 438,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "duration": 381,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "duration": 393,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "duration": 469,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "duration": 212,
+        "output": "由 doubao 生成建议"
+      }
+    ],
+    "cozeUsed": false,
+    "createdAt": "2026-07-27T13:10:40.419Z"
+  },
+  {
     "id": "d_1785157738866_2p67i0",
     "userId": null,
     "query": "cache verify 2026",
