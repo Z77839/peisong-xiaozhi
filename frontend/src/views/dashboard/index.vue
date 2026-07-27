@@ -19,11 +19,11 @@ const CAPABILITIES_META: any[] = [
 // 预填能力值（后端 /api/dashboard/capabilities 返回后覆盖）
 // 这些值与后端 backup 数据 / LLM 跟踪指标对齐，演示时不依赖后端响应
 const capabilities = ref<any[]>([
-  { key: 'predict',   name: '运力预判',   icon: '🔮', color: '#1f6feb', desc: 'AI 模型预判各区域运力缺口',   valueLabel: '预测准确率', value: '91.8%', source: 'ARIMA 模型 MAPE 误差',   demoTag: '演示值' },
-  { key: 'dispatch',  name: '调度成本',   icon: '⚖️', color: '#722ed1', desc: '5 运力线智能匹配 + 成本 Pareto', valueLabel: '最低单价',   value: '¥3.69', source: '成本优化引擎 Pareto 最优', demoTag: '演示值' },
-  { key: 'order',     name: '智能派单',   icon: '🚴', color: '#13c2c2', desc: '距离/负载/准时率综合评分 TOP 3', valueLabel: '平均耗时',   value: '0.5s', source: 'Agent 调用追踪',          demoTag: '真实' },
-  { key: 'recommend', name: '辅助推荐',   icon: '✨', color: '#fa8c16', desc: '增配/补贴/调拨一键建议',     valueLabel: '实时建议',   value: '3 类', source: '知识库 RAG 分类',         demoTag: '真实' },
-  { key: 'alert',     name: '主动预警',   icon: '🚨', color: '#f5222d', desc: '7×24 持续监控',              valueLabel: '主动识别',   value: '12 项', source: '知识库 SOP 总数',         demoTag: '真实' },
+  { key: 'predict',   name: '运力预判',   icon: '🔮', color: '#1f6feb', desc: 'AI 模型预判各区域运力缺口',   valueLabel: '骑手宽表',   value: '27,186', source: '城代物流骑手宽表 27186 行', demoTag: '真实' },
+  { key: 'dispatch',  name: '调度成本',   icon: '⚖️', color: '#722ed1', desc: '5 运力线智能匹配 + 成本 Pareto', valueLabel: '完单总数',   value: '190,640', source: '骑手宽表 完单数 求和',         demoTag: '真实' },
+  { key: 'order',     name: '智能派单',   icon: '🚴', color: '#13c2c2', desc: '距离/负载/准时率综合评分 TOP 3', valueLabel: '平均耗时',   value: '0.5s', source: 'Agent 调用追踪',            demoTag: '真实' },
+  { key: 'recommend', name: '辅助推荐',   icon: '✨', color: '#fa8c16', desc: '增配/补贴/调拨一键建议',     valueLabel: '实时建议',   value: '3 类', source: '知识库 RAG 分类',           demoTag: '真实' },
+  { key: 'alert',     name: '主动预警',   icon: '🚨', color: '#f5222d', desc: '7×24 持续监控',              valueLabel: '城市覆盖',   value: '17 城', source: '骑手宽表 注册城市 去重',     demoTag: '真实' },
   { key: 'decision',  name: '决策报告',   icon: '📊', color: '#52c41a', desc: '决策 agent 协同 · 一键生成报告', valueLabel: '决策 agent 协同', value: '8 个', source: '后端决策智能体 (内部 8 能力)', demoTag: '真实' }
 ])
 
@@ -32,11 +32,12 @@ const agents = ref<Array<{ name: string; status: string; calls: number; avgMs: n
 const agentLoadHint = ref('点击「决策中心」运行决策后会自动记录')
 
 // 实时 KPI（从后端加载，后端未响应时显示预填值不让页面空）
+// 数据源：城代物流骑手宽表 27186 行
 const liveKpis = ref<any[]>([
-  { label: '当前订单', value: '250,000', unit: '单', trend: '+12.3%', icon: '📦', color: '#1f6feb' },
-  { label: '在线骑手', value: '27,186', unit: '人', trend: '活跃 27,162 / 衡阳 167', icon: '🚴', color: '#13c2c2' },
-  { label: '预计运力缺口', value: '10,000', unit: '人', trend: '2 小时峰值', icon: '📉', color: '#f5222d' },
-  { label: '异常区域', value: '3', unit: '个', trend: '高风险', icon: '🚨', color: '#fa541c' }
+  { label: '骑手总数', value: '27,186', unit: '人', trend: '骑手宽表 27186 行', icon: '🚴', color: '#13c2c2' },
+  { label: '完单总数', value: '190,640', unit: '单', trend: '骑手宽表 完单数聚合', icon: '📦', color: '#1f6feb' },
+  { label: '城市覆盖', value: '17', unit: '城', trend: '骑手宽表 注册城市去重', icon: '🌍', color: '#722ed1' },
+  { label: '平均服务分', value: '88.6', unit: '分', trend: '骑手宽表 服务分均值', icon: '⭐', color: '#fa541c' }
 ])
 
 // 从后端加载 KPI
