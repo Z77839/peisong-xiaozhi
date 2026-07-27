@@ -162,7 +162,7 @@ onBeforeUnmount(() => {
       <div class="hero-inner">
         <div class="hero-tag">🚨 主动预防式预警</div>
         <h1 class="hero-title">配送小智 · 风险预警中心</h1>
-        <p class="hero-sub">从「被动响应」升级为「主动预防」 · 7×24 小时持续监控 · 提前 {{ Math.max(15, Math.floor(60 / 60)) }} 分钟发现高峰风险</p>
+        <p class="hero-sub">从「被动响应」升级为「主动预防」 · 7×24 小时持续监控</p>
 
         <!-- 实时感知条 -->
         <div v-if="context" class="sense-bar">

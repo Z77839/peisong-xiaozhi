@@ -300,7 +300,7 @@ async function runDecision() {
       status: 'success'
     })
 
-    ElMessage.success('8 Agent 协同执行完毕')
+    ElMessage.success('决策 agent 协同执行完毕')
   } catch (e) {
     ElMessage.error('执行失败')
   } finally {
@@ -327,7 +327,7 @@ function exportReport() {
 - 风险等级：${result.value.risk_level || 'medium'}
 - 决策置信度：${result.value.confidence || 92}%
 
-【8 Agent 协同分析】
+【决策 agent 协同分析】
 ${(result.value.steps || []).map((s, i) => `  ${i + 1}. ${s.name}: ${s.output}`).join('\n')}
 
 【详细报告】
@@ -360,7 +360,7 @@ function copyReport() {
           <span class="ht-prefix">@</span>配送小智 ·
           <span class="ht-tag">{{ cityStore.currentCity.name }}</span> 智能运营助手
         </div>
-        <p class="hero-sub">8 Agent 多角色协同 · 实时感知时间/天气/节假日 · 30 秒给出可执行方案</p>
+        <p class="hero-sub">决策 agent 多角色协同 · 实时感知时间/天气/节假日 · 30 秒给出可执行方案</p>
 
         <!-- 智能体感知面板 - 显示它"看"到了什么（自动注入上下文） -->
         <div class="context-panel" v-if="agentContext">
@@ -607,7 +607,7 @@ function copyReport() {
           <div class="kpi-block purple">
             <div class="kb-label">决策置信度</div>
             <div class="kb-value">{{ result.confidence || 92 }}%</div>
-            <div class="kb-trend">🤖 8 Agent 协同</div>
+            <div class="kb-trend">🤖 决策 agent 协同</div>
           </div>
         </div>
 
@@ -658,11 +658,11 @@ function copyReport() {
           </transition>
         </div>
 
-        <!-- 8 Agent 协同可视化 -->
+        <!-- 决策 agent 协同可视化 -->
         <div class="agent-flow">
           <div class="af-header">
             <span class="af-ico">🤖</span>
-            <span class="af-title">8 Agent 协同分析链</span>
+            <span class="af-title">决策 agent 协同分析链</span>
             <span class="af-sub">每个 Agent 独立输出，最终汇总成报告</span>
           </div>
           <div class="af-chain">

@@ -353,7 +353,7 @@ const loadDemoScenario = (key: string) => {
       <div class="arch-diagram">
         <div class="arch-layer">
           <div class="layer-label">业务逻辑层</div>
-          <div class="layer-content">8 Agent 协同 + 3 个数学优化引擎</div>
+          <div class="layer-content">决策 agent 协同 + 3 个数学优化引擎</div>
         </div>
         <div class="arch-arrow">↓ 调用 ↓</div>
         <div class="arch-layer highlight">
