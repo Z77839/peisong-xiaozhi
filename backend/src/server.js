@@ -269,9 +269,23 @@ function logEnvStatus() {
   logger.info('========================================')
 }
 
+// 🆕 LLM 预热：启动后异步调一次，减少首次请求冷启动延迟
+async function warmupLLM() {
+  try {
+    const { callLLM } = await import('./services/llmRouter.js')
+    const start = Date.now()
+    const r = await callLLM('预热：返回 1 句话确认连通即可', { prefer: 'auto', taskType: 'simple' })
+    logger.info(`[启动预热] LLM 预热完成 (${Date.now() - start}ms, provider=${r.provider})`)
+  } catch (e) {
+    logger.warn(`[启动预热] LLM 预热失败（不影响服务）: ${e.message}`)
+  }
+}
+
 app.listen(PORT, () => {
   startAdapters();
   logEnvStatus();
+  // 启动后 2s 异步预热 LLM（不阻塞启动）
+  setTimeout(warmupLLM, 2000)
   logger.info('========================================');
   logger.info(`配送小智 AI 后端服务已启动`);
   logger.info(`环境: ${NODE_ENV}`);

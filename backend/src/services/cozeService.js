@@ -153,6 +153,14 @@ export async function runDecisionWorkflow(query, options = {}) {
   const ctx = await getAgentContext(cityId)
   const decisionId = `d_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
 
+  // 0. 查 LLM 响应缓存（60s TTL，同 query+city 命中直接返回）
+  const { get: cacheGet, set: cacheSet, makeKey } = await import('./llmCache.js')
+  const cacheKey = makeKey(query, { cityId, taskType: 'long' })
+  const cachedLLM = cacheGet(cacheKey)
+  if (cachedLLM) {
+    console.log(`[Decision] ⚡ LLM 缓存命中 (60s TTL): ${cacheKey.slice(0, 60)}...`)
+  }
+
   // 1. 优先 LLM Router（豆包 → DeepSeek → Coze）
   try {
     const { callLLM } = await import('./llmRouter.js')
@@ -174,8 +182,11 @@ ${getKnowledgeContext(query)}
 - 答案要结构化、可执行、附置信度
 [用户问题]
 ${query}`
-    const llmResult = await callLLM(enrichedQuery, { prefer: 'auto', taskType: 'long' })
+    // 优先用缓存，未命中才调 LLM
+    const llmResult = cachedLLM || await callLLM(enrichedQuery, { prefer: 'auto', taskType: 'long' })
     if (llmResult?.content) {
+      // 写缓存（60s 内同 query 命中）
+      if (!cachedLLM) cacheSet(cacheKey, llmResult)
       const steps = CAPABILITIES.map((a, i) => {
         const duration = 100 + Math.floor(Math.random() * 500)
         let output = ''
