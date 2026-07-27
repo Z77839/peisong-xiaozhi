@@ -69,4 +69,4 @@ screenshots-*/
 # ========== 演示 / 比赛打包 ==========
 *.tar.gz
 *.zip
-*.7z
+*.7zpeisong-xiaozhi-fix-branch.patch

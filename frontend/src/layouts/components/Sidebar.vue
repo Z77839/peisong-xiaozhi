@@ -29,7 +29,6 @@ const menus = [
     icon: 'Van',
     children: [
       { path: '/rider', title: '骑手管理', icon: 'User' }
-      // 仿真回放 临时隐藏（赛前不需要；路由仍保留方便手动访问）
     ]
   },
 
