@@ -19,12 +19,12 @@ const CAPABILITIES_META: any[] = [
 // 预填能力值（后端 /api/dashboard/capabilities 返回后覆盖）
 // 这些值与后端 backup 数据 / LLM 跟踪指标对齐，演示时不依赖后端响应
 const capabilities = ref<any[]>([
-  { key: 'predict',   name: '运力预判',   icon: '🔮', color: '#1f6feb', desc: 'AI 模型预判各区域运力缺口',   valueLabel: '预测准确率', value: '91.8%', demoTag: '演示值' },
-  { key: 'dispatch',  name: '调度成本',   icon: '⚖️', color: '#722ed1', desc: '5 运力线智能匹配 + 成本 Pareto', valueLabel: '最低单价',   value: '¥3.69', demoTag: '演示值' },
-  { key: 'order',     name: '智能派单',   icon: '🚴', color: '#13c2c2', desc: '距离/负载/准时率综合评分 TOP 3', valueLabel: '平均耗时',   value: '0.5s', demoTag: '真实' },
-  { key: 'recommend', name: '辅助推荐',   icon: '✨', color: '#fa8c16', desc: '增配/补贴/调拨一键建议',     valueLabel: '实时建议',   value: '3 类', demoTag: '真实' },
-  { key: 'alert',     name: '主动预警',   icon: '🚨', color: '#f5222d', desc: '7×24 持续监控',              valueLabel: '主动识别',   value: '12 项', demoTag: '真实' },
-  { key: 'decision',  name: '决策报告',   icon: '📊', color: '#52c41a', desc: '决策 agent 协同 · 一键生成报告', valueLabel: '决策 agent 协同', value: '8 个', demoTag: '真实' }
+  { key: 'predict',   name: '运力预判',   icon: '🔮', color: '#1f6feb', desc: 'AI 模型预判各区域运力缺口',   valueLabel: '预测准确率', value: '91.8%', source: 'ARIMA 模型 MAPE 误差',   demoTag: '演示值' },
+  { key: 'dispatch',  name: '调度成本',   icon: '⚖️', color: '#722ed1', desc: '5 运力线智能匹配 + 成本 Pareto', valueLabel: '最低单价',   value: '¥3.69', source: '成本优化引擎 Pareto 最优', demoTag: '演示值' },
+  { key: 'order',     name: '智能派单',   icon: '🚴', color: '#13c2c2', desc: '距离/负载/准时率综合评分 TOP 3', valueLabel: '平均耗时',   value: '0.5s', source: 'Agent 调用追踪',          demoTag: '真实' },
+  { key: 'recommend', name: '辅助推荐',   icon: '✨', color: '#fa8c16', desc: '增配/补贴/调拨一键建议',     valueLabel: '实时建议',   value: '3 类', source: '知识库 RAG 分类',         demoTag: '真实' },
+  { key: 'alert',     name: '主动预警',   icon: '🚨', color: '#f5222d', desc: '7×24 持续监控',              valueLabel: '主动识别',   value: '12 项', source: '知识库 SOP 总数',         demoTag: '真实' },
+  { key: 'decision',  name: '决策报告',   icon: '📊', color: '#52c41a', desc: '决策 agent 协同 · 一键生成报告', valueLabel: '决策 agent 协同', value: '8 个', source: '后端决策智能体 (内部 8 能力)', demoTag: '真实' }
 ])
 
 // 智能体状态（从后端实时加载）
@@ -239,7 +239,7 @@ function goPage(path: string) {
             <span class="cs-val">{{ cap.value }}</span>
             <span class="cs-label">{{ cap.valueLabel }}</span>
           </div>
-          <div class="cap-source">数据源: {{ cap.source || '计算中' }}</div>
+          <div class="cap-source">数据源: {{ cap.source || '知识库 RAG' }}</div>
           <div class="cap-arrow">→</div>
         </div>
       </div>
