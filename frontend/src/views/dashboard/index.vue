@@ -76,7 +76,7 @@ const context = ref<any>(null)
 async function fetchContext() {
   try {
     const r: any = await request({ url: `/context?cityId=${cityStore.currentCityId}` })
-    context.value = r.data
+    context.value = r
   } catch {}
 }
 
@@ -85,7 +85,7 @@ const alertSummary = ref<any>(null)
 async function fetchAlertSummary() {
   try {
     const r: any = await request({ url: `/alert?cityId=${cityStore.currentCityId}` })
-    alertSummary.value = r.data
+    alertSummary.value = r
   } catch {}
 }
 
@@ -93,7 +93,7 @@ const dispatchSummary = ref<any>(null)
 async function fetchDispatchSummary() {
   try {
     const r: any = await request({ url: `/dispatch?cityId=${cityStore.currentCityId}` })
-    dispatchSummary.value = r.data
+    dispatchSummary.value = r
   } catch {}
 }
 
