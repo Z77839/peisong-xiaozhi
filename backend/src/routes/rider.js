@@ -10,6 +10,8 @@
  * 数据源：backend/data/riders_full.csv (27,186 真实骑手)
  */
 import { Router } from 'express'
+import fs from 'node:fs'
+import path from 'node:path'
 import { segments, lifecycles, topStations } from '../data/riders.js'
 import {
   loadRiders,
@@ -182,7 +184,57 @@ router.get('/capacity', (req, res) => {
   }
 })
 
-// 13. 骑手详情（必须放最后，否则会拦截 /import-stats 等子路由）
+// 13. 真实骑手明细聚合（从 riders_real_sample.json 读，演示用）
+router.get('/real-summary', (req, res) => {
+  try {
+    const file = path.resolve(process.cwd(), 'data', 'riders_real_sample.json')
+    if (!fs.existsSync(file)) {
+      return res.status(404).json({ code: 404, message: '真实数据文件未找到' })
+    }
+    const data = JSON.parse(fs.readFileSync(file, 'utf-8'))
+    const meta = data.meta
+    const rows = data.rows
+
+    // 计算聚合指标
+    const cityCount = {}
+    const tierCount = {}
+    let totalOrders = 0
+    let totalServiceScore = 0
+    let scoreCount = 0
+    for (const r of rows) {
+      const city = r['注册城市'] || '未知'
+      cityCount[city] = (cityCount[city] || 0) + 1
+      const tier = r['段位等级名称'] || '未知'
+      tierCount[tier] = (tierCount[tier] || 0) + 1
+      const orders = Number(r['完单数'] || 0)
+      totalOrders += orders
+      const score = Number(r['服务分'] || 0)
+      if (score > 0) { totalServiceScore += score; scoreCount++ }
+    }
+
+    res.json({
+      code: 0,
+      data: {
+        source: meta.source_file,
+        totalRows: meta.total_rows,
+        sampleSize: meta.sample_size,
+        cities: meta.cities,
+        aggregates: {
+          sampleTotalOrders: totalOrders,
+          sampleCities: Object.keys(cityCount).length,
+          sampleTiers: Object.keys(tierCount).length,
+          avgServiceScore: scoreCount > 0 ? +(totalServiceScore / scoreCount).toFixed(1) : 0,
+          cityDistribution: cityCount,
+          tierDistribution: tierCount
+        }
+      }
+    })
+  } catch (e) {
+    res.status(500).json({ code: 500, message: e.message })
+  }
+})
+
+// 14. 骑手详情（必须放最后，否则会拦截 /import-stats 等子路由）
 router.get('/:id', authRequired, async (req, res) => {
   try {
     const rider = await getRiderById(req.params.id)
