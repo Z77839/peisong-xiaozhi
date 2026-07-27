@@ -31,13 +31,19 @@ export async function restoreFromBackup() {
   }
 
   // 列分支下的文件
+  // ⚠️ 这里列什么决定重启后哪些 JSON 能被恢复。
+  // 决策中心是产品核心场景，decisions.json + decision_feedbacks.json 必须在里面，
+  // 否则 Render 重启后用户所有决策历史丢失。
+  // 原则：写新业务 JSON 时同步加进这个名单，不要依赖 backupNow 动态扫描（恢复时不爬目录）
   const files = [
     'knowledge_index.json',
     'capability_calls.json',
     'audit.json',
     'chat-sessions.json',
     'riders_extra.json',
-    'users.json'
+    'users.json',
+    'decisions.json',
+    'decision_feedbacks.json'
   ]
 
   let restored = 0

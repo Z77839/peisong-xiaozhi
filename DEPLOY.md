@@ -87,7 +87,7 @@ git push -u origin main
 
 部署成功后，Render 会给你一个 URL：
 ```
-https://peisong-xiaozhi-backend.onrender.com
+https://peisong-backend.onrender.com
 ```
 
 ### Step 6: 前端连接后端
@@ -98,7 +98,7 @@ https://peisong-xiaozhi-backend.onrender.com
 // 把这个改为你 Render 的 URL
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ||
   (import.meta.env.PROD
-    ? 'https://peisong-xiaozhi-backend.onrender.com'
+    ? 'https://peisong-backend.onrender.com'
     : 'http://localhost:3000');
 ```
 
@@ -120,7 +120,7 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ||
 
 **调用**：
 ```bash
-curl "https://peisong-xiaozhi-backend.onrender.com/api/adapters/orders/historical?city=hengyang&days=90"
+curl "https://peisong-backend.onrender.com/api/adapters/orders/historical?city=hengyang&days=90"
 ```
 
 ### 2) 骑手位置遥测（WebSocket）
@@ -134,7 +134,7 @@ curl "https://peisong-xiaozhi-backend.onrender.com/api/adapters/orders/historica
 
 **调用**：
 ```bash
-curl "https://peisong-xiaozhi-backend.onrender.com/api/adapters/riders/telemetry?city=hengyang"
+curl "https://peisong-backend.onrender.com/api/adapters/riders/telemetry?city=hengyang"
 ```
 
 ### 3) 天气（和风天气 API）⭐ **推荐接入**
@@ -150,7 +150,7 @@ curl "https://peisong-xiaozhi-backend.onrender.com/api/adapters/riders/telemetry
 
 **调用**：
 ```bash
-curl "https://peisong-xiaozhi-backend.onrender.com/api/adapters/weather/forecast?city=hengyang"
+curl "https://peisong-backend.onrender.com/api/adapters/weather/forecast?city=hengyang"
 ```
 
 **返回示例**：
@@ -170,7 +170,7 @@ curl "https://peisong-xiaozhi-backend.onrender.com/api/adapters/weather/forecast
 
 **调用**：
 ```bash
-curl "https://peisong-xiaozhi-backend.onrender.com/api/adapters/orders/pool?city=hengyang&range=1h"
+curl "https://peisong-backend.onrender.com/api/adapters/orders/pool?city=hengyang&range=1h"
 ```
 
 ---
@@ -180,37 +180,37 @@ curl "https://peisong-xiaozhi-backend.onrender.com/api/adapters/orders/pool?city
 ### 健康检查
 ```bash
 # 后端
-curl https://peisong-xiaozhi-backend.onrender.com/api/health
+curl https://peisong-backend.onrender.com/api/health
 
 # 4 个数据接入端口
-curl https://peisong-xiaozhi-backend.onrender.com/api/adapters/status
-curl https://peisong-xiaozhi-backend.onrender.com/api/adapters/health
+curl https://peisong-backend.onrender.com/api/adapters/status
+curl https://peisong-backend.onrender.com/api/adapters/health
 ```
 
 ### 检查所有接口
 ```bash
 # 天气
-curl "https://peisong-xiaozhi-backend.onrender.com/api/adapters/weather/forecast?city=hengyang"
+curl "https://peisong-backend.onrender.com/api/adapters/weather/forecast?city=hengyang"
 
 # 骑手
-curl "https://peisong-xiaozhi-backend.onrender.com/api/adapters/riders/telemetry?city=hengyang"
+curl "https://peisong-backend.onrender.com/api/adapters/riders/telemetry?city=hengyang"
 
 # 订单池
-curl "https://peisong-xiaozhi-backend.onrender.com/api/adapters/orders/pool?city=hengyang&range=1h"
+curl "https://peisong-backend.onrender.com/api/adapters/orders/pool?city=hengyang&range=1h"
 
 # 历史订单
-curl "https://peisong-xiaozhi-backend.onrender.com/api/adapters/orders/historical?city=hengyang&days=7"
+curl "https://peisong-backend.onrender.com/api/adapters/orders/historical?city=hengyang&days=7"
 
 # 优化引擎
-curl -X POST "https://peisong-xiaozhi-backend.onrender.com/api/optimize/dispatch" \
+curl -X POST "https://peisong-backend.onrender.com/api/optimize/dispatch" \
   -H "Content-Type: application/json" \
   -d '{"cityId":"hengyang","orders":[],"riders":[]}'
 
-curl -X POST "https://peisong-xiaozhi-backend.onrender.com/api/optimize/predict-gap" \
+curl -X POST "https://peisong-backend.onrender.com/api/optimize/predict-gap" \
   -H "Content-Type: application/json" \
   -d '{"cityId":"hengyang","hour":18}'
 
-curl -X POST "https://peisong-xiaozhi-backend.onrender.com/api/optimize/cost-plan" \
+curl -X POST "https://peisong-backend.onrender.com/api/optimize/cost-plan" \
   -H "Content-Type: application/json" \
   -d '{"cityId":"hengyang","gap":800}'
 ```
@@ -261,7 +261,7 @@ fly deploy
 ## 🎯 部署完成标志
 
 - ✅ `https://Z77839.github.io/peisong-xiaozhi/` 能访问
-- ✅ `https://peisong-xiaozhi-backend.onrender.com/api/health` 返回 200
+- ✅ `https://peisong-backend.onrender.com/api/health` 返回 200
 - ✅ `/api/adapters/status` 显示 4 个数据端口
 - ✅ `/api/adapters/weather/forecast?city=hengyang` 返回真实天气（或 Mock）
 

@@ -130,8 +130,14 @@ export async function updateUserLastLogin(userId) {
 // 决策历史
 // ============================================
 export async function saveDecision(decision) {
+  // 决策 ID 修复：上游（runDecisionWorkflow / decision route）已经生成了 id，
+  // 这里必须复用同一个 id，否则：
+  //   - runDecisionWorkflow 返回的 id ≠ decisions.json 里的 id
+  //   - 派单 / 告警 / 反馈回写时按 id 找不到记录
+  //   - 决策历史页 / 决策详情 / 回跳全链路断
+  const fallbackId = `d_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
   const record = {
-    id: decision.id || `d_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    id: decision.id || fallbackId,
     userId: decision.userId,
     query: decision.query,
     cityId: decision.cityId,

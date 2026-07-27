@@ -88,10 +88,13 @@ router.post('/run', async (req, res) => {
   }
   try {
     const result = await runDecisionWorkflow(query, { cityId, override: override || {} })
+    // 决策 ID 修复：cozeService 返回的字段是 decisionId（不是 id）
+    // 这里取到同一个 id 传给 saveDecision，让历史记录 / 派单 / 反馈 / 回跳全链路共享一个 ID
+    const decisionId = result.decisionId || result.id || `d_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
     // 存档（用决策 ID 作 key）
     try {
-      saveDecision({
-        id: result.id || `d_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+      await saveDecision({
+        id: decisionId,
         userId: null,
         query,
         cityId,
@@ -106,7 +109,7 @@ router.post('/run', async (req, res) => {
     } catch (saveErr) {
       console.warn('[Decision] save failed (non-fatal):', saveErr.message)
     }
-    res.json({ code: 0, data: result })
+    res.json({ code: 0, data: { ...result, id: decisionId, decisionId } })
   } catch (err) {
     res.status(500).json({ code: 500, message: err.message })
   }

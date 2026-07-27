@@ -31,9 +31,20 @@ const handleLogin = async () => {
   }
 }
 
+// 演示账号统一规则：账号 → 密码为 <账号>@2024
+// 与后端 backend/src/services/db.js#initDefaultUsers 中的 defaults 完全一致
+// ⚠️ 任何修改请同步更新：backend/src/services/db.js、README.md、DEPLOY.md
+const QUICK_FILL_ACCOUNTS: Array<{ account: string; label: string; password: string }> = [
+  { account: 'admin', label: 'admin', password: 'admin@2024' },
+  { account: 'operator', label: 'operator', password: 'operator@2024' },
+  { account: 'analyst', label: 'analyst', password: 'analyst@2024' }
+]
+
 const handleQuickFill = (account: string) => {
-  form.value.account = account
-  form.value.password = 'demo'
+  const hit = QUICK_FILL_ACCOUNTS.find((q) => q.account === account)
+  if (!hit) return
+  form.value.account = hit.account
+  form.value.password = hit.password
 }
 </script>
 
@@ -130,9 +141,16 @@ const handleQuickFill = (account: string) => {
 
           <div class="quick-fill">
             <span class="quick-label">演示账号：</span>
-            <el-button link type="primary" @click="handleQuickFill('admin')">admin</el-button>
-            <el-button link type="primary" @click="handleQuickFill('operator')">operator</el-button>
-            <el-button link type="primary" @click="handleQuickFill('analyst')">analyst</el-button>
+            <el-button
+              v-for="q in QUICK_FILL_ACCOUNTS"
+              :key="q.account"
+              link
+              type="primary"
+              @click="handleQuickFill(q.account)"
+            >
+              {{ q.label }}
+            </el-button>
+            <span class="quick-hint">（密码 = 账号 + @2024）</span>
           </div>
         </el-form>
 

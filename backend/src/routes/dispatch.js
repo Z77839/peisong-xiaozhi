@@ -115,8 +115,14 @@ router.get('/', (req, res) => {
       availableRiders: riders.filter((r) => r.online && !r.busy).length,
       busyRiders: riders.filter((r) => r.busy).length,
       offlineRiders: riders.filter((r) => !r.online).length,
+      // ⚠️ 以下两个数字是“调参预置值”，不来自真实派单历史
+      // 前端需要将其标记为“演示值”
       dispatchedRate: 0.78,
-      avgDispatchTime: 1.4
+      avgDispatchTime: 1.4,
+      _meta: {
+        dispatchedRate: { isDemo: true, demoReason: '调参预置值，未接入真实派单历史数据' },
+        avgDispatchTime: { isDemo: true, demoReason: '调参预置值，未接入真实派单历史数据' }
+      }
     }
 
     res.json({ code: 0, data: { orders, riders, recommendations, stats } })

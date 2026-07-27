@@ -165,36 +165,44 @@ router.get('/capabilities', async (req, res) => {
           value: accuracyPct + '%',
           label: '预测准确率',
           source: 'ARIMA 模型 MAPE 误差',
+          // ⚠️ accuracyPct 是从 fallback MAPE 8.2% 算出的““货定值”，不是真正在线模型评估
+          isDemo: !(gapResult.accuracy && gapResult.accuracy.real),
+          demoReason: '当前未接真实预测服务，准确率为系统默认值（MAPE=8.2% 的反向展示）',
           raw: gapResult.accuracy
         },
         dispatch: {
           value: '¥' + minUnitPrice.toFixed(2),
           label: '最低单价',
           source: '成本优化引擎 Pareto 最优',
+          isDemo: false,
           raw: costPlan.recommended
         },
         order: {
           value: avgDurationSec + 's',
           label: '平均耗时',
           source: '决策智能体能力调用追踪（' + totalCalls + ' 条记录）',
+          isDemo: false,
           raw: { totalCalls, avgMs: avgDurationMs }
         },
         recommend: {
           value: knowledgeCats + ' 类',
           label: '实时建议',
           source: '知识库 RAG 分类',
+          isDemo: false,
           raw: { categories: knowledgeCats }
         },
         alert: {
           value: knowledgeTotal + ' 项',
           label: '主动识别',
           source: '知识库 SOP 总数',
+          isDemo: false,
           raw: { total: knowledgeTotal }
         },
         decision: {
           value: '决策智能体',
           label: '统一决策入口',
           source: '后端决策智能体（内部 8 能力）',
+          isDemo: false,
           raw: { capabilities: WORKING_CAPABILITIES }
         }
       }

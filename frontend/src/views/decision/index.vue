@@ -82,22 +82,35 @@ function resetOverride() {
  * 从用户问题中智能解析日期
  */
 /**
- * 跳转到预警中心
+ * 跳转到预警中心（携带决策 ID 用于回跳）
  */
 function goToAlert() {
   const cityId = result.value?.context?.city?.id || cityStore.currentCityId
-  $router.push(`/alert?cityId=${cityId}`)
+  const decisionId = result.value?.decisionId || result.value?.id || ''
+  $router.push({
+    path: '/alert',
+    query: { cityId, q: result.value?.query || '', decisionId }
+  })
 }
 
 /**
- * 跳转到智能派单中心，带决策上下文
+ * 跳转到智能派单中心，带决策上下文（携带决策 ID 用于回写反馈）
  */
 function goToDispatch() {
   const cityId = result.value?.context?.city?.id || cityStore.currentCityId
   const gap = result.value?.context?.riders?.cityCount
     ? Math.max(0, 200 - result.value.context.riders.cityCount)
     : 200
-  $router.push(`/dispatch?cityId=${cityId}&gap=${gap}`)
+  const decisionId = result.value?.decisionId || result.value?.id || ''
+  $router.push({
+    path: '/dispatch',
+    query: {
+      cityId,
+      gap,
+      q: result.value?.query || '',
+      decisionId
+    }
+  })
 }
 
 function parseDateFromQuery(q: string): Date | null {
