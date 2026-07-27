@@ -24,10 +24,11 @@ const AGENTS = [
   { id: 'report-gen', name: '报告生成', desc: '结构化输出', icon: '📊' }
 ]
 
+// 预设问题：贴合演示场景，引用真实数据 + 闭环
 const QUESTION_TEMPLATES = [
-  { label: '订单预测', text: '预测今晚衡阳各商圈订单量' },
-  { label: '运力调度', text: '评估晚高峰蜂跑运力是否扩容' },
-  { label: '成本优化', text: '如何降低衡阳单均履约成本' },
+  { label: '订单预测', text: '预测今晚衡阳蒸湘万达商圈各时段订单量' },
+  { label: '运力调度', text: '晚高峰 27,186 骑手里哪些可调去衡阳应急' },
+  { label: '成本优化', text: '4 城市配送单均成本能压到 4 元以下吗' }
 ]
 
 // ========== 智能体感知 ==========
@@ -486,7 +487,7 @@ function copyReport() {
           <textarea
             v-model="queryText"
             class="big-input"
-            placeholder="向配送小智提问，例如：预测今晚蒸湘万达商圈订单量"
+            placeholder="向配送小智提问，例如：今晚衡阳晚高峰需要多少骑手"
             :disabled="running"
             @focus="inputExpanded = true"
             rows="1"
