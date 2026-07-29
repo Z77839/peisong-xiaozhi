@@ -178,19 +178,23 @@ function bootstrapSeed() {
   console.log(`[Knowledge] bootstrapSeed: cwd=${process.cwd()}`)
   console.log(`[Knowledge] bootstrapSeed: SEED path=${SEED || 'NOT FOUND'}`)
 
-  let needSeed = false
-  if (!fs.existsSync(INDEX)) {
-    needSeed = true
-  } else {
+  // 🆕 优先：memory 空就 load（不管 INDEX 状态）
+  if (knowledgeIndex.size === 0 && fs.existsSync(INDEX)) {
     try {
       const cur = JSON.parse(fs.readFileSync(INDEX, 'utf-8'))
-      if (!cur.items || cur.items.length === 0) needSeed = true
-    } catch (e) { needSeed = true }
+      if (cur.items && cur.items.length > 0) {
+        knowledgeIndex = new Map()
+        for (const d of cur.items) knowledgeIndex.set(d.id, d)
+        console.log(`[Knowledge] 从 INDEX 恢复 ${knowledgeIndex.size} 条到内存`)
+        return
+      }
+    } catch (e) {}
   }
 
-  if (!needSeed) return
+  // INDEX 空或没数据 → 从 SEED 加载
+  if (knowledgeIndex.size > 0) return  // 已有数据，跳过
   if (!SEED) {
-    console.warn(`[Knowledge] bootstrapSeed: SEED 找不到，跳过自动 seed（可手动调 POST /api/knowledge/seed）`)
+    console.warn(`[Knowledge] bootstrapSeed: SEED 找不到，跳过自动 seed`)
     return
   }
 
@@ -198,12 +202,11 @@ function bootstrapSeed() {
     const seed = JSON.parse(fs.readFileSync(SEED, 'utf-8'))
     fs.mkdirSync(path.dirname(INDEX), { recursive: true })
     fs.writeFileSync(INDEX, JSON.stringify(seed, null, 2))
-    // 关键修复：写完 INDEX 后刷新内存
     knowledgeIndex = new Map()
     for (const d of loadIndex()) {
       knowledgeIndex.set(d.id, d)
     }
-    console.log(`[Knowledge] 已从 seed 导入 ${seed.items.length} 条, 内存 ${knowledgeIndex.size} 条`)
+    console.log(`[Knowledge] 从 SEED 导入 ${seed.items.length} 条, 内存 ${knowledgeIndex.size} 条`)
   } catch (e) {
     console.error('[Knowledge] seed 导入失败:', e.message)
   }
