@@ -151,6 +151,7 @@ function parseDateFromQuery(q: string): Date | null {
 onMounted(async () => {
   fetchContext()
   await loadHistory()  // 🆕 加载后端历史
+  loadCases()  // 🆕 加载案例库
 
   // 从 URL 参数读取（从预警中心 / 派单 / 告警跳转过来）
   const params = new URLSearchParams(window.location.search || window.location.hash.split('?')[1] || '')
@@ -246,6 +247,26 @@ const showInjection = ref(true)  // 默认展开
 
 const history = ref<any[]>([])
 const historyLoading = ref(false)
+
+// 🆕 经验案例库（Step 3）
+const cases = ref<any[]>([])
+const casesLoading = ref(false)
+const casesStats = ref<any>({})
+const activeHistoryTab = ref<'history' | 'cases'>('history')
+
+async function loadCases() {
+  casesLoading.value = true
+  try {
+    const r: any = await request({ url: '/decision/cases?limit=50' })
+    const list = Array.isArray(r) ? r : (r?.data || [])
+    cases.value = list
+    casesStats.value = r?.stats || {}
+  } catch (e) {
+    console.warn('[cases load]', e)
+  } finally {
+    casesLoading.value = false
+  }
+}
 const historyFeedbacks = ref<Record<string, any>>({})  // decisionId -> feedback 状态
 
 async function loadHistory() {
@@ -839,26 +860,84 @@ function copyReport() {
     <!-- 4. 历史 -->
     <div class="history-section" v-if="!showResult">
       <h3>
-        📂 历史决策记录
-        <span class="hs-count">({{ history.length }})</span>
-        <button class="hs-refresh" @click="loadHistory" :disabled="historyLoading">
-          {{ historyLoading ? '加载中...' : '🔄 刷新' }}
+        🗂️ 决策与经验
+        <button class="hs-refresh" @click="activeHistoryTab === 'history' ? loadHistory() : loadCases()" :disabled="historyLoading || casesLoading">
+          {{ (historyLoading || casesLoading) ? '加载中...' : '🔄 刷新' }}
         </button>
       </h3>
-      <div v-if="history.length === 0 && !historyLoading" class="empty-history">
-        <div class="eh-ico">📭</div>
-        <div>暂无历史决策 — 上面输入问题生成你的第一个决策吧</div>
+
+      <!-- 🆕 双 tab 切换 -->
+      <div class="hs-tabs">
+        <button
+          class="hs-tab"
+          :class="{ active: activeHistoryTab === 'history' }"
+          @click="activeHistoryTab = 'history'"
+        >
+          📂 决策历史
+          <span class="hs-tab-count">{{ history.length }}</span>
+        </button>
+        <button
+          class="hs-tab"
+          :class="{ active: activeHistoryTab === 'cases' }"
+          @click="activeHistoryTab = 'cases'"
+        >
+          📊 经验案例
+          <span class="hs-tab-count">{{ cases.length }}</span>
+          <span v-if="casesStats.avgSuccessRate !== undefined" class="hs-tab-badge">
+            {{ Math.round(casesStats.avgSuccessRate * 100) }}% 采纳率
+          </span>
+        </button>
       </div>
-      <div class="history-list">
-        <div v-for="h in history" :key="h.id" class="history-item" @click="$router.push(`/decision?historyId=${h.id}`)">
-          <div class="hi-icon">📝</div>
-          <div class="hi-text">{{ h.text }}</div>
-          <div class="hi-time">{{ relativeTime(h.time) }}</div>
-          <!-- 🆕 反馈状态标签 -->
-          <el-tag v-if="h.feedback?.result === 'success'" size="small" type="success" effect="dark">🚴 已派单</el-tag>
-          <el-tag v-else-if="h.feedback?.result === 'partial'" size="small" type="warning" effect="plain">⚠️ 部分派单</el-tag>
-          <el-tag v-else-if="h.feedback?.result === 'failed'" size="small" type="danger" effect="plain">❌ 未执行</el-tag>
-          <el-tag v-else size="small" type="info" effect="plain">⏳ 待执行</el-tag>
+
+      <!-- Tab 1: 决策历史 -->
+      <div v-if="activeHistoryTab === 'history'">
+        <div v-if="history.length === 0 && !historyLoading" class="empty-history">
+          <div class="eh-ico">📭</div>
+          <div>暂无历史决策 — 上面输入问题生成你的第一个决策吧</div>
+        </div>
+        <div class="history-list">
+          <div v-for="h in history" :key="h.id" class="history-item" @click="$router.push(`/decision?historyId=${h.id}`)">
+            <div class="hi-icon">📝</div>
+            <div class="hi-text">{{ h.text }}</div>
+            <div class="hi-time">{{ relativeTime(h.time) }}</div>
+            <el-tag v-if="h.feedback?.result === 'success'" size="small" type="success" effect="dark">🚴 已派单</el-tag>
+            <el-tag v-else-if="h.feedback?.result === 'partial'" size="small" type="warning" effect="plain">⚠️ 部分派单</el-tag>
+            <el-tag v-else-if="h.feedback?.result === 'failed'" size="small" type="danger" effect="plain">❌ 未执行</el-tag>
+            <el-tag v-else size="small" type="info" effect="plain">⏳ 待执行</el-tag>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🆕 Tab 2: 经验案例 -->
+      <div v-else-if="activeHistoryTab === 'cases'">
+        <div v-if="cases.length === 0 && !casesLoading" class="empty-history">
+          <div class="eh-ico">📊</div>
+          <div>暂无经验案例 — 决策完成后会自动归档，采纳/不采纳的反馈会沉淀到这里</div>
+        </div>
+        <div class="case-list">
+          <div v-for="c in cases" :key="c.id" class="case-item" :class="'case-sr-' + Math.round((c.success_rate || 0) * 100)">
+            <div class="case-header">
+              <div class="case-summary">{{ c.summary }}</div>
+              <div class="case-rate">
+                <span v-if="c.success_rate === 1" class="rate-pill rate-success">✅ 100% 采纳</span>
+                <span v-else-if="c.success_rate === 0.5" class="rate-pill rate-partial">⚠️ 部分采纳</span>
+                <span v-else-if="c.success_rate === 0" class="rate-pill rate-failed">❌ 未采纳</span>
+                <span v-else class="rate-pill rate-pending">⏳ 待反馈</span>
+              </div>
+            </div>
+            <div v-if="c.actions && c.actions.length" class="case-actions">
+              <div v-for="(a, i) in c.actions.slice(0, 2)" :key="i" class="case-action">• {{ a.slice(0, 80) }}</div>
+            </div>
+            <div class="case-meta">
+              <span>📍 {{ c.cityId }}</span>
+              <span>·</span>
+              <span>{{ c.predicted_orders }} 单</span>
+              <span>·</span>
+              <span>¥{{ Math.round(c.cost_estimate) }}</span>
+              <span>·</span>
+              <span class="case-time">{{ relativeTime(new Date(c.createdAt).getTime()) }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1564,6 +1643,72 @@ function copyReport() {
 
 /* ===== 历史 ===== */
 .history-section { margin-top: 32px; h3 { font-size: 14px; color: $text-secondary; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; } }
+.hs-tabs { display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid $border-light; }
+.hs-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  color: $text-secondary;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.15s;
+  &:hover { color: $primary; }
+  &.active { color: $primary; border-bottom-color: $primary; font-weight: 600; }
+}
+.hs-tab-count {
+  background: $bg-hover;
+  color: $text-secondary;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.hs-tab.active .hs-tab-count { background: $primary-light; color: $primary; }
+.hs-tab-badge {
+  background: linear-gradient(135deg, #00b578, #52c41a);
+  color: #fff;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+}
+.case-list { display: flex; flex-direction: column; gap: 8px; }
+.case-item {
+  background: #fff;
+  border: 1px solid $border-light;
+  border-left: 4px solid $border-light;
+  border-radius: 8px;
+  padding: 12px 16px;
+  transition: all 0.15s;
+  &:hover { border-color: $primary; transform: translateX(2px); }
+  &.case-sr-100 { border-left-color: #00b578; background: linear-gradient(90deg, rgba(0,181,120,0.04), #fff); }
+  &.case-sr-50 { border-left-color: #fa8c16; }
+  &.case-sr-0 { border-left-color: #f5222d; }
+}
+.case-header { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+.case-summary { flex: 1; font-size: 14px; font-weight: 600; color: $text-primary; line-height: 1.4; }
+.case-rate { flex-shrink: 0; }
+.rate-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.rate-success { background: rgba(0,181,120,0.12); color: #00b578; }
+.rate-partial { background: rgba(250,141,22,0.12); color: #fa8c16; }
+.rate-failed { background: rgba(245,34,45,0.12); color: #f5222d; }
+.rate-pending { background: $bg-hover; color: $text-placeholder; }
+.case-actions { margin-bottom: 6px; }
+.case-action { font-size: 12px; color: $text-secondary; line-height: 1.5; }
+.case-meta { display: flex; gap: 6px; font-size: 11px; color: $text-placeholder; }
+.case-time { margin-left: auto; }
 .hs-count { color: $text-placeholder; font-weight: 400; }
 .hs-refresh { margin-left: auto; padding: 3px 10px; background: #fff; border: 1px solid $border-light; border-radius: 12px; font-size: 11px; color: $primary; cursor: pointer; }
 .hs-refresh:hover:not(:disabled) { background: $primary-light; }
