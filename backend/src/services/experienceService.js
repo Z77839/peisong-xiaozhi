@@ -142,41 +142,67 @@ export function searchCases(query, limit = 3) {
   const all = readAll()
   const q = String(query || '').toLowerCase().trim()
   if (!q || all.cases.length === 0) return []
-  
+
   // 中文 n-gram
   const tokens = []
   if (q.length >= 2) tokens.push(q)
   for (let i = 0; i <= q.length - 2; i++) tokens.push(q.slice(i, i + 2))
   for (let i = 0; i < q.length; i++) tokens.push(q[i])
   const uniqueTokens = [...new Set(tokens)]
-  
-  return all.cases
-    .map(c => {
-      let score = 0
-      const queryLower = (c.query || '').toLowerCase()
-      const summaryLower = (c.summary || '').toLowerCase()
-      const actionsStr = (c.actions || []).join(' ').toLowerCase()
-      
-      // query 命中
-      if (queryLower.includes(q)) score += 5
-      if (summaryLower.includes(q)) score += 3
-      if (actionsStr.includes(q)) score += 2
-      
-      // token 命中累计
-      for (const t of uniqueTokens) {
-        if (t.length < 2) continue
-        if (queryLower.includes(t)) score += 1
-        if (summaryLower.includes(t)) score += 0.5
+
+  // 评分
+  const scored = all.cases.map(c => {
+    let rawScore = 0
+    const queryLower = (c.query || '').toLowerCase()
+    const summaryLower = (c.summary || '').toLowerCase()
+    const actionsStr = (c.actions || []).join(' ').toLowerCase()
+
+    if (queryLower.includes(q)) rawScore += 5
+    if (summaryLower.includes(q)) rawScore += 3
+    if (actionsStr.includes(q)) rawScore += 2
+
+    for (const t of uniqueTokens) {
+      if (t.length < 2) continue
+      if (queryLower.includes(t)) rawScore += 1
+      if (summaryLower.includes(t)) rawScore += 0.5
+    }
+
+    // 成功案例强加权
+    rawScore += c.success_rate * 5
+
+    // 🆕 自动降权：retrieval_count 高的案例 score 衰减
+    // 公式：1 / log(2 + count * 0.1)
+    // count=0 → 1.0, count=10 → 0.91, count=50 → 0.55, count=100 → 0.40
+    const count = c.retrieval_count || 0
+    const decayFactor = 1 / Math.log(2 + count * 0.1)
+
+    return {
+      ...c,
+      _rawScore: rawScore,
+      score: rawScore * decayFactor,
+      _decayFactor: decayFactor,
+      _type: 'case'
+    }
+  })
+  .filter(c => c.score >= 0.5)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, limit)
+
+  // 🆕 持久化 retrieval_count（避免总是推同一篇）
+  if (scored.length > 0) {
+    const dirty = new Set(scored.map(c => c.id))
+    let needsWrite = false
+    for (const c of all.cases) {
+      if (dirty.has(c.id)) {
+        c.retrieval_count = (c.retrieval_count || 0) + 1
+        c.last_retrieved_at = new Date().toISOString()
+        needsWrite = true
       }
-      
-      // 🆕 成功案例强加权（核心：让好的经验浮上来）
-      score += c.success_rate * 5
-      
-      return { ...c, score, _type: 'case' }
-    })
-    .filter(c => c.score >= 1)  // 至少命中一个 token
-    .sort((a, b) => b.score - a.score)
-    .slice(0, limit)
+    }
+    if (needsWrite) writeAll(all)
+  }
+
+  return scored
 }
 
 /**
