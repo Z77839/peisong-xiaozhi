@@ -100,12 +100,20 @@
       },
       "knowledgeUsed": [],
       "createdAt": "2026-07-29T15:56:52.953Z",
-      "feedback": null,
-      "feedbackAt": null,
-      "success_rate": 0,
+      "feedback": {
+        "decisionId": "d_1785340596356_h3f943",
+        "dispatchId": null,
+        "alertId": null,
+        "result": "success",
+        "message": "采纳测试",
+        "riderCount": 2,
+        "createdAt": "2026-07-29T15:57:10.242Z"
+      },
+      "feedbackAt": "2026-07-29T15:57:10.242Z",
+      "success_rate": 1,
       "retrieval_count": 0
     }
   ],
   "version": 1,
-  "lastUpdated": "2026-07-29T15:56:52.953Z"
+  "lastUpdated": "2026-07-29T15:57:10.242Z"
 }

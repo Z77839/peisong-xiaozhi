@@ -1,12 +1,12 @@
 {
-  "d_smoke_test": {
-    "decisionId": "d_smoke_test",
-    "dispatchId": "dp_smoke_1",
+  "d_1785340596356_h3f943": {
+    "decisionId": "d_1785340596356_h3f943",
+    "dispatchId": null,
     "alertId": null,
     "result": "success",
-    "message": "smoke test",
-    "riderCount": 1,
-    "createdAt": "2026-07-27T10:39:12.545Z",
-    "updatedAt": "2026-07-27T10:39:12.545Z"
+    "message": "采纳测试",
+    "riderCount": 2,
+    "createdAt": "2026-07-29T15:57:10.242Z",
+    "updatedAt": "2026-07-29T15:57:10.242Z"
   }
 }
