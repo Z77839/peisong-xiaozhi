@@ -1,22 +1,22 @@
 {
   "sessions": [
     {
-      "id": "session-1785331621511-ydmg",
-      "title": "预测今晚衡阳蒸湘万达商圈各时段订单量",
+      "id": "session-1785334897276-nnju",
+      "title": "测试 RAG",
       "cityId": "hengyang",
-      "createdAt": 1785331621511,
-      "updatedAt": 1785331621512,
+      "createdAt": 1785334897276,
+      "updatedAt": 1785334897276,
       "messages": [
         {
-          "id": "msg-1785331621512-hlc1",
+          "id": "msg-1785334897276-r8tb",
           "role": "user",
-          "content": "预测今晚衡阳蒸湘万达商圈各时段订单量",
+          "content": "测试 RAG",
           "sections": null,
           "context": null,
-          "timestamp": 1785331621512
+          "timestamp": 1785334897276
         },
         {
-          "id": "assistant-1785331621511",
+          "id": "assistant-1785334897276",
           "role": "assistant",
           "content": "",
           "sections": {
@@ -41,13 +41,13 @@
             ]
           },
           "context": {
-            "datetime": "2026-07-29 周三 21:27",
+            "datetime": "2026-07-29 周三 22:21",
             "city": "衡阳",
             "weather": "https://cdn.qweather.com/weather-icon/v1/svg/104.svg 阴 26°C",
             "timeSlot": "夜宵",
             "factors": []
           },
-          "timestamp": 1785331621512
+          "timestamp": 1785334897276
         }
       ]
     }
