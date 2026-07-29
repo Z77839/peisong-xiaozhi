@@ -564,6 +564,13 @@ export function getKnowledgeContext(query) {
     }
   }
   ctx += '\n'
+  // 🆕 注入高 success_rate 案例反向生成的策略提示
+  try {
+    const { buildStrategyHints } = await import('../services/experienceService.js')
+    ctx += buildStrategyHints(query, 3)
+  } catch (e) {
+    logger.warn(`[Knowledge] buildStrategyHints 失败（非致命）: ${e.message}`)
+  }
   return ctx
 }
 
