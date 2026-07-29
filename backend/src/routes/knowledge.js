@@ -67,6 +67,31 @@ async function parseDocument(filePath, ext, size) {
     if (['.txt', '.md', '.json'].includes(ext)) {
       return fs.readFileSync(filePath, 'utf-8')
     }
+    // 🆕 Excel/CSV 解析（用 xlsx package）
+    if (['.xlsx', '.xls', '.csv'].includes(ext)) {
+      const XLSX = (await import('xlsx')).default || (await import('xlsx'))
+      const workbook = XLSX.readFile(filePath, { type: 'file' })
+      const lines = []
+      for (const sheetName of workbook.SheetNames) {
+        const sheet = workbook.Sheets[sheetName]
+        const json = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' })
+        lines.push(`[Sheet: ${sheetName}]`)
+        // 转成可读文本：每行 5 列用 | 分隔
+        for (const row of json.slice(0, 500)) {  // 每个 sheet 最多 500 行
+          if (Array.isArray(row) && row.some(c => c !== '')) {
+            lines.push(row.map(c => String(c || '').slice(0, 200)).join(' | '))
+          }
+        }
+      }
+      const text = lines.join('\n')
+      logger.info(`[Knowledge] Excel/CSV 解析: ${(size/1024).toFixed(1)}KB → ${text.length} chars (${workbook.SheetNames.length} sheets)`)
+      return text
+    }
+    // 🆕 图片用豆包多模态 OCR（doubao-1.5-vision-pro）—— 暂降级提示用户转 PDF
+    if (['.png', '.jpg', '.jpeg', '.webp'].includes(ext)) {
+      logger.warn(`[Knowledge] 图片暂未启用 OCR（请转 PDF/Excel 上传）`)
+      return ''
+    }
     return ''
   } catch (e) {
     logger.warn(`[Knowledge] 文档解析失败 (${ext}): ${e.message}`)
