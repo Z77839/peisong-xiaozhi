@@ -1,66 +1,66 @@
 [
   {
     "capability_name": "知识库检索能力",
-    "duration_ms": 330,
+    "duration_ms": 179,
     "status": "success",
-    "decision_id": "d_1785330802923_18aqo2",
+    "decision_id": "d_1785331516774_8mn6tp",
     "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-29T13:13:49.304Z"
+    "timestamp": "2026-07-29T13:25:36.616Z"
   },
   {
     "capability_name": "任务路由能力",
-    "duration_ms": 423,
+    "duration_ms": 492,
     "status": "success",
-    "decision_id": "d_1785330802923_18aqo2",
+    "decision_id": "d_1785331516774_8mn6tp",
     "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-29T13:13:49.351Z"
+    "timestamp": "2026-07-29T13:25:36.616Z"
   },
   {
     "capability_name": "订单预测能力",
-    "duration_ms": 222,
+    "duration_ms": 143,
     "status": "success",
-    "decision_id": "d_1785330802923_18aqo2",
+    "decision_id": "d_1785331516774_8mn6tp",
     "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-29T13:13:49.411Z"
+    "timestamp": "2026-07-29T13:25:36.616Z"
   },
   {
     "capability_name": "运力分析能力",
-    "duration_ms": 166,
+    "duration_ms": 156,
     "status": "success",
-    "decision_id": "d_1785330802923_18aqo2",
+    "decision_id": "d_1785331516774_8mn6tp",
     "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-29T13:13:49.479Z"
+    "timestamp": "2026-07-29T13:25:36.618Z"
   },
   {
     "capability_name": "成本分析能力",
-    "duration_ms": 229,
+    "duration_ms": 187,
     "status": "success",
-    "decision_id": "d_1785330802923_18aqo2",
+    "decision_id": "d_1785331516774_8mn6tp",
     "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-29T13:13:49.559Z"
+    "timestamp": "2026-07-29T13:25:36.619Z"
   },
   {
     "capability_name": "派单推荐能力",
-    "duration_ms": 300,
+    "duration_ms": 369,
     "status": "success",
-    "decision_id": "d_1785330802923_18aqo2",
+    "decision_id": "d_1785331516774_8mn6tp",
     "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-29T13:13:49.585Z"
+    "timestamp": "2026-07-29T13:25:36.620Z"
   },
   {
     "capability_name": "决策汇总能力",
-    "duration_ms": 212,
+    "duration_ms": 104,
     "status": "success",
-    "decision_id": "d_1785330802923_18aqo2",
+    "decision_id": "d_1785331516774_8mn6tp",
     "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-29T13:13:49.614Z"
+    "timestamp": "2026-07-29T13:25:36.621Z"
   },
   {
     "capability_name": "报告生成能力",
-    "duration_ms": 343,
+    "duration_ms": 259,
     "status": "success",
-    "decision_id": "d_1785330802923_18aqo2",
+    "decision_id": "d_1785331516774_8mn6tp",
     "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "timestamp": "2026-07-29T13:13:49.625Z"
+    "timestamp": "2026-07-29T13:25:36.622Z"
   }
 ]
