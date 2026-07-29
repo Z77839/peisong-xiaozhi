@@ -218,6 +218,59 @@ export function listAllCases(limit = 100, opts = {}) {
 }
 
 /**
+ * 按天聚合：返回最近 N 天每天的决策量 + 采纳率（用于 ECharts 趋势图）
+ * @param {number} days - 天数（默认 7）
+ */
+export function getTrend(days = 7) {
+  const all = readAll()
+  const now = new Date()
+  const buckets = []
+  
+  // 初始化 N 个空桶
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date(now)
+    d.setDate(d.getDate() - i)
+    const key = d.toISOString().slice(0, 10)  // YYYY-MM-DD
+    buckets.push({
+      date: key,
+      label: `${d.getMonth() + 1}/${d.getDate()}`,
+      total: 0,
+      adopted: 0,
+      rejected: 0,
+      pending: 0
+    })
+  }
+  
+  // 聚合
+  for (const c of all.cases) {
+    const dateKey = (c.createdAt || '').slice(0, 10)
+    const bucket = buckets.find(b => b.date === dateKey)
+    if (!bucket) continue
+    bucket.total++
+    if (c.success_rate === 1) bucket.adopted++
+    else if (c.success_rate === 0) bucket.rejected++
+    else bucket.pending++  // 0.5 或 0
+  }
+  
+  return buckets
+}
+
+/**
+ * 采纳率分布（用于饼图）
+ */
+export function getAdoptionDistribution() {
+  const all = readAll()
+  const dist = { adopted: 0, partial: 0, rejected: 0, pending: 0 }
+  for (const c of all.cases) {
+    if (c.success_rate === 1) dist.adopted++
+    else if (c.success_rate === 0.5) dist.partial++
+    else if (c.success_rate === 0) dist.rejected++
+    else dist.pending++
+  }
+  return dist
+}
+
+/**
  * 统计
  */
 export function stats() {
