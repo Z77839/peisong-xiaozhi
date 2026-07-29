@@ -206,8 +206,42 @@ const inputExpanded = ref(false)
 const showFlow = ref(false)
 const running = ref(false)
 const steps = ref<any[]>([])
+const submitting = ref(false)  // 🆕 反馈提交中
 const result = ref<AgentRunResult | null>(null)
 const showResult = ref(false)
+// 🆕 手动标注：用户对决策的反馈（采纳/不采纳）
+const feedback = ref<null | { result: 'success' | 'failed', message: string }>(null)
+
+async function submitFeedback(type) {
+  if (!result.value) return
+  const decisionId = result.value.decisionId || result.value.id
+  if (!decisionId) {
+    ElMessage.error('无法获取决策 ID')
+    return
+  }
+  try {
+    await request({
+      url: '/decision/feedback',
+      method: 'POST',
+      data: {
+        decisionId,
+        result: type,
+        message: type === 'success' ? '用户采纳此决策' : '用户未采纳此决策'
+      }
+    })
+    feedback.value = {
+      result: type,
+      message: type === 'success' ? '已采纳 ✅' : '已记录 👎'
+    }
+    ElMessage.success(
+      type === 'success'
+        ? '已采纳！这条经验会被未来决策优先推荐'
+        : '已记录，这条经验会降权'
+    )
+  } catch (e) {
+    ElMessage.error('提交失败：' + (e?.message || '未知错误'))
+  }
+}
 const showInjection = ref(true)  // 默认展开
 
 const history = ref<any[]>([])
@@ -315,6 +349,7 @@ async function runDecision() {
 function startNewChat() {
   showResult.value = false
   result.value = null
+  feedback.value = null  // 🆕 清空反馈
   queryText.value = ''
   steps.value = []
 }
@@ -584,6 +619,22 @@ function copyReport() {
             </div>
           </div>
           <div class="rc-banner-actions">
+            <!-- 🆕 手动标注：采纳 / 不采纳 -->
+            <button
+              v-if="!feedback"
+              class="rc-action feedback-success"
+              :disabled="submitting"
+              @click="submitFeedback('success')"
+            >👍 采纳</button>
+            <button
+              v-if="!feedback"
+              class="rc-action feedback-failed"
+              :disabled="submitting"
+              @click="submitFeedback('failed')"
+            >👎 不采纳</button>
+            <div v-if="feedback" class="rc-feedback-badge" :class="'fb-' + feedback.result">
+              {{ feedback.message }} · 已写入成功案例库
+            </div>
             <button class="rc-action primary" @click="exportReport">📥 导出报告</button>
             <button class="rc-action" @click="startNewChat">🔄 重新提问</button>
           </div>
@@ -1238,6 +1289,23 @@ function copyReport() {
 .rc-action:hover { background: rgba(255,255,255,0.25); }
 .rc-action.primary { background: linear-gradient(135deg, #fa8c16, #f5222d); border-color: transparent; }
 .rc-action.primary:hover { box-shadow: 0 4px 12px rgba(245,34,45,0.4); }
+.rc-action.feedback-success { background: linear-gradient(135deg, #00b578, #52c41a) !important; border-color: transparent !important; color: #fff !important; }
+.rc-action.feedback-success:hover { box-shadow: 0 4px 12px rgba(0,181,120,0.4) !important; }
+.rc-action.feedback-failed { background: linear-gradient(135deg, #8c8c8c, #595959) !important; border-color: transparent !important; color: #fff !important; }
+.rc-action.feedback-failed:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important; }
+.rc-action:disabled { opacity: 0.6; cursor: not-allowed; }
+.rc-feedback-badge {
+  padding: 9px 18px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 8px;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+}
+.rc-feedback-badge.fb-success { background: rgba(82,196,26,0.3); border-color: rgba(82,196,26,0.5); }
+.rc-feedback-badge.fb-failed { background: rgba(245,34,45,0.25); border-color: rgba(245,34,45,0.4); }
 
 /* KPI 大数字 */
 .kpi-grid {
