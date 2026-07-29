@@ -1,5 +1,91 @@
 [
   {
+    "id": "d_1785331733520_yc5ro7",
+    "userId": null,
+    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
+    "cityId": "hengyang",
+    "predictedOrders": 9174,
+    "costEstimate": 127748.99999999997,
+    "riskLevel": "high",
+    "report": "# 配送小智·衡阳应急可调度骑手分析报告\n---\n## 一、可调度骑手筛选规则及范围（置信度：92%）\n1. **排除主体**：本城常驻骑手（共167人），该类骑手为衡阳本地固定驻点，已分配日常配送任务，无冗余运力支撑跨城应急，故排除。\n2. **初筛结果**：可跨城可调派骑手共27019人（总骑手27186-本城骑手167），覆盖活跃骑手（27162）中除本城外的所有在线骑手。\n3. **优先级分级**：\n   - **核心应急运力**：奋进铂金（4522人）、坚韧钻石（4452人），合计8974人。该类骑手接单效率、服务评分较高，适合高时效夜宵高峰应急补单（置信度：85%）。\n   - **补充应急运力**：淡定青铜骑手（10299人）中未承担日常夜宵订单的骑手，预留20%作为备用储备，约2060人（置信度：80%）。\n\n## 二、可落地执行建议\n1. **核心运力定向触达**：通过APP推送、短信通知8974名高等级骑手，告知衡阳夜宵高峰应急补单的超额补贴标准，要求15分钟内确认接单意向。\n2. **备用运力锁定**：对2060名青铜骑手发送预留通知，约定30分钟内响应；联动衡阳周边50km内配送团队预留机动运力。\n3. **本城运力动态监控**：实时追踪167名本城骑手的配送状态，若出现订单积压，优先释放高等级骑手回补，避免本城订单延误（置信度：90%）。\n---\n📚 参考知识库：本次报告未匹配到运营知识库相关文档",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "duration": 125,
+        "output": "未找到相关知识"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "duration": 414,
+        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "duration": 597,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "duration": 174,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "duration": 226,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "duration": 434,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "duration": 235,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "duration": 569,
+        "output": "由 doubao 生成建议"
+      }
+    ],
+    "cozeUsed": false,
+    "createdAt": "2026-07-29T13:29:17.622Z"
+  },
+  {
     "id": "d_1785331516774_8mn6tp",
     "userId": null,
     "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
