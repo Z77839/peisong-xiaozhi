@@ -3,88 +3,8 @@
     "id": 1,
     "userId": "u_1",
     "action": "login_success",
-    "ip": "10.25.250.2",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T15:16:35.550Z"
-  },
-  {
-    "id": 2,
-    "userId": "u_1",
-    "action": "login_success",
-    "ip": "10.25.250.2",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T15:18:43.345Z"
-  },
-  {
-    "id": 3,
-    "userId": "u_1",
-    "action": "login_success",
-    "ip": "10.25.250.2",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T15:20:19.952Z"
-  },
-  {
-    "id": 4,
-    "userId": "u_1",
-    "action": "login_success",
-    "ip": "10.25.59.132",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T15:20:48.650Z"
-  },
-  {
-    "id": 5,
-    "userId": "u_1",
-    "action": "login_success",
-    "ip": "10.25.250.2",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T15:23:02.051Z"
-  },
-  {
-    "id": 6,
-    "userId": "u_1",
-    "action": "login_success",
     "ip": "10.31.81.1",
     "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T15:26:42.148Z"
-  },
-  {
-    "id": 7,
-    "userId": "u_1",
-    "action": "login_success",
-    "ip": "10.31.81.1",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T15:28:52.448Z"
-  },
-  {
-    "id": 8,
-    "userId": "u_1",
-    "action": "login_success",
-    "ip": "10.25.59.132",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T15:33:34.141Z"
-  },
-  {
-    "id": 9,
-    "userId": "u_1",
-    "action": "login_success",
-    "ip": "10.31.81.1",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T15:44:57.853Z"
-  },
-  {
-    "id": 10,
-    "userId": "u_1",
-    "action": "login_success",
-    "ip": "10.31.81.1",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T15:48:38.852Z"
-  },
-  {
-    "id": 11,
-    "userId": "u_1",
-    "action": "login_success",
-    "ip": "10.25.250.2",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T15:49:13.543Z"
+    "createdAt": "2026-07-29T15:53:47.381Z"
   }
 ]
