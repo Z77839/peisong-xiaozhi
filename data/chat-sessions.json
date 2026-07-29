@@ -1,74 +1,22 @@
 {
   "sessions": [
     {
-      "id": "session-1784086005050-ir89",
-      "title": "帮我生成衡阳专送成本优化方案",
+      "id": "session-1785331621511-ydmg",
+      "title": "预测今晚衡阳蒸湘万达商圈各时段订单量",
       "cityId": "hengyang",
-      "createdAt": 1784086005050,
-      "updatedAt": 1784086005052,
+      "createdAt": 1785331621511,
+      "updatedAt": 1785331621512,
       "messages": [
         {
-          "id": "msg-1784086005050-jjyt",
+          "id": "msg-1785331621512-hlc1",
           "role": "user",
-          "content": "帮我生成衡阳专送成本优化方案",
+          "content": "预测今晚衡阳蒸湘万达商圈各时段订单量",
           "sections": null,
           "context": null,
-          "timestamp": 1784086005050
+          "timestamp": 1785331621512
         },
         {
-          "id": "assistant-1784086005050",
-          "role": "assistant",
-          "content": "",
-          "sections": {
-            "understanding": "你希望判断衡阳当前是否需要投入补贴，并在成本与履约稳定之间找到平衡点。",
-            "tools": [
-              "订单数据接口",
-              "骑手分布接口",
-              "智能体感知上下文",
-              "成本测算引擎",
-              "Coze 知识库"
-            ],
-            "judgement": [
-              "蜂跑 ¥3.69 成本最低",
-              "专送 ¥4.9 时效最优",
-              "优选 ¥5.04 平衡选择"
-            ],
-            "suggestions": [
-              "蜂跑跑 5 公里内订单，节省 24%",
-              "优选覆盖 3 公里核心商圈",
-              "众包作为高峰兜底"
-            ]
-          },
-          "context": {
-            "datetime": "2026-07-15 周三 11:26",
-            "city": "衡阳",
-            "weather": "https://cdn.qweather.com/weather-icon/v1/svg/100.svg 晴 33°C",
-            "timeSlot": "午高峰",
-            "factors": [
-              "午高峰期"
-            ]
-          },
-          "timestamp": 1784086005052
-        }
-      ]
-    },
-    {
-      "id": "session-1784085999790-kixh",
-      "title": "test",
-      "cityId": "hengyang",
-      "createdAt": 1784085999790,
-      "updatedAt": 1784085999791,
-      "messages": [
-        {
-          "id": "msg-1784085999791-b8wx",
-          "role": "user",
-          "content": "test",
-          "sections": null,
-          "context": null,
-          "timestamp": 1784085999791
-        },
-        {
-          "id": "assistant-1784085999790",
+          "id": "assistant-1785331621511",
           "role": "assistant",
           "content": "",
           "sections": {
@@ -82,8 +30,8 @@
             ],
             "judgement": [
               "衡阳·湖南未来 2 小时缺口最高",
-              "午高峰极高需求时段重点关注",
-              "https://cdn.qweather.com/weather-icon/v1/svg/100.svg 晴 33°C 影响配送时长",
+              "夜宵中需求时段重点关注",
+              "https://cdn.qweather.com/weather-icon/v1/svg/104.svg 阴 26°C 影响配送时长",
               "风险主要集中在商圈和写字楼订单叠加区域"
             ],
             "suggestions": [
@@ -93,15 +41,13 @@
             ]
           },
           "context": {
-            "datetime": "2026-07-15 周三 11:26",
+            "datetime": "2026-07-29 周三 21:27",
             "city": "衡阳",
-            "weather": "https://cdn.qweather.com/weather-icon/v1/svg/100.svg 晴 33°C",
-            "timeSlot": "午高峰",
-            "factors": [
-              "午高峰期"
-            ]
+            "weather": "https://cdn.qweather.com/weather-icon/v1/svg/104.svg 阴 26°C",
+            "timeSlot": "夜宵",
+            "factors": []
           },
-          "timestamp": 1784085999791
+          "timestamp": 1785331621512
         }
       ]
     }
