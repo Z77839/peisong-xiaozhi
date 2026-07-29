@@ -105,16 +105,9 @@ for (const d of loadIndex()) {
 }
 logger.info(`[Knowledge] 加载 ${knowledgeIndex.size} 条历史文档`)
 
-// 🆕 启动时预计算文档 embedding（异步，不阻塞启动）
-let docEmbeddings = new Map()  // docId → vec
-;(async () => {
-  try {
-    docEmbeddings = await precomputeDocEmbeddings(Array.from(knowledgeIndex.values()))
-    logger.info(`[Knowledge] 文档 embedding 就绪: ${docEmbeddings.size}/${knowledgeIndex.size}`)
-  } catch (e) {
-    logger.warn(`[Knowledge] embedding 预计算失败（将走纯关键词检索）: ${e.message}`)
-  }
-})()
+// 🆕 docEmbeddings 在 bootstrapSeed 之后由 IIFE 填充
+let docEmbeddings = new Map()
+
 
 // multer 配置
 const storage = multer.diskStorage({
@@ -193,6 +186,18 @@ function bootstrapSeed() {
   }
 }
 bootstrapSeed()
+
+// 🆕 启动时预计算文档 embedding（必须在 bootstrapSeed 之后，因为 docEmbeddings 依赖 knowledgeIndex）
+;(async () => {
+  try {
+    // 等一下让 bootstrapSeed 同步跑完
+    await new Promise(r => setImmediate(r))
+    docEmbeddings = await precomputeDocEmbeddings(Array.from(knowledgeIndex.values()))
+    logger.info(`[Knowledge] 文档 embedding 就绪: ${docEmbeddings.size}/${knowledgeIndex.size}`)
+  } catch (e) {
+    logger.warn(`[Knowledge] embedding 预计算失败（将走纯关键词检索）: ${e.message}`)
+  }
+})()
 
 const router = express.Router()
 
