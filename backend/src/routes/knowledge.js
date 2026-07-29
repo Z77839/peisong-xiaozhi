@@ -422,6 +422,30 @@ router.use((err, req, res, next) => {
   res.status(500).json({ code: 500, message: err.message })
 })
 
+// 🆕 debug 端点：暴露 cwd + SEED 状态
+router.get('/debug', authRequired, (req, res) => {
+  const candidates = [
+    path.resolve(process.cwd(), 'data/knowledge_seed.json'),
+    path.resolve(process.cwd(), '../data/knowledge_seed.json'),
+    path.resolve(process.cwd(), '../../data/knowledge_seed.json'),
+    '/opt/render/project/src/backend/data/knowledge_seed.json',
+    '/opt/render/project/src/data/knowledge_seed.json',
+    '/app/data/knowledge_seed.json',
+  ]
+  const candidateInfo = candidates.map(p => ({ path: p, exists: fs.existsSync(p) }))
+  res.json({
+    code: 0,
+    data: {
+      cwd: process.cwd(),
+      knowledgeIndexSize: knowledgeIndex.size,
+      docEmbeddingsSize: docEmbeddings.size,
+      seedCandidates: candidateInfo,
+      indexExists: fs.existsSync(path.resolve(process.cwd(), 'data/knowledge_index.json')),
+      seedInitialized
+    }
+  })
+})
+
 export default router
 
 // 导出供其他服务调用
