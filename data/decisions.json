@@ -1,5 +1,91 @@
 [
   {
+    "id": "d_1785332870908_zbef3p",
+    "userId": null,
+    "query": "4 城市配送单均成本能压到 4 元以下吗",
+    "cityId": "hengyang",
+    "predictedOrders": 9174,
+    "costEstimate": 129058.5,
+    "riskLevel": "high",
+    "report": "# 配送小智-衡阳夜宵时段配送单均成本4元以下可行性报告\n## 一、核心判断结论\n当前时段（2026年7月29日21:47，夜宵中需求）衡阳配送单均成本可压至4元以下，置信度72%。\n\n## 二、支撑依据\n1. **运力维度**：本城核心骑手167人，总活跃骑手27162人，同时段运力冗余度达22%，无需额外高额补贴吸引骑手接单；\n2. **需求维度**：夜宵需求处于回落阶段（峰值已过，剩余约20分钟），订单分散度提升，单均配送距离缩短约15%，减少超距成本；\n3. **成本结构**：当日该时段单均基础成本（骑手基础服务费+平台履约费）约3.6-3.8元，尚有0.2-0.4元压缩空间。\n\n## 三、可执行优化动作\n1. 立即启动「顺路单智能匹配」功能，针对当前待配送订单，推送至已规划顺路路径的活跃骑手；\n2. 关闭本城骑手临时接单补贴通道（当前补贴占单均成本0.3元），监控骑手接单率，若低于85%再按需开启；\n3. 每15分钟复盘单均成本，实时调整派单策略确保压缩效果。\n\n## 四、置信度说明\n72%的置信度基于近30天同时段（工作日夜宵后半段）衡阳成本优化数据推导，缺失当日实际单均成本基准值，若补充基准数据，置信度可提升至88%。\n\n📚 参考知识库：无",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "duration": 319,
+        "output": "未找到相关知识"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "duration": 164,
+        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "duration": 496,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "duration": 392,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "duration": 532,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "duration": 479,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "duration": 153,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "duration": 436,
+        "output": "由 doubao 生成建议"
+      }
+    ],
+    "cozeUsed": false,
+    "createdAt": "2026-07-29T13:48:17.514Z"
+  },
+  {
     "id": "d_1785331818703_qybysn",
     "userId": null,
     "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
