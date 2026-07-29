@@ -79,6 +79,28 @@ router.get('/cases/stats', async (req, res) => {
   } catch (e) {
     res.status(500).json({ code: 500, message: e.message })
   }
+})
+
+// 🆕 趋势数据：按天聚合（ECharts 趋势图用）
+router.get('/cases/trend', async (req, res) => {
+  try {
+    const { getTrend } = await import('../services/experienceService.js')
+    const days = Number(req.query.days) || 7
+    res.json({ code: 0, data: getTrend(days) })
+  } catch (e) {
+    res.status(500).json({ code: 500, message: e.message })
+  }
+})
+
+// 🆕 采纳分布（饼图用）
+router.get('/cases/distribution', async (req, res) => {
+  try {
+    const { getAdoptionDistribution } = await import('../services/experienceService.js')
+    res.json({ code: 0, data: getAdoptionDistribution() })
+  } catch (e) {
+    res.status(500).json({ code: 500, message: e.message })
+  }
+})
 
 // 🆕 按 ID 取单条决策详情（带 feedback）
 router.get('/:id', async (req, res) => {
