@@ -222,6 +222,14 @@ bootstrapSeed()
   }
 })()
 
+// 🆕 Lazy seed：首次任意路由请求时确保知识库已 seed
+let seedInitialized = false
+function ensureSeeded() {
+  if (seedInitialized) return
+  seedInitialized = true
+  bootstrapSeed()
+}
+
 const router = express.Router()
 
 // 1. 上传文档
@@ -275,6 +283,7 @@ router.post('/upload', authRequired, async (req, res) => {
 
 // 2. 列表（搜索 + 分类）
 router.get('/list', authRequired, (req, res) => {
+  ensureSeeded()
   const { search = '', cat = '' } = req.query
   let list = Array.from(knowledgeIndex.values())
   if (cat) list = list.filter(d => d.cat === cat)
@@ -294,6 +303,7 @@ router.get('/list', authRequired, (req, res) => {
 
 // 3. 删除
 router.delete('/:id', authRequired, (req, res) => {
+  ensureSeeded()
   const { id } = req.params
   const doc = knowledgeIndex.get(id)
   if (!doc) return res.status(404).json({ code: 404, message: '文档不存在' })
@@ -310,6 +320,7 @@ router.delete('/:id', authRequired, (req, res) => {
 
 // 4. 浏览次数
 router.post('/:id/view', authRequired, (req, res) => {
+  ensureSeeded()
   const { id } = req.params
   const doc = knowledgeIndex.get(id)
   if (!doc) return res.status(404).json({ code: 404, message: '文档不存在' })
@@ -320,6 +331,7 @@ router.post('/:id/view', authRequired, (req, res) => {
 
 // 5. 知识库内容检索（用 searchKnowledge 函数，含中文分词）
 router.get('/search', authRequired, (req, res) => {
+  ensureSeeded()
   const { q = '', limit = 3 } = req.query
   const kw = String(q).toLowerCase().trim()
   if (!kw) return res.json({ code: 200, data: [], total: 0 })
@@ -334,11 +346,13 @@ router.get('/search', authRequired, (req, res) => {
 
 // 🆕 embedding 服务状态
 router.get('/embedding/stats', authRequired, (req, res) => {
+  ensureSeeded()
   res.json({ code: 0, data: embeddingStats() })
 })
 
 // 6. 下载文件
 router.get('/download/:id', authRequired, (req, res) => {
+  ensureSeeded()
   const { id } = req.params
   const doc = knowledgeIndex.get(id)
   if (!doc) return res.status(404).json({ code: 404, message: '文档不存在' })
@@ -385,6 +399,7 @@ router.post('/seed', authRequired, (req, res) => {
 })
 
 router.get('/stats', authRequired, (req, res) => {
+  ensureSeeded()
   const docs = Array.from(knowledgeIndex.values())
   const byCat = {}
   for (const d of docs) {
