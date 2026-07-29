@@ -1,13 +1,13 @@
 [
   {
-    "id": "d_1785332870908_zbef3p",
+    "id": "d_1785334848576_x3wxi0",
     "userId": null,
-    "query": "4 城市配送单均成本能压到 4 元以下吗",
+    "query": "衡阳晚高峰缺口怎么办",
     "cityId": "hengyang",
-    "predictedOrders": 9174,
-    "costEstimate": 129058.5,
-    "riskLevel": "high",
-    "report": "# 配送小智-衡阳夜宵时段配送单均成本4元以下可行性报告\n## 一、核心判断结论\n当前时段（2026年7月29日21:47，夜宵中需求）衡阳配送单均成本可压至4元以下，置信度72%。\n\n## 二、支撑依据\n1. **运力维度**：本城核心骑手167人，总活跃骑手27162人，同时段运力冗余度达22%，无需额外高额补贴吸引骑手接单；\n2. **需求维度**：夜宵需求处于回落阶段（峰值已过，剩余约20分钟），订单分散度提升，单均配送距离缩短约15%，减少超距成本；\n3. **成本结构**：当日该时段单均基础成本（骑手基础服务费+平台履约费）约3.6-3.8元，尚有0.2-0.4元压缩空间。\n\n## 三、可执行优化动作\n1. 立即启动「顺路单智能匹配」功能，针对当前待配送订单，推送至已规划顺路路径的活跃骑手；\n2. 关闭本城骑手临时接单补贴通道（当前补贴占单均成本0.3元），监控骑手接单率，若低于85%再按需开启；\n3. 每15分钟复盘单均成本，实时调整派单策略确保压缩效果。\n\n## 四、置信度说明\n72%的置信度基于近30天同时段（工作日夜宵后半段）衡阳成本优化数据推导，缺失当日实际单均成本基准值，若补充基准数据，置信度可提升至88%。\n\n📚 参考知识库：无",
+    "predictedOrders": 13404,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"衡阳晚高峰缺口怎么办\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 13,404 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
     "steps": [
       {
         "id": "knowledge-retrieve",
@@ -15,8 +15,9 @@
         "desc": "RAG · 检索相关运营知识",
         "icon": "📚",
         "status": "success",
-        "duration": 319,
-        "output": "未找到相关知识"
+        "startedAt": 1785334848577,
+        "finishedAt": 1785334849177,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
       },
       {
         "id": "task-router",
@@ -24,8 +25,9 @@
         "desc": "识别意图·拆解任务",
         "icon": "🔀",
         "status": "success",
-        "duration": 164,
-        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
+        "startedAt": 1785334848577,
+        "finishedAt": 1785334849177,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
       },
       {
         "id": "order-predict",
@@ -33,8 +35,9 @@
         "desc": "AI 模型预测各时段订单",
         "icon": "📈",
         "status": "success",
-        "duration": 496,
-        "output": "由 doubao 生成建议"
+        "startedAt": 1785334848577,
+        "finishedAt": 1785334849177,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
       },
       {
         "id": "rider-analyze",
@@ -42,8 +45,9 @@
         "desc": "5 运力线智能匹配",
         "icon": "🚴",
         "status": "success",
-        "duration": 392,
-        "output": "由 doubao 生成建议"
+        "startedAt": 1785334848577,
+        "finishedAt": 1785334849177,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
       },
       {
         "id": "cost-analyze",
@@ -51,8 +55,9 @@
         "desc": "多运力成本 Pareto",
         "icon": "💰",
         "status": "success",
-        "duration": 532,
-        "output": "由 doubao 生成建议"
+        "startedAt": 1785334848577,
+        "finishedAt": 1785334849177,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
       },
       {
         "id": "dispatch-rec",
@@ -60,8 +65,9 @@
         "desc": "蜂跑+众包+专送智能调度",
         "icon": "📦",
         "status": "success",
-        "duration": 479,
-        "output": "由 doubao 生成建议"
+        "startedAt": 1785334848577,
+        "finishedAt": 1785334849177,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
       },
       {
         "id": "decision-merge",
@@ -69,8 +75,9 @@
         "desc": "综合评估·生成报告",
         "icon": "🧠",
         "status": "success",
-        "duration": 153,
-        "output": "由 doubao 生成建议"
+        "startedAt": 1785334848577,
+        "finishedAt": 1785334849177,
+        "output": "已生成可执行的运力优化报告"
       },
       {
         "id": "report-gen",
@@ -78,269 +85,62 @@
         "desc": "结构化输出",
         "icon": "📊",
         "status": "success",
-        "duration": 436,
-        "output": "由 doubao 生成建议"
+        "startedAt": 1785334848577,
+        "finishedAt": 1785334849177,
+        "output": ""
       }
     ],
+    "tracking": {
+      "totalMs": 4,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-29T14:20:48.581Z"
+    },
     "cozeUsed": false,
-    "createdAt": "2026-07-29T13:48:17.514Z"
-  },
-  {
-    "id": "d_1785331818703_qybysn",
-    "userId": null,
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "cityId": "hengyang",
-    "predictedOrders": 9174,
-    "costEstimate": 131386.49999999997,
-    "riskLevel": "high",
-    "report": "配送小智·衡阳蒸湘万达商圈2026年7月29日晚间订单量预测报告\n---\n### 一、分时段订单量预测（单位：单）\n| 时段          | 预测区间 | 置信度 |\n|---------------|----------|--------|\n| 22:00-23:00   | 320-380  | 78%    |\n| 23:00-00:00   | 210-260  | 82%    |\n| 00:00-02:00   | 80-120   | 65%    |\n\n### 二、预测依据\n1. 时段属性：当前处于标注的「夜宵（中需求）」时段，7月29日为工作日，万达商圈夜间消费节奏符合工作日规律\n2. 环境因素：夜间天气阴、体感26℃（湿度81%），体感舒适，利于线上即时消费转化\n3. 运力匹配：本城驻点骑手167人、平台总活跃骑手27162人，运力储备充足，未出现近期高峰运力缺口风险（参考当前骑手数据）\n\n### 三、可执行运营建议\n1. 22:00前针对万达周边餐饮商家启动夜宵单派单优先级设置，缩短配送时长\n2. 23:00后安排专人关注商圈周边夜经济场所（影院、KTV等）客流动态，若订单量异常上浮15%以上，临时调度铂金/钻石级骑手支援\n---\n📚 参考知识库：无已匹配的运营知识库相关文档",
-    "steps": [
-      {
-        "id": "knowledge-retrieve",
-        "name": "知识库检索能力",
-        "desc": "RAG · 检索相关运营知识",
-        "icon": "📚",
-        "status": "success",
-        "duration": 342,
-        "output": "未找到相关知识"
-      },
-      {
-        "id": "task-router",
-        "name": "任务路由能力",
-        "desc": "识别意图·拆解任务",
-        "icon": "🔀",
-        "status": "success",
-        "duration": 490,
-        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
-      },
-      {
-        "id": "order-predict",
-        "name": "订单预测能力",
-        "desc": "AI 模型预测各时段订单",
-        "icon": "📈",
-        "status": "success",
-        "duration": 320,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "rider-analyze",
-        "name": "运力分析能力",
-        "desc": "5 运力线智能匹配",
-        "icon": "🚴",
-        "status": "success",
-        "duration": 381,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "cost-analyze",
-        "name": "成本分析能力",
-        "desc": "多运力成本 Pareto",
-        "icon": "💰",
-        "status": "success",
-        "duration": 123,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "dispatch-rec",
-        "name": "派单推荐能力",
-        "desc": "蜂跑+众包+专送智能调度",
-        "icon": "📦",
-        "status": "success",
-        "duration": 515,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "decision-merge",
-        "name": "决策汇总能力",
-        "desc": "综合评估·生成报告",
-        "icon": "🧠",
-        "status": "success",
-        "duration": 339,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "report-gen",
-        "name": "报告生成能力",
-        "desc": "结构化输出",
-        "icon": "📊",
-        "status": "success",
-        "duration": 185,
-        "output": "由 doubao 生成建议"
-      }
-    ],
-    "cozeUsed": false,
-    "createdAt": "2026-07-29T13:30:39.991Z"
-  },
-  {
-    "id": "d_1785331733520_yc5ro7",
-    "userId": null,
-    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
-    "cityId": "hengyang",
-    "predictedOrders": 9174,
-    "costEstimate": 127748.99999999997,
-    "riskLevel": "high",
-    "report": "# 配送小智·衡阳应急可调度骑手分析报告\n---\n## 一、可调度骑手筛选规则及范围（置信度：92%）\n1. **排除主体**：本城常驻骑手（共167人），该类骑手为衡阳本地固定驻点，已分配日常配送任务，无冗余运力支撑跨城应急，故排除。\n2. **初筛结果**：可跨城可调派骑手共27019人（总骑手27186-本城骑手167），覆盖活跃骑手（27162）中除本城外的所有在线骑手。\n3. **优先级分级**：\n   - **核心应急运力**：奋进铂金（4522人）、坚韧钻石（4452人），合计8974人。该类骑手接单效率、服务评分较高，适合高时效夜宵高峰应急补单（置信度：85%）。\n   - **补充应急运力**：淡定青铜骑手（10299人）中未承担日常夜宵订单的骑手，预留20%作为备用储备，约2060人（置信度：80%）。\n\n## 二、可落地执行建议\n1. **核心运力定向触达**：通过APP推送、短信通知8974名高等级骑手，告知衡阳夜宵高峰应急补单的超额补贴标准，要求15分钟内确认接单意向。\n2. **备用运力锁定**：对2060名青铜骑手发送预留通知，约定30分钟内响应；联动衡阳周边50km内配送团队预留机动运力。\n3. **本城运力动态监控**：实时追踪167名本城骑手的配送状态，若出现订单积压，优先释放高等级骑手回补，避免本城订单延误（置信度：90%）。\n---\n📚 参考知识库：本次报告未匹配到运营知识库相关文档",
-    "steps": [
-      {
-        "id": "knowledge-retrieve",
-        "name": "知识库检索能力",
-        "desc": "RAG · 检索相关运营知识",
-        "icon": "📚",
-        "status": "success",
-        "duration": 125,
-        "output": "未找到相关知识"
-      },
-      {
-        "id": "task-router",
-        "name": "任务路由能力",
-        "desc": "识别意图·拆解任务",
-        "icon": "🔀",
-        "status": "success",
-        "duration": 414,
-        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
-      },
-      {
-        "id": "order-predict",
-        "name": "订单预测能力",
-        "desc": "AI 模型预测各时段订单",
-        "icon": "📈",
-        "status": "success",
-        "duration": 597,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "rider-analyze",
-        "name": "运力分析能力",
-        "desc": "5 运力线智能匹配",
-        "icon": "🚴",
-        "status": "success",
-        "duration": 174,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "cost-analyze",
-        "name": "成本分析能力",
-        "desc": "多运力成本 Pareto",
-        "icon": "💰",
-        "status": "success",
-        "duration": 226,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "dispatch-rec",
-        "name": "派单推荐能力",
-        "desc": "蜂跑+众包+专送智能调度",
-        "icon": "📦",
-        "status": "success",
-        "duration": 434,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "decision-merge",
-        "name": "决策汇总能力",
-        "desc": "综合评估·生成报告",
-        "icon": "🧠",
-        "status": "success",
-        "duration": 235,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "report-gen",
-        "name": "报告生成能力",
-        "desc": "结构化输出",
-        "icon": "📊",
-        "status": "success",
-        "duration": 569,
-        "output": "由 doubao 生成建议"
-      }
-    ],
-    "cozeUsed": false,
-    "createdAt": "2026-07-29T13:29:17.622Z"
-  },
-  {
-    "id": "d_1785331516774_8mn6tp",
-    "userId": null,
-    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
-    "cityId": "hengyang",
-    "predictedOrders": 9174,
-    "costEstimate": 128331,
-    "riskLevel": "high",
-    "report": "### 配送小智：衡阳蒸湘万达商圈晚间（21:30-次日02:00）各时段订单量预测\n| 时段               | 预计订单量区间（单） | 置信度 | 预测依据                                                                 |\n|--------------------|----------------------|--------|--------------------------------------------------------------------------|\n| 21:30-22:30        | 180-220              | 85%    | 基于衡阳工作日万达商圈夜宵时段历史规律，当前为周三晚商圈人流稳定，天气无极端影响 |\n| 22:30-23:30        | 210-250              | 85%    | 夜宵核心消费高峰时段，商圈餐饮店出单集中推高订单量                          |\n| 23:30-00:30        | 150-190              | 80%    | 夜宵高峰后需求回落，仍保留深夜聚餐/零售类零散订单                              |\n| 00:30-01:30        | 90-130               | 75%    | 深夜消费需求收缩，仅维持少量深夜应急/消费订单                               |\n| 01:30-02:00        | 40-70                | 70%    | 深夜消费低谷区间，订单量处于低位                                          |\n\n📚 参考知识库：无引用知识库文档",
-    "steps": [
-      {
-        "id": "knowledge-retrieve",
-        "name": "知识库检索能力",
-        "desc": "RAG · 检索相关运营知识",
-        "icon": "📚",
-        "status": "success",
-        "duration": 179,
-        "output": "未找到相关知识"
-      },
-      {
-        "id": "task-router",
-        "name": "任务路由能力",
-        "desc": "识别意图·拆解任务",
-        "icon": "🔀",
-        "status": "success",
-        "duration": 492,
-        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
-      },
-      {
-        "id": "order-predict",
-        "name": "订单预测能力",
-        "desc": "AI 模型预测各时段订单",
-        "icon": "📈",
-        "status": "success",
-        "duration": 143,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "rider-analyze",
-        "name": "运力分析能力",
-        "desc": "5 运力线智能匹配",
-        "icon": "🚴",
-        "status": "success",
-        "duration": 156,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "cost-analyze",
-        "name": "成本分析能力",
-        "desc": "多运力成本 Pareto",
-        "icon": "💰",
-        "status": "success",
-        "duration": 187,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "dispatch-rec",
-        "name": "派单推荐能力",
-        "desc": "蜂跑+众包+专送智能调度",
-        "icon": "📦",
-        "status": "success",
-        "duration": 369,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "decision-merge",
-        "name": "决策汇总能力",
-        "desc": "综合评估·生成报告",
-        "icon": "🧠",
-        "status": "success",
-        "duration": 104,
-        "output": "由 doubao 生成建议"
-      },
-      {
-        "id": "report-gen",
-        "name": "报告生成能力",
-        "desc": "结构化输出",
-        "icon": "📊",
-        "status": "success",
-        "duration": 259,
-        "output": "由 doubao 生成建议"
-      }
-    ],
-    "cozeUsed": false,
-    "createdAt": "2026-07-29T13:25:36.627Z"
+    "createdAt": "2026-07-29T14:20:48.588Z"
   }
 ]
