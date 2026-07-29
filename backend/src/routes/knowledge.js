@@ -381,44 +381,64 @@ export function searchKnowledge(q, limit = 3) {
   const filtered = stopWords.reduce((s, w) => s.replaceAll(w, ' '), raw)
   const tokens = tokenize(filtered)
   const docs = Array.from(knowledgeIndex.values())
-  return docs
-    .map(d => {
-      let score = 0
-      const title = (d.title || '').toLowerCase()
-      const desc = (d.desc || '').toLowerCase()
-      const content = (d.content || '').toLowerCase()
-      // 整句加权
-      if (title.includes(raw)) score += 10
-      if ((d.cat || '').toLowerCase().includes(raw)) score += 5
-      if (desc.includes(raw)) score += 3
-      if (content.includes(raw)) score += 2
-      // 多 token 命中累计
-      for (const t of tokens) {
-        if (t.length < 2) continue
-        if (title.includes(t)) score += 3
-        if (content.includes(t)) score += 1
-      }
-      return { d, score }
-    })
-    .filter(x => x.score > 0)
+
+  // 1. 知识库 hit
+  const docHits = docs.map(d => {
+    let score = 0
+    const title = (d.title || '').toLowerCase()
+    const desc = (d.desc || '').toLowerCase()
+    const docContent = (d.content || '').toLowerCase()
+    if (title.includes(raw)) score += 10
+    if ((d.cat || '').toLowerCase().includes(raw)) score += 5
+    if (desc.includes(raw)) score += 3
+    if (docContent.includes(raw)) score += 2
+    for (const t of tokens) {
+      if (t.length < 2) continue
+      if (title.includes(t)) score += 3
+      if (docContent.includes(t)) score += 1
+    }
+    return {
+      id: d.id,
+      title: d.title,
+      cat: d.cat,
+      score,
+      excerpt: extractExcerpt(d.content || d.desc || d.title, tokens[0] || raw, 300),
+      _type: 'doc'
+    }
+  }).filter(h => h.score > 0)
+
+  // 2. 🆕 经验案例 hit（高 success_rate 加权）
+  const caseHits = searchCases(raw, limit).map(c => ({
+    id: c.id,
+    title: '📊 ' + c.summary,
+    cat: '历史经验',
+    score: c.score,
+    excerpt: (c.actions || []).join('\n') || c.summary,
+    success_rate: c.success_rate,
+    cityId: c.cityId,
+    createdAt: c.createdAt,
+    _type: 'case'
+  }))
+
+  // 合并：知识库 + 经验案例，按 score 排序
+  return [...docHits, ...caseHits]
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
-    .map(x => ({
-      id: x.d.id,
-      title: x.d.title,
-      cat: x.d.cat,
-      score: x.score,
-      excerpt: extractExcerpt(x.d.content || x.d.desc || x.d.title, tokens[0] || raw, 300)
-    }))
 }
 
 export function getKnowledgeContext(query) {
   const results = searchKnowledge(query, 3)
   if (results.length === 0) return ''
-  let ctx = '\n【运营知识库】以下是相关的历史运营文档（已根据问题自动检索）：\n'
+  let ctx = '\n【运营知识库 + 历史经验】以下是检索到的参考资料（已根据问题自动检索）：\n'
   for (const r of results) {
-    ctx += `📄 ${r.title}（${r.cat}）\n${r.excerpt}\n\n`
+    if (r._type === 'case') {
+      const sr = Math.round((r.success_rate || 0) * 100)
+      ctx += `📊 [历史经验 ${sr}%] ${r.title}\n   摘要: ${(r.excerpt || '').slice(0, 200)}\n`
+    } else {
+      ctx += `📄 [${r.cat || '其他'}] ${r.title}\n   ${(r.excerpt || '').slice(0, 200)}\n`
+    }
   }
+  ctx += '\n'
   return ctx
 }
 
