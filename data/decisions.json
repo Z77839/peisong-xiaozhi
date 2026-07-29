@@ -1,5 +1,91 @@
 [
   {
+    "id": "d_1785331818703_qybysn",
+    "userId": null,
+    "query": "预测今晚衡阳蒸湘万达商圈各时段订单量",
+    "cityId": "hengyang",
+    "predictedOrders": 9174,
+    "costEstimate": 131386.49999999997,
+    "riskLevel": "high",
+    "report": "配送小智·衡阳蒸湘万达商圈2026年7月29日晚间订单量预测报告\n---\n### 一、分时段订单量预测（单位：单）\n| 时段          | 预测区间 | 置信度 |\n|---------------|----------|--------|\n| 22:00-23:00   | 320-380  | 78%    |\n| 23:00-00:00   | 210-260  | 82%    |\n| 00:00-02:00   | 80-120   | 65%    |\n\n### 二、预测依据\n1. 时段属性：当前处于标注的「夜宵（中需求）」时段，7月29日为工作日，万达商圈夜间消费节奏符合工作日规律\n2. 环境因素：夜间天气阴、体感26℃（湿度81%），体感舒适，利于线上即时消费转化\n3. 运力匹配：本城驻点骑手167人、平台总活跃骑手27162人，运力储备充足，未出现近期高峰运力缺口风险（参考当前骑手数据）\n\n### 三、可执行运营建议\n1. 22:00前针对万达周边餐饮商家启动夜宵单派单优先级设置，缩短配送时长\n2. 23:00后安排专人关注商圈周边夜经济场所（影院、KTV等）客流动态，若订单量异常上浮15%以上，临时调度铂金/钻石级骑手支援\n---\n📚 参考知识库：无已匹配的运营知识库相关文档",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "duration": 342,
+        "output": "未找到相关知识"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "duration": 490,
+        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "duration": 320,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "duration": 381,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "duration": 123,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "duration": 515,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "duration": 339,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "duration": 185,
+        "output": "由 doubao 生成建议"
+      }
+    ],
+    "cozeUsed": false,
+    "createdAt": "2026-07-29T13:30:39.991Z"
+  },
+  {
     "id": "d_1785331733520_yc5ro7",
     "userId": null,
     "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
