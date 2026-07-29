@@ -46,5 +46,13 @@
     "ip": "10.31.81.1",
     "userAgent": "curl/7.88.1",
     "createdAt": "2026-07-29T15:26:42.148Z"
+  },
+  {
+    "id": 7,
+    "userId": "u_1",
+    "action": "login_success",
+    "ip": "10.31.81.1",
+    "userAgent": "curl/7.88.1",
+    "createdAt": "2026-07-29T15:28:52.448Z"
   }
 ]
