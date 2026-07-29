@@ -149,7 +149,7 @@ const upload = multer({
 function bootstrapSeed() {
   const INDEX = path.resolve(process.cwd(), 'data/knowledge_index.json')
   const SEED = path.resolve(process.cwd(), 'data/knowledge_seed.json')
-  
+
   let needSeed = false
   if (!fs.existsSync(INDEX)) {
     needSeed = true
@@ -159,15 +159,20 @@ function bootstrapSeed() {
       if (!cur.items || cur.items.length === 0) needSeed = true
     } catch (e) { needSeed = true }
   }
-  
+
   if (!needSeed) return
   if (!fs.existsSync(SEED)) return
-  
+
   try {
     const seed = JSON.parse(fs.readFileSync(SEED, 'utf-8'))
     fs.mkdirSync(path.dirname(INDEX), { recursive: true })
     fs.writeFileSync(INDEX, JSON.stringify(seed, null, 2))
-    console.log(`[knowledge] 已从 seed 导入 ${seed.items.length} 条`)
+    // 🆕 关键修复：写完 INDEX 后刷新内存中的 knowledgeIndex Map
+    knowledgeIndex = new Map()
+    for (const d of loadIndex()) {
+      knowledgeIndex.set(d.id, d)
+    }
+    console.log(`[knowledge] 已从 seed 导入 ${seed.items.length} 条, 内存 ${knowledgeIndex.size} 条`)
   } catch (e) {
     console.error('[knowledge] seed 导入失败:', e.message)
   }
