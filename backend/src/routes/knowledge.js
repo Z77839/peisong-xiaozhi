@@ -291,11 +291,11 @@ router.post('/:id/view', authRequired, (req, res) => {
 })
 
 // 5. 知识库内容检索（用 searchKnowledge 函数，含中文分词）
-router.get('/search', authRequired, async (req, res) => {
+router.get('/search', authRequired, (req, res) => {
   const { q = '', limit = 3 } = req.query
   const kw = String(q).toLowerCase().trim()
   if (!kw) return res.json({ code: 200, data: [], total: 0 })
-  const results = await searchKnowledge(kw, Number(limit))
+  const results = searchKnowledge(kw, Number(limit))
   const enriched = results.map(r => ({
     ...r,
     contentPreview: r.excerpt
@@ -399,7 +399,7 @@ function tokenize(q) {
   return [...new Set(kws)].filter(k => k.length >= 1)
 }
 
-export async function searchKnowledge(q, limit = 3) {
+export function searchKnowledge(q, limit = 3) {
   const raw = String(q || '').toLowerCase().trim()
   if (!raw) return []
   // 去除停用词
@@ -408,56 +408,47 @@ export async function searchKnowledge(q, limit = 3) {
   const tokens = tokenize(filtered)
   const docs = Array.from(knowledgeIndex.values())
 
-  // 🆕 计算 query embedding（语义检索）
-  let queryVec = null
-  if (docEmbeddings.size > 0) {
-    try {
-      queryVec = await embed(raw)
-    } catch (e) {
-      logger.warn(`[Knowledge] query embedding 失败: ${e.message}`)
-    }
-  }
-
-  // 1. 知识库 hit（关键词 + 语义混合 score）
+  // 1. 知识库 hit（关键词 score + 预计算 embedding 权威度 boost）
   const docHits = docs.map(d => {
-    // 关键词 score（原逻辑）
-    let kwScore = 0
+    let score = 0
     const title = (d.title || '').toLowerCase()
     const desc = (d.desc || '').toLowerCase()
     const docContent = (d.content || '').toLowerCase()
-    if (title.includes(raw)) kwScore += 10
-    if ((d.cat || '').toLowerCase().includes(raw)) kwScore += 5
-    if (desc.includes(raw)) kwScore += 3
-    if (docContent.includes(raw)) kwScore += 2
+    if (title.includes(raw)) score += 10
+    if ((d.cat || '').toLowerCase().includes(raw)) score += 5
+    if (desc.includes(raw)) score += 3
+    if (docContent.includes(raw)) score += 2
     for (const t of tokens) {
       if (t.length < 2) continue
-      if (title.includes(t)) kwScore += 3
-      if (docContent.includes(t)) kwScore += 1
+      if (title.includes(t)) score += 3
+      if (docContent.includes(t)) score += 1
     }
-
-    // 语义 score（cosine）
-    let semScore = 0
-    if (queryVec) {
-      const docVec = docEmbeddings.get(d.id)
-      if (docVec) {
-        semScore = cosineSimilarity(queryVec, docVec) * 100  // 归一化到 0-100
-      }
+    // 🆕 语义权威度 boost：有预计算 embedding + 长内容 = 更高分
+    if (docEmbeddings.has(d.id) && docContent.length > 200) {
+      score += 1.5
     }
-
-    // 混合：关键词 0.4 + 语义 0.6
-    const finalScore = kwScore * 0.4 + semScore * 0.6
-
     return {
       id: d.id,
       title: d.title,
       cat: d.cat,
-      score: finalScore,
-      kwScore,
-      semScore,
+      score,
       excerpt: extractExcerpt(d.content || d.desc || d.title, tokens[0] || raw, 300),
       _type: 'doc'
     }
   }).filter(h => h.score > 0)
+
+  // 2. 🆕 经验案例 hit（高 success_rate 加权）
+  const caseHits = searchCases(raw, limit).map(c => ({
+    id: c.id,
+    title: '📊 ' + c.summary,
+    cat: '历史经验',
+    score: c.score,
+    excerpt: (c.actions || []).join('\n') || c.summary,
+    success_rate: c.success_rate,
+    cityId: c.cityId,
+    createdAt: c.createdAt,
+    _type: 'case'
+  }))
 
   // 合并：知识库 + 经验案例，按 score 排序
   return [...docHits, ...caseHits]
