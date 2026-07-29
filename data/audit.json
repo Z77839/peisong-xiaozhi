@@ -2,36 +2,9 @@
   {
     "id": 1,
     "userId": "u_1",
-    "action": "login_failed",
-    "details": {
-      "reason": "wrong_password"
-    },
-    "ip": "10.31.81.1",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T13:57:48.475Z"
-  },
-  {
-    "id": 2,
-    "userId": "u_1",
     "action": "login_success",
-    "ip": "10.31.81.1",
+    "ip": "10.25.250.2",
     "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T13:58:38.477Z"
-  },
-  {
-    "id": 3,
-    "userId": "u_1",
-    "action": "login_success",
-    "ip": "10.31.81.1",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T14:01:44.870Z"
-  },
-  {
-    "id": 4,
-    "userId": "u_1",
-    "action": "login_success",
-    "ip": "10.31.81.1",
-    "userAgent": "curl/7.88.1",
-    "createdAt": "2026-07-29T14:03:14.070Z"
+    "createdAt": "2026-07-29T14:17:07.419Z"
   }
 ]
