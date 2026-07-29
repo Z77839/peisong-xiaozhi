@@ -103,9 +103,10 @@
       "feedback": null,
       "feedbackAt": null,
       "success_rate": 0,
-      "retrieval_count": 0
+      "retrieval_count": 1,
+      "last_retrieved_at": "2026-07-29T15:11:50.706Z"
     }
   ],
   "version": 1,
-  "lastUpdated": "2026-07-29T15:11:01.701Z"
+  "lastUpdated": "2026-07-29T15:11:50.706Z"
 }
