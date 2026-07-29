@@ -15,6 +15,8 @@ import { fileURLToPath } from 'node:url'
 import { logger } from '../services/logger.js'
 import { scheduleBackup } from '../services/backupService.js'
 import { authRequired } from '../middleware/auth.js'
+// 🆕 经验案例检索（高 success_rate 加权）
+import { searchCases } from '../services/experienceService.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
