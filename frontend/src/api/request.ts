@@ -16,13 +16,18 @@ const TIMEOUT_PROFILE = {
 }
 
 function pickTimeout(url = '') {
-  if (/\/api\/health(\b|\/|$)/.test(url)) return TIMEOUT_PROFILE.health
-  if (/\/api\/decision\/(run|feedback)/.test(url)) return TIMEOUT_PROFILE.ai
-  if (/\/api\/chat(\/|\b|$)/.test(url)) return TIMEOUT_PROFILE.ai
-  if (/\/api\/llm(\/|\b|$)/.test(url)) return TIMEOUT_PROFILE.ai
-  if (/\/api\/knowledge\/upload/.test(url)) return TIMEOUT_PROFILE.upload
+  // 🐛 修复：axios 传进来的是裸 url（baseURL 已剥掉 /api/ 前缀），
+  // 老代码正则要求 /api/ 前缀，导致 /decision/run 等 AI 端点全部
+  // fallback 到 15s fast timeout，而 LLM 实际 23-90s，必然超时。
+  const norm = (url || '').replace(/^\/?api\//, '/')
+  if (/\/health(\b|\/|$)/.test(norm)) return TIMEOUT_PROFILE.health
+  if (/\/decision\/(run|feedback)/.test(norm)) return TIMEOUT_PROFILE.ai
+  if (/\/chat(\b|\/|$)/.test(norm)) return TIMEOUT_PROFILE.ai
+  if (/\/llm(\b|\/|$)/.test(norm)) return TIMEOUT_PROFILE.ai
+  if (/\/knowledge\/upload/.test(norm)) return TIMEOUT_PROFILE.upload
   return TIMEOUT_PROFILE.fast
 }
+
 
 const service = axios.create({
   baseURL: API_BASE_URL,
