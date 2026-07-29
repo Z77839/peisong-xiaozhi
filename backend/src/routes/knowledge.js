@@ -158,6 +158,23 @@ function bootstrapSeed() {
   const INDEX = path.resolve(process.cwd(), 'data/knowledge_index.json')
   const SEED = path.resolve(process.cwd(), 'data/knowledge_seed.json')
 
+  // 🆕 诊断 log（排查 seed 加载问题）
+  console.log(`[Knowledge] bootstrapSeed: cwd=${process.cwd()}`)
+  console.log(`[Knowledge] bootstrapSeed: INDEX exists=${fs.existsSync(INDEX)} path=${INDEX}`)
+  console.log(`[Knowledge] bootstrapSeed: SEED exists=${fs.existsSync(SEED)} path=${SEED}`)
+  // 列出 cwd/data 下所有文件
+  try {
+    const dataDir = path.resolve(process.cwd(), 'data')
+    if (fs.existsSync(dataDir)) {
+      const files = fs.readdirSync(dataDir)
+      console.log(`[Knowledge] bootstrapSeed: data/ files = ${files.join(', ')}`)
+    } else {
+      console.log(`[Knowledge] bootstrapSeed: data/ 目录不存在`)
+    }
+  } catch (e) {
+    console.log(`[Knowledge] bootstrapSeed: 读 data/ 失败: ${e.message}`)
+  }
+
   let needSeed = false
   if (!fs.existsSync(INDEX)) {
     needSeed = true
