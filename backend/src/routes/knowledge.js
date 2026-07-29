@@ -16,7 +16,7 @@ import { logger } from '../services/logger.js'
 import { scheduleBackup } from '../services/backupService.js'
 import { authRequired } from '../middleware/auth.js'
 // 🆕 经验案例检索（高 success_rate 加权）
-import { searchCases } from '../services/experienceService.js'
+import { searchCases, buildStrategyHints } from '../services/experienceService.js'
 // 🆕 语义检索：豆包 embedding
 import { embed, cosineSimilarity, precomputeDocEmbeddings, stats as embeddingStats } from '../services/embeddingService.js'
 
@@ -566,7 +566,6 @@ export function getKnowledgeContext(query) {
   ctx += '\n'
   // 🆕 注入高 success_rate 案例反向生成的策略提示
   try {
-    const { buildStrategyHints } = await import('../services/experienceService.js')
     ctx += buildStrategyHints(query, 3)
   } catch (e) {
     logger.warn(`[Knowledge] buildStrategyHints 失败（非致命）: ${e.message}`)
