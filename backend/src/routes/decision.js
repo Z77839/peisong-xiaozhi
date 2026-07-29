@@ -55,6 +55,31 @@ router.get('/history', async (req, res) => {
   }
 })
 
+router.get('/cases', async (req, res) => {
+  try {
+    const { listAllCases, stats } = await import('../services/experienceService.js')
+    const { cityId, minSuccessRate, withFeedback, limit } = req.query
+    const opts = {}
+    if (cityId) opts.cityId = cityId
+    if (minSuccessRate !== undefined) opts.minSuccessRate = Number(minSuccessRate)
+    if (withFeedback) opts.withFeedback = withFeedback === 'true'
+    const cases = listAllCases(Number(limit) || 100, opts)
+    res.json({ code: 0, data: cases, stats: stats() })
+  } catch (e) {
+    console.error('[GET /cases]', e.message)
+    res.status(500).json({ code: 500, message: e.message })
+  }
+})
+
+// 🆕 案例库统计
+router.get('/cases/stats', async (req, res) => {
+  try {
+    const { stats } = await import('../services/experienceService.js')
+    res.json({ code: 0, data: stats() })
+  } catch (e) {
+    res.status(500).json({ code: 500, message: e.message })
+  }
+
 // 🆕 按 ID 取单条决策详情（带 feedback）
 router.get('/:id', async (req, res) => {
   try {
@@ -142,30 +167,6 @@ router.post('/run', async (req, res) => {
 })
 
 // 🆕 列出案例库（前端用）
-router.get('/cases', async (req, res) => {
-  try {
-    const { listAllCases, stats } = await import('../services/experienceService.js')
-    const { cityId, minSuccessRate, withFeedback, limit } = req.query
-    const opts = {}
-    if (cityId) opts.cityId = cityId
-    if (minSuccessRate !== undefined) opts.minSuccessRate = Number(minSuccessRate)
-    if (withFeedback) opts.withFeedback = withFeedback === 'true'
-    const cases = listAllCases(Number(limit) || 100, opts)
-    res.json({ code: 0, data: cases, stats: stats() })
-  } catch (e) {
-    console.error('[GET /cases]', e.message)
-    res.status(500).json({ code: 500, message: e.message })
-  }
-})
-
-// 🆕 案例库统计
-router.get('/cases/stats', async (req, res) => {
-  try {
-    const { stats } = await import('../services/experienceService.js')
-    res.json({ code: 0, data: stats() })
-  } catch (e) {
-    res.status(500).json({ code: 500, message: e.message })
-  }
 })
 
 export default router
