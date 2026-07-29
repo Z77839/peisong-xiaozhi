@@ -116,7 +116,7 @@ app.get('/api/health', (_req, res) => {
     code: 0,
     data: {
       service: '配送小智 AI 后端',
-      version: '15.5',
+      version: '15.6',
       env: NODE_ENV,
       uptime: process.uptime(),
       ts: Date.now()
