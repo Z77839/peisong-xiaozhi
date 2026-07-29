@@ -44,7 +44,11 @@ const fromDecision = ref(!!route.query.gap || !!route.query.q)
 const decisionGap = ref(Number(route.query.gap) || 0)
 const decisionQuery = ref(route.query.q as string || '')
 // 🆕 从 URL 读取来源决策 ID（从决策中心跳过来时携带）
-const sourceDecisionId = ref(route.query.decisionId as string || '')
+// 🆕 决策 ID 来源：URL 参数 > sessionStorage 兜底（任意入口派单都能自动回写 success_rate）
+const sourceDecisionId = ref(
+  (route.query.decisionId as string) || 
+  (() => { try { return sessionStorage.getItem('lastDecisionId') || '' } catch { return '' } })()
+)
 const orders = ref<Order[]>([])
 const riders = ref<Rider[]>([])
 const recommendations = ref<Recommendation[]>([])
