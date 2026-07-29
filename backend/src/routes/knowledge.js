@@ -167,7 +167,7 @@ const upload = multer({
   fileFilter: (req, file, cb) => {
     file.originalname = Buffer.from(file.originalname, 'latin1').toString('utf8')
     const ext = path.extname(file.originalname).toLowerCase()
-    const allowed = ['.pdf', '.docx', '.doc', '.txt', '.md', '.xlsx', '.xls', '.json']
+    const allowed = ['.pdf', '.docx', '.doc', '.txt', '.md', '.xlsx', '.xls', '.csv', '.json']
     if (ALLOWED_TYPES.includes(file.mimetype) || allowed.includes(ext)) {
       cb(null, true)
     } else {
