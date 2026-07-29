@@ -352,6 +352,11 @@ async function runDecision() {
     showResult.value = true
     inputExpanded.value = false
 
+    // 🆕 存最近决策 ID，给 dispatch 页面兜底用（任意入口派单都能自动回写 success_rate）
+    if (r.id) {
+      try { sessionStorage.setItem('lastDecisionId', r.id) } catch {}
+    }
+
     history.value.unshift({
       id: String(Date.now()),
       text: q,
