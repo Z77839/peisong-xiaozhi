@@ -2,9 +2,12 @@
   {
     "id": 1,
     "userId": "u_1",
-    "action": "login_success",
-    "ip": "10.28.21.130",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
-    "createdAt": "2026-07-27T12:26:34.615Z"
+    "action": "login_failed",
+    "details": {
+      "reason": "wrong_password"
+    },
+    "ip": "10.31.81.1",
+    "userAgent": "curl/7.88.1",
+    "createdAt": "2026-07-29T13:57:48.475Z"
   }
 ]
