@@ -195,7 +195,7 @@ function findSeedFile() {
   return null
 }
 
-function bootstrapSeed() {
+async function bootstrapSeed() {
   const INDEX = path.resolve(process.cwd(), 'data/knowledge_index.json')
   const SEED = findSeedFile()
 
@@ -252,7 +252,7 @@ bootstrapSeed()
 
 // 🆕 Lazy seed：首次任意路由请求时确保知识库已 seed
 let seedInitialized = false
-function ensureSeeded() {
+async function ensureSeeded() {
   if (seedInitialized) return
   seedInitialized = true
   bootstrapSeed()
