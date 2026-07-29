@@ -26,7 +26,49 @@ if (!fs.existsSync(UPLOAD_DIR)) {
 }
 
 // 持久化 JSON
-const INDEX_FILE = path.resolve(__dirname, '../data/knowledge_index.json')
+const INDEX_FILE = path.resolve(process.cwd(), 'data/knowledge_index.json')
+
+
+/**
+ * 解析上传的文档，抽取文本内容
+ * 支持：PDF (pdf-parse), DOCX (mammoth), TXT/MD/JSON (fs)
+ * 上限 20MB（与 multer 一致）
+ */
+async function parseDocument(filePath, ext, size) {
+  ext = (ext || '').toLowerCase()
+  if (size > 20 * 1024 * 1024) {
+    logger.warn(`[Knowledge] 文件过大，跳过内容抽取: ${filePath} (${(size/1024/1024).toFixed(1)}MB)`)
+    return ''
+  }
+  try {
+    if (ext === '.pdf') {
+      const pdfParse = (await import('pdf-parse')).default
+      const buffer = fs.readFileSync(filePath)
+      const data = await pdfParse(buffer)
+      const text = data.text || ''
+      logger.info(`[Knowledge] PDF 解析: ${(size/1024).toFixed(1)}KB → ${text.length} chars`)
+      return text
+    }
+    if (ext === '.docx') {
+      const mammoth = (await import('mammoth')).default
+      const result = await mammoth.extractRawText({ path: filePath })
+      const text = result.value || ''
+      logger.info(`[Knowledge] DOCX 解析: ${(size/1024).toFixed(1)}KB → ${text.length} chars`)
+      return text
+    }
+    if (ext === '.doc') {
+      logger.warn(`[Knowledge] .doc 格式不支持解析（请转为 .docx）`)
+      return ''
+    }
+    if (['.txt', '.md', '.json'].includes(ext)) {
+      return fs.readFileSync(filePath, 'utf-8')
+    }
+    return ''
+  } catch (e) {
+    logger.warn(`[Knowledge] 文档解析失败 (${ext}): ${e.message}`)
+    return ''
+  }
+}
 
 // 加载持久化索引
 function loadIndex() {
@@ -135,7 +177,7 @@ bootstrapSeed()
 const router = express.Router()
 
 // 1. 上传文档
-router.post('/upload', authRequired, (req, res) => {
+router.post('/upload', authRequired, async (req, res) => {
   const uploadMiddleware = upload.single('file')
   uploadMiddleware(req, res, (err) => {
     if (err) {
@@ -150,17 +192,14 @@ router.post('/upload', authRequired, (req, res) => {
     const cat = req.body.cat || '其他'
     const desc = req.body.desc || ''
 
-    // 读取文件内容（仅 txt/md/json 可读，其他返回文件元信息）
-    let content = ''
-    let contentPreview = ''
+    // 🆕 解析文档内容（PDF/DOCX/MD/TXT/JSON）
     const ext = path.extname(originalname).toLowerCase()
-    if (['.txt', '.md', '.json'].includes(ext) && size < 1024 * 1024) {
-      try {
-        content = fs.readFileSync(filePath, 'utf-8')
-        contentPreview = content.slice(0, 500)
-      } catch (e) {
-        logger.warn(`[Knowledge] 文件读取失败: ${e.message}`)
-      }
+    const content = await parseDocument(filePath, ext, size)
+    const contentPreview = content.slice(0, 500)
+    if (content) {
+      logger.info(`[Knowledge] 内容抽取: ${originalname} (${ext}) → ${content.length} chars`)
+    } else if (['.pdf', '.docx', '.docx', '.txt', '.md', '.json'].includes(ext)) {
+      logger.warn(`[Knowledge] 内容抽取为空: ${originalname} (${ext})`)
     }
 
     const doc = {
