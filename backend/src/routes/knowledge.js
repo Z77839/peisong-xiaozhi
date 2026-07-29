@@ -179,7 +179,7 @@ const router = express.Router()
 // 1. 上传文档
 router.post('/upload', authRequired, async (req, res) => {
   const uploadMiddleware = upload.single('file')
-  uploadMiddleware(req, res, (err) => {
+  uploadMiddleware(req, res, async (err) => {
     if (err) {
       logger.warn(`[Knowledge] 上传失败: ${err.message}`)
       return res.status(400).json({ code: 400, message: err.message })
