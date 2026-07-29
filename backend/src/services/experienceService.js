@@ -271,6 +271,57 @@ export function getAdoptionDistribution() {
 }
 
 /**
+ * 从高 success_rate 案例反向生成策略提示（注入 LLM prompt）
+ * @param {string} query - 用户问题
+ * @param {number} limit - 最多返回几个策略
+ * @returns {string} Markdown 格式的策略提示
+ */
+export function buildStrategyHints(query, limit = 3) {
+  const all = readAll()
+  const q = (query || '').toLowerCase()
+  
+  // 1. 关键词匹配 + 优先高 success_rate
+  const matched = all.cases
+    .filter(c => c.success_rate >= 0.5)  // 只采纳率 >= 50% 的案例
+    .map(c => {
+      // 算关键词匹配分
+      const text = `${c.query || ''} ${c.summary || ''} ${(c.tags || []).join(' ')}`.toLowerCase()
+      const queryWords = q.split(/\s+/).filter(w => w.length >= 2)
+      const hitCount = queryWords.filter(w => text.includes(w)).length
+      const matchScore = queryWords.length > 0 ? hitCount / queryWords.length : 0
+      return { ...c, _match: matchScore }
+    })
+    .filter(c => c._match > 0.2)  // 至少匹配 20% 关键词
+    .sort((a, b) => {
+      // 综合分 = 关键词匹配 × success_rate × 降权
+      const decay = 1 / Math.log(2 + (a.retrieval_count || 0) * 0.1)
+      const decayB = 1 / Math.log(2 + (b.retrieval_count || 0) * 0.1)
+      return (b._match * (b.success_rate || 0) * decayB) - (a._match * (a.success_rate || 0) * decay)
+    })
+    .slice(0, limit)
+  
+  if (matched.length === 0) return ''
+  
+  // 2. 生成策略提示
+  let hint = '\n【🎯 高采纳率历史策略】(基于过往成功案例，建议参考)\n'
+  for (const c of matched) {
+    const sr = Math.round((c.success_rate || 0) * 100)
+    const adopt = c.feedback_count || 0
+    hint += `✅ [${sr}%采纳 / ${adopt}次执行] ${c.summary || c.query || '(无标题)'}\n`
+    // 提取关键结论（取 steps 里成功的）
+    if (Array.isArray(c.steps)) {
+      const keySteps = c.steps.filter(s => s.status === 'success' || s.success).slice(0, 2)
+      for (const s of keySteps) {
+        const txt = (s.output || s.report || s.conclusion || '').slice(0, 120).replace(/\n+/g, ' ')
+        if (txt) hint += `   • ${txt}\n`
+      }
+    }
+  }
+  hint += '\n💡 **请优先参考采纳率 >= 80% 的策略，并基于当前实时数据做调整。**\n'
+  return hint
+}
+
+/**
  * 统计
  */
 export function stats() {
