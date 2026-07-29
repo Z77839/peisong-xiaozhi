@@ -1,5 +1,91 @@
 [
   {
+    "id": "d_1785337910706_17757a",
+    "userId": null,
+    "query": "衡阳恶劣天气运力",
+    "cityId": "hengyang",
+    "predictedOrders": 417,
+    "costEstimate": 25607.999999999996,
+    "riskLevel": "low",
+    "report": "配送小智关于衡阳恶劣天气运力分析报告\n一、恶劣天气影响评估\n当前衡阳（2026年7月29日23时）天气为阴，体感温度25℃，无强降雨、极端高温、暴雪等对配送运力有显著影响的恶劣天气因子，本次天气对配送运力的影响等级为低风险。\n二、当前运力供给及匹配测算[参考:配送小智·衡阳夜宵时段（晚高峰）运力分析及决策建议]\n1. 运力基础数据：本城总骑手27186人，在线活跃骑手27162人，活跃率99.91%；本城驻点骑手167人，占比0.61%；\n2. 需求匹配情况：夜宵时段（中需求）预测单量417单，运力缺口率0%，当前运力完全覆盖需求；\n3. 成本与风险：对应时段配送成本¥25608，配送风险等级为low。\n三、可执行决策建议\n维持现有运力调度策略，无需额外增加运力；持续监测后续时段（若天气突变如降雨等）的运力供需变化，提前做好运力储备预警。\n四、置信度说明\n本次分析基于实时监测数据及历史同场景数据，置信度为95%。\n\n📚 参考知识库\n配送小智·衡阳夜宵时段（晚高峰）运力分析及决策建议",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "duration": 550,
+        "output": "已检索到 1 条相关知识：\n  • 📊 衡阳：预测 417 单，缺口率 0%，成本 ¥25608，风险 low（历史经验）匹配度 3.3695567661604615"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "duration": 169,
+        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "duration": 547,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "duration": 368,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "duration": 222,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "duration": 360,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "duration": 560,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "duration": 207,
+        "output": "由 doubao 生成建议"
+      }
+    ],
+    "cozeUsed": false,
+    "createdAt": "2026-07-29T15:12:04.096Z"
+  },
+  {
     "id": "d_1785337839409_vi4iz6",
     "userId": null,
     "query": "衡阳晚高峰运力",
