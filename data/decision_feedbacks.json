@@ -1,12 +1,12 @@
 {
-  "d_1785340596356_h3f943": {
-    "decisionId": "d_1785340596356_h3f943",
+  "d_1785481964693_jru7ob": {
+    "decisionId": "d_1785481964693_jru7ob",
     "dispatchId": null,
     "alertId": null,
     "result": "success",
-    "message": "采纳测试",
-    "riderCount": 2,
-    "createdAt": "2026-07-29T15:57:10.242Z",
-    "updatedAt": "2026-07-29T15:57:10.242Z"
+    "message": "用户采纳此决策",
+    "riderCount": 0,
+    "createdAt": "2026-07-31T07:13:40.975Z",
+    "updatedAt": "2026-07-31T07:13:40.975Z"
   }
 }
