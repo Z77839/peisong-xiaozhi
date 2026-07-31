@@ -293,5 +293,13 @@
     "ip": "10.28.225.130",
     "userAgent": "curl/7.88.1",
     "createdAt": "2026-07-31T09:10:57.094Z"
+  },
+  {
+    "id": 40,
+    "userId": "u_1",
+    "action": "login_success",
+    "ip": "10.31.126.2",
+    "userAgent": "curl/7.88.1",
+    "createdAt": "2026-07-31T09:11:59.900Z"
   }
 ]
