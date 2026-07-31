@@ -1847,15 +1847,24 @@ function copyReport() {
   margin: 24px 0;
   box-shadow: 0 2px 8px rgba(250, 140, 22, 0.04);
 }
-.kb-header {
-  display: flex;
+
+.kb-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.kb-ico {
+  font-size: 28px;
+  background: linear-gradient(135deg, #1f6feb 0%, #4080ff 100%);
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
+  justify-content: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(31, 111, 235, 0.25);
+  flex-shrink: 0;
 }
-.kb-ico { font-size: 20px; }
-.kb-title { font-size: 16px; font-weight: 700; color: #d4380d; }
-.kb-sub { font-size: 12px; color: #8c8c8c; margin-left: auto; }
+.kb-titles { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.kb-title { font-size: 15px; font-weight: 500; color: #1f1f1f; }
+.kb-title strong { color: #1f6feb; font-size: 18px; font-weight: 700; margin: 0 3px; }
+.kb-sub { font-size: 12px; color: #8c8c8c; }
 .kb-list { display: flex; flex-direction: column; gap: 10px; }
 .kb-item {
   background: #fff;
