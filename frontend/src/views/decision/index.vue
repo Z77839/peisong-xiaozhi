@@ -778,7 +778,7 @@ function copyReport() {
             <span class="kb-sub">AI 在生成答案时检索了这些运营文档</span>
           </div>
           <div class="kb-list">
-            <div v-for="(k, ki) in result.knowledgeUsed" :key="ki" class="kb-item">
+            <div v-for="(k, ki) in result.knowledgeUsed" :key="ki" :class="['kb-item', k._type === 'case' ? 'case' : 'doc']">
               <div class="kb-item-head">
                 <span class="kb-num">📄 {{ ki + 1 }}</span>
                 <span class="kb-name">{{ k.title }}</span>
@@ -1838,11 +1838,12 @@ function copyReport() {
 
 /* 📚 参考知识库 */
 .kb-section {
-  background: linear-gradient(135deg, #fff7e6 0%, #fff 100%);
-  border: 1px solid #ffd591;
-  border-radius: 12px;
-  padding: 20px 24px;
+  background: linear-gradient(135deg, #fffbe6 0%, #fff 60%, #f0f7ff 100%);
+  border: 1px solid #ffe7ba;
+  border-radius: 14px;
+  padding: 18px 22px;
   margin: 24px 0;
+  box-shadow: 0 2px 8px rgba(250, 140, 22, 0.04);
 }
 .kb-header {
   display: flex;
@@ -1857,19 +1858,38 @@ function copyReport() {
 .kb-item {
   background: #fff;
   border: 1px solid #ffe7ba;
-  border-radius: 8px;
-  padding: 12px 16px;
-  transition: all 0.2s;
+  border-radius: 10px;
+  padding: 14px 18px;
+  transition: all 0.25s cubic-bezier(.4,0,.2,1);
+  position: relative;
+  overflow: hidden;
 }
+.kb-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #fa8c16, #ffa940);
+}
+.kb-item.case::before { background: linear-gradient(180deg, #1f6feb, #4080ff); }
+.kb-item:hover {
+  border-color: #ffc069;
+  box-shadow: 0 4px 16px rgba(250, 140, 22, 0.12);
+  transform: translateY(-1px);
+}
+.kb-item.case:hover { border-color: #91caff; box-shadow: 0 4px 16px rgba(31, 111, 235, 0.12); }
 .kb-item:hover { border-color: #fa8c16; transform: translateX(4px); }
 .kb-item-head {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-size: 13px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #f0f0f0;
 }
-.kb-num { color: #fa8c16; font-weight: 600; }
+.kb-num { color: #fa8c16; font-weight: 700; font-size: 14px; }
+.kb-item.case .kb-num { color: #1f6feb; }
 .kb-name { font-weight: 600; color: #1f2d3d; flex: 1; }
 .kb-cat {
   background: #fff7e6;
