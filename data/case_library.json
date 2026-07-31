@@ -134,7 +134,8 @@
       "feedback": null,
       "feedbackAt": null,
       "success_rate": 0,
-      "retrieval_count": 0
+      "retrieval_count": 1,
+      "last_retrieved_at": "2026-07-31T08:48:19.775Z"
     },
     {
       "id": "d_1785487405193_xp9x59",
@@ -270,7 +271,8 @@
       "feedback": null,
       "feedbackAt": null,
       "success_rate": 0,
-      "retrieval_count": 0
+      "retrieval_count": 1,
+      "last_retrieved_at": "2026-07-31T08:48:19.775Z"
     },
     {
       "id": "d_1785487277054_0xde25",
@@ -1091,8 +1093,8 @@
       "feedback": null,
       "feedbackAt": null,
       "success_rate": 0,
-      "retrieval_count": 3,
-      "last_retrieved_at": "2026-07-31T08:43:53.734Z"
+      "retrieval_count": 4,
+      "last_retrieved_at": "2026-07-31T08:48:19.775Z"
     },
     {
       "id": "d_1785486593939_0sve6w",
@@ -2727,5 +2729,5 @@
     }
   ],
   "version": 1,
-  "lastUpdated": "2026-07-31T08:44:31.660Z"
+  "lastUpdated": "2026-07-31T08:48:19.775Z"
 }
