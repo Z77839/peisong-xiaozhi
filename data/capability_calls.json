@@ -1,130 +1,66 @@
 [
   {
     "capability_name": "知识库检索能力",
-    "duration_ms": 464,
+    "duration_ms": 578,
     "status": "success",
-    "decision_id": "d_1785340596356_h3f943",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:56:52.886Z"
+    "decision_id": "d_1785479913991_0o5866",
+    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
+    "timestamp": "2026-07-31T06:39:00.216Z"
   },
   {
     "capability_name": "任务路由能力",
-    "duration_ms": 430,
+    "duration_ms": 101,
     "status": "success",
-    "decision_id": "d_1785340596356_h3f943",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:56:52.886Z"
+    "decision_id": "d_1785479913991_0o5866",
+    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
+    "timestamp": "2026-07-31T06:39:00.217Z"
   },
   {
     "capability_name": "订单预测能力",
-    "duration_ms": 447,
+    "duration_ms": 263,
     "status": "success",
-    "decision_id": "d_1785340596356_h3f943",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:56:52.887Z"
+    "decision_id": "d_1785479913991_0o5866",
+    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
+    "timestamp": "2026-07-31T06:39:00.217Z"
   },
   {
     "capability_name": "运力分析能力",
-    "duration_ms": 248,
+    "duration_ms": 535,
     "status": "success",
-    "decision_id": "d_1785340596356_h3f943",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:56:52.888Z"
+    "decision_id": "d_1785479913991_0o5866",
+    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
+    "timestamp": "2026-07-31T06:39:00.218Z"
   },
   {
     "capability_name": "成本分析能力",
-    "duration_ms": 365,
+    "duration_ms": 115,
     "status": "success",
-    "decision_id": "d_1785340596356_h3f943",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:56:52.889Z"
+    "decision_id": "d_1785479913991_0o5866",
+    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
+    "timestamp": "2026-07-31T06:39:00.219Z"
   },
   {
     "capability_name": "派单推荐能力",
-    "duration_ms": 557,
+    "duration_ms": 510,
     "status": "success",
-    "decision_id": "d_1785340596356_h3f943",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:56:52.890Z"
+    "decision_id": "d_1785479913991_0o5866",
+    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
+    "timestamp": "2026-07-31T06:39:00.220Z"
   },
   {
     "capability_name": "决策汇总能力",
-    "duration_ms": 587,
+    "duration_ms": 171,
     "status": "success",
-    "decision_id": "d_1785340596356_h3f943",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:56:52.891Z"
+    "decision_id": "d_1785479913991_0o5866",
+    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
+    "timestamp": "2026-07-31T06:39:00.221Z"
   },
   {
     "capability_name": "报告生成能力",
-    "duration_ms": 363,
+    "duration_ms": 581,
     "status": "success",
-    "decision_id": "d_1785340596356_h3f943",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:56:52.892Z"
-  },
-  {
-    "capability_name": "知识库检索能力",
-    "duration_ms": 183,
-    "status": "success",
-    "decision_id": "d_1785340690559_gbzo2u",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:58:32.843Z"
-  },
-  {
-    "capability_name": "任务路由能力",
-    "duration_ms": 547,
-    "status": "success",
-    "decision_id": "d_1785340690559_gbzo2u",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:58:32.843Z"
-  },
-  {
-    "capability_name": "订单预测能力",
-    "duration_ms": 364,
-    "status": "success",
-    "decision_id": "d_1785340690559_gbzo2u",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:58:32.845Z"
-  },
-  {
-    "capability_name": "运力分析能力",
-    "duration_ms": 362,
-    "status": "success",
-    "decision_id": "d_1785340690559_gbzo2u",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:58:32.846Z"
-  },
-  {
-    "capability_name": "成本分析能力",
-    "duration_ms": 515,
-    "status": "success",
-    "decision_id": "d_1785340690559_gbzo2u",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:58:32.847Z"
-  },
-  {
-    "capability_name": "派单推荐能力",
-    "duration_ms": 121,
-    "status": "success",
-    "decision_id": "d_1785340690559_gbzo2u",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:58:32.848Z"
-  },
-  {
-    "capability_name": "决策汇总能力",
-    "duration_ms": 222,
-    "status": "success",
-    "decision_id": "d_1785340690559_gbzo2u",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:58:32.849Z"
-  },
-  {
-    "capability_name": "报告生成能力",
-    "duration_ms": 364,
-    "status": "success",
-    "decision_id": "d_1785340690559_gbzo2u",
-    "query": "衡阳晚高峰恶劣天气运力",
-    "timestamp": "2026-07-29T15:58:32.850Z"
+    "decision_id": "d_1785479913991_0o5866",
+    "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
+    "timestamp": "2026-07-31T06:39:00.222Z"
   }
 ]
