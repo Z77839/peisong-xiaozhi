@@ -2046,5 +2046,69 @@
     "decision_id": "d_1785489120847_wes6hz",
     "query": "衡阳晚高峰运力",
     "timestamp": "2026-07-31T09:12:25.333Z"
+  },
+  {
+    "capability_name": "知识库检索能力",
+    "duration_ms": 409,
+    "status": "success",
+    "decision_id": "d_1785489155766_l3ahy6",
+    "query": "衡阳晚高峰运力",
+    "timestamp": "2026-07-31T09:12:35.791Z"
+  },
+  {
+    "capability_name": "任务路由能力",
+    "duration_ms": 397,
+    "status": "success",
+    "decision_id": "d_1785489155766_l3ahy6",
+    "query": "衡阳晚高峰运力",
+    "timestamp": "2026-07-31T09:12:35.791Z"
+  },
+  {
+    "capability_name": "订单预测能力",
+    "duration_ms": 221,
+    "status": "success",
+    "decision_id": "d_1785489155766_l3ahy6",
+    "query": "衡阳晚高峰运力",
+    "timestamp": "2026-07-31T09:12:35.792Z"
+  },
+  {
+    "capability_name": "运力分析能力",
+    "duration_ms": 156,
+    "status": "success",
+    "decision_id": "d_1785489155766_l3ahy6",
+    "query": "衡阳晚高峰运力",
+    "timestamp": "2026-07-31T09:12:35.794Z"
+  },
+  {
+    "capability_name": "成本分析能力",
+    "duration_ms": 123,
+    "status": "success",
+    "decision_id": "d_1785489155766_l3ahy6",
+    "query": "衡阳晚高峰运力",
+    "timestamp": "2026-07-31T09:12:35.795Z"
+  },
+  {
+    "capability_name": "派单推荐能力",
+    "duration_ms": 411,
+    "status": "success",
+    "decision_id": "d_1785489155766_l3ahy6",
+    "query": "衡阳晚高峰运力",
+    "timestamp": "2026-07-31T09:12:35.797Z"
+  },
+  {
+    "capability_name": "决策汇总能力",
+    "duration_ms": 309,
+    "status": "success",
+    "decision_id": "d_1785489155766_l3ahy6",
+    "query": "衡阳晚高峰运力",
+    "timestamp": "2026-07-31T09:12:35.798Z"
+  },
+  {
+    "capability_name": "报告生成能力",
+    "duration_ms": 387,
+    "status": "success",
+    "decision_id": "d_1785489155766_l3ahy6",
+    "query": "衡阳晚高峰运力",
+    "timestamp": "2026-07-31T09:12:35.800Z"
   }
 ]
