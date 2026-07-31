@@ -1,5 +1,91 @@
 [
   {
+    "id": "d_1785486593939_0sve6w",
+    "userId": null,
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "cityId": "hengyang",
+    "predictedOrders": 2085,
+    "costEstimate": 25607.999999999996,
+    "riskLevel": "low",
+    "report": "【配送小智】衡阳晚高峰运力不足处置方案\n整体置信度：92%\n\n一、高峰运力风险预判（置信度95%）\n依据[参考:场景预案05午晚高峰运力不足处置预案]的风险分析框架，结合当前上下文数据：\n1. 晚高峰时段：2026年7月31日（周五）18:00-20:00；\n2. 晚高峰预测单量：约2085单；\n3. 当前运力匹配情况：本城骑手167人，整体运力缺口率约1%，履约指标暂无明显下滑，风险等级为low。\n\n二、可执行处置措施（按优先级排序）\n1. 内部运力优化（置信度90%）\n   - 【动作1】高等级骑手机动调度：针对平台内在线的坚韧钻石、奋进铂金等级骑手，推送晚高峰专属激励任务（完成核心商圈订单享15元/单额外补贴），引导覆盖蒸湘区、石鼓区等高订单核心区域；\n   - 【动作2】待命骑手激活：同步本城待命骑手池，发送晚高峰订单邀约，确认可接单骑手数量，填补1%的运力缺口。\n2. 实时风险监控（置信度95%）\n   - 每15分钟刷新晚高峰订单量、骑手在线量数据，动态计算运力缺口率；\n   - 若缺口率攀升至3%及以上，触发第三方临时运力对接（置信度85%），补充备用运力。\n\n📚 参考知识库\n1. [参考:场景预案05午晚高峰运力不足处置预案]",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "duration": 447,
+        "output": "已检索到 3 条相关知识：\n  • 05 午晚高峰运力不足处置预案（场景预案）匹配度 44\n  • 📊 衡阳：预测 2085 单，缺口率 1%，成本 ¥25608，风险 low（历史经验）匹配度 24.934720069587414\n  • 📊 衡阳：预测 2085 单，缺口率 1%，成本 ¥25608，风险 low（历史经验）匹配度 16.35139249971739"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "duration": 159,
+        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "duration": 495,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "duration": 189,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "duration": 181,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "duration": 589,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "duration": 530,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "duration": 495,
+        "output": "由 doubao 生成建议"
+      }
+    ],
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T08:29:54.000Z"
+  },
+  {
     "id": "d_1785486561888_anyna0",
     "userId": null,
     "query": "衡阳晚高峰运力不足怎么办？",
