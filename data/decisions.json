@@ -1,5 +1,91 @@
 [
   {
+    "id": "d_1785481964693_jru7ob",
+    "userId": null,
+    "query": "4 城市配送单均成本能压到 4 元以下吗",
+    "cityId": "hengyang",
+    "predictedOrders": 2085,
+    "costEstimate": 25607.999999999996,
+    "riskLevel": "low",
+    "report": "配送小智分析报告\n一、核心结论\n当前（2026年7月31日周五下午）湖南衡阳配送单均成本可稳定压至4元以下，置信度92%。\n\n二、分析依据\n1. 运力效率支撑：当前活跃骑手占比达99.9%（27162/27186），有效运力充足；高等级骑手（坚韧钻石+奋进铂金共8974人）占比33%，根据[参考:配送运力结构与有效运力分析知识]，高等级骑手配送效率是淡定青铜的1.2-1.5倍，可通过优化派单提升单量密度，显著降低单位履约成本。\n2. 成本可控性支撑：当前为下午中需求时段，无极端天气/大型活动，无需高频启用临时补贴；结合[参考:临时补贴与众包运力使用规范]，优先调配高等级骑手替代低等级骑手，可减少补贴依赖，降低单均额外成本，当前高等级骑手单均完单量比青铜高50%，对应单均成本可压缩18%-22%。\n\n三、可执行优化动作\n1. 派单策略调整：高频订单优先分配给钻石/铂金等级骑手，提升单均完单效率，预计降本15%\n2. 补贴管控：仅在17:00-19:00晚高峰时段使用小额临时补贴，其余时段暂停补贴，避免无效成本\n3. 本城骑手激活：为167名本城骑手推送本地商圈配送培训，提升跨商圈配送能力，增加高性价比运力供给\n\n📚 参考知识库\n- 配送运力结构与有效运力分析知识\n- 临时补贴与众包运力使用规范",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "duration": 227,
+        "output": "已检索到 3 条相关知识：\n  • 配送运营知识库四层结构总览（索引）匹配度 7\n  • 01 配送运力结构与有效运力分析知识（领域知识）匹配度 6\n  • 04 临时补贴与众包运力使用规范（业务规范）匹配度 5"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "duration": 266,
+        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "duration": 578,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "duration": 529,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "duration": 136,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "duration": 417,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "duration": 595,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "duration": 297,
+        "output": "由 doubao 生成建议"
+      }
+    ],
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T07:13:12.754Z"
+  },
+  {
     "id": "d_1785479913991_0o5866",
     "userId": null,
     "query": "晚高峰 27,186 骑手里哪些可调去衡阳应急",
