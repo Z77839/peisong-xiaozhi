@@ -134,7 +134,8 @@
       "feedback": null,
       "feedbackAt": null,
       "success_rate": 0,
-      "retrieval_count": 0
+      "retrieval_count": 1,
+      "last_retrieved_at": "2026-07-31T08:33:39.588Z"
     },
     {
       "id": "d_1785486699523_rgmsm7",
@@ -270,8 +271,8 @@
       "feedback": null,
       "feedbackAt": null,
       "success_rate": 0,
-      "retrieval_count": 3,
-      "last_retrieved_at": "2026-07-31T08:32:20.190Z"
+      "retrieval_count": 4,
+      "last_retrieved_at": "2026-07-31T08:33:39.588Z"
     },
     {
       "id": "d_1785486674997_inw37y",
@@ -543,8 +544,8 @@
       "feedback": null,
       "feedbackAt": null,
       "success_rate": 0,
-      "retrieval_count": 9,
-      "last_retrieved_at": "2026-07-31T08:32:20.190Z"
+      "retrieval_count": 10,
+      "last_retrieved_at": "2026-07-31T08:33:39.588Z"
     },
     {
       "id": "d_1785486561888_anyna0",
@@ -2042,5 +2043,5 @@
     }
   ],
   "version": 1,
-  "lastUpdated": "2026-07-31T08:32:20.194Z"
+  "lastUpdated": "2026-07-31T08:33:39.588Z"
 }
