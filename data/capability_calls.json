@@ -254,5 +254,69 @@
     "decision_id": "d_1785485241081_c2d79n",
     "query": "衡阳晚高峰运力不足怎么办？",
     "timestamp": "2026-07-31T08:07:52.827Z"
+  },
+  {
+    "capability_name": "知识库检索能力",
+    "duration_ms": 140,
+    "status": "success",
+    "decision_id": "d_1785486228492_8ssg0n",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:24:17.967Z"
+  },
+  {
+    "capability_name": "任务路由能力",
+    "duration_ms": 459,
+    "status": "success",
+    "decision_id": "d_1785486228492_8ssg0n",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:24:17.968Z"
+  },
+  {
+    "capability_name": "订单预测能力",
+    "duration_ms": 309,
+    "status": "success",
+    "decision_id": "d_1785486228492_8ssg0n",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:24:17.969Z"
+  },
+  {
+    "capability_name": "运力分析能力",
+    "duration_ms": 540,
+    "status": "success",
+    "decision_id": "d_1785486228492_8ssg0n",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:24:17.970Z"
+  },
+  {
+    "capability_name": "成本分析能力",
+    "duration_ms": 313,
+    "status": "success",
+    "decision_id": "d_1785486228492_8ssg0n",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:24:17.971Z"
+  },
+  {
+    "capability_name": "派单推荐能力",
+    "duration_ms": 141,
+    "status": "success",
+    "decision_id": "d_1785486228492_8ssg0n",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:24:17.972Z"
+  },
+  {
+    "capability_name": "决策汇总能力",
+    "duration_ms": 362,
+    "status": "success",
+    "decision_id": "d_1785486228492_8ssg0n",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:24:17.973Z"
+  },
+  {
+    "capability_name": "报告生成能力",
+    "duration_ms": 545,
+    "status": "success",
+    "decision_id": "d_1785486228492_8ssg0n",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:24:17.974Z"
   }
 ]
