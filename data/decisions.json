@@ -1,5 +1,149 @@
 [
   {
+    "id": "d_1785491974519_nqsqqf",
+    "userId": null,
+    "query": "衡阳晚高峰运力",
+    "cityId": "hengyang",
+    "predictedOrders": 14161,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"衡阳晚高峰运力\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 14,161 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785491974855,
+        "finishedAt": 1785491975455,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785491974855,
+        "finishedAt": 1785491975455,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785491974855,
+        "finishedAt": 1785491975455,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785491974855,
+        "finishedAt": 1785491975455,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785491974855,
+        "finishedAt": 1785491975455,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785491974855,
+        "finishedAt": 1785491975455,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785491974855,
+        "finishedAt": 1785491975455,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785491974855,
+        "finishedAt": 1785491975455,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T09:59:34.855Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T09:59:34.865Z"
+  },
+  {
     "id": "d_1785491956776_hp2lxs",
     "userId": null,
     "query": "衡阳晚高峰运力",
