@@ -277,5 +277,13 @@
     "action": "login_success",
     "ip": "10.28.225.130",
     "createdAt": "2026-07-31T09:02:38.089Z"
+  },
+  {
+    "id": 38,
+    "userId": "u_1",
+    "action": "login_success",
+    "ip": "10.28.225.130",
+    "userAgent": "curl/7.88.1",
+    "createdAt": "2026-07-31T09:10:02.201Z"
   }
 ]
