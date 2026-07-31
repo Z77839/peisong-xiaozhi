@@ -78,5 +78,12 @@
     "ip": "10.29.8.3",
     "userAgent": "Python-urllib/3.11",
     "createdAt": "2026-07-31T08:16:30.590Z"
+  },
+  {
+    "id": 11,
+    "userId": "u_1",
+    "action": "login_success",
+    "ip": "10.31.126.2",
+    "createdAt": "2026-07-31T08:19:01.195Z"
   }
 ]
