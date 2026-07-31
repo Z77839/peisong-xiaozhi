@@ -343,7 +343,9 @@ async function runDecision() {
     const r: any = await request({
       url: '/decision/run',
       method: 'POST',
-      data: { query: q, cityId: cityStore.currentCityId, override }
+      // 🎬 演示模式：传 mock=true 跳过真实 LLM（86s+）→ 5s 完成
+      // 比赛录屏/演示视频时使用；正常使用时去掉 mock
+      data: { query: q, cityId: cityStore.currentCityId, override, mock: true }
     })
     // 更新 context（后端会返回这次用的）
     if (r.context) agentContext.value = r.context

@@ -148,7 +148,29 @@ export function mockWorkflow(query) {
 }
 
 export async function runDecisionWorkflow(query, options = {}) {
-  const { cityId = 'hengyang' } = options
+  const { cityId = 'hengyang', mock = false } = options
+  // 🆕 mock 模式（用于演示视频/录屏）—— 跳过真实 LLM 调用，立即返回 mock 结果
+  if (mock || process.env.DECISION_MOCK === 'true') {
+    console.log('[Decision] 🎬 mock 模式，跳过 LLM 直接返回')
+    const decisionId = `d_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+    // mock 模式也跳过 QWeather 网络调用（5s timeout 阻塞）
+    let ctx
+    try {
+      ctx = await Promise.race([
+        getAgentContext(cityId),
+        new Promise((_, rej) => setTimeout(() => rej(new Error('ctx-timeout')), 2000))
+      ])
+    } catch {
+      ctx = { city: '衡阳', cityId, datetime: new Date().toISOString(), weather: { icon: '☀️', label: '晴', temp: 24, source: 'mock' }, timeSlot: { icon: '🌆', name: '晚高峰', weight: '高' }, factors: [] }
+    }
+    const result = mockWorkflow(query)
+    result.decisionId = decisionId
+    result.id = decisionId
+    result.context = ctx
+    result.knowledgeUsed = retrieveKnowledge(query, 3)
+    return result
+  }
+
   // 智能体感知世界状态（时间/天气/节假日）
   const ctx = await getAgentContext(cityId)
   const decisionId = `d_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`

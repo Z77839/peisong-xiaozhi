@@ -11,7 +11,7 @@ import { API_BASE_URL } from '@/utils/apiBase'
 const TIMEOUT_PROFILE = {
   health: 30_000,        // /api/health: 容忍 Render 冷启动
   fast: 15_000,          // 普通查询（Dashboard / 列表 / 状态）
-  ai: 90_000,            // /api/decision/run / /api/chat/* 允许更长
+  ai: 180_000,            // /api/decision/run / /api/chat/* 允许更长（真实 LLM 86s+）
   upload: 120_000        // 知识库上传等
 }
 
@@ -45,7 +45,10 @@ service.interceptors.request.use(
     }
     // 按 url 调整单次 timeout
     const url = config.url || ''
-    config.timeout = pickTimeout(url.startsWith('http') ? new URL(url).pathname : url)
+    const normUrl = url.startsWith('http') ? new URL(url).pathname : url
+    const t = pickTimeout(normUrl)
+    console.log('[DEBUG] request:', url, 'norm:', normUrl, 'timeout:', t)
+    config.timeout = t
     return config
   }
 )

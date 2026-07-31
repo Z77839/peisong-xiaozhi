@@ -5,6 +5,8 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'node:path'
 
+const RENDER_BACKEND = 'https://peisong-backend.onrender.com'
+
 export default defineConfig({
   base: process.env.VITE_BASE_PATH || '/',
   plugins: [
@@ -22,8 +24,9 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true
+        target: RENDER_BACKEND,
+        changeOrigin: true,
+        secure: true
       }
     }
   }

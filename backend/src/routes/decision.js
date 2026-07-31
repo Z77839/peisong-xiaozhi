@@ -137,12 +137,12 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/run', async (req, res) => {
-  const { query, cityId, override } = req.body || {}
+  const { query, cityId, override, mock } = req.body || {}
   if (!query || typeof query !== 'string') {
     return res.status(400).json({ code: 400, message: 'query 必填' })
   }
   try {
-    const result = await runDecisionWorkflow(query, { cityId, override: override || {} })
+    const result = await runDecisionWorkflow(query, { cityId, override: override || {}, mock: !!mock })
     // 决策 ID 修复：cozeService 返回的字段是 decisionId（不是 id）
     // 这里取到同一个 id 传给 saveDecision，让历史记录 / 派单 / 反馈 / 回跳全链路共享一个 ID
     const decisionId = result.decisionId || result.id || `d_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
