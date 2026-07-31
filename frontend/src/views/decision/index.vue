@@ -774,8 +774,10 @@ function copyReport() {
         <div v-if="result.knowledgeUsed && result.knowledgeUsed.length" class="kb-section">
           <div class="kb-header">
             <span class="kb-ico">📚</span>
-            <span class="kb-title">本回答参考了 {{ result.knowledgeUsed.length }} 条知识库</span>
-            <span class="kb-sub">AI 在生成答案时检索了这些运营文档</span>
+            <div class="kb-titles">
+              <span class="kb-title">本回答参考了 <strong>{{ result.knowledgeUsed.length }}</strong> 条{{ result.knowledgeUsed[0]?._type === 'case' ? '历史经验 + 运营文档' : '运营知识' }}</span>
+              <span class="kb-sub">AI 在生成答案时自动检索了相关资料</span>
+            </div>
           </div>
           <div class="kb-list">
             <div v-for="(k, ki) in result.knowledgeUsed" :key="ki" :class="['kb-item', k._type === 'case' ? 'case' : 'doc']">
