@@ -126,5 +126,69 @@
     "decision_id": "d_1785481964693_jru7ob",
     "query": "4 城市配送单均成本能压到 4 元以下吗",
     "timestamp": "2026-07-31T07:13:12.749Z"
+  },
+  {
+    "capability_name": "知识库检索能力",
+    "duration_ms": 406,
+    "status": "success",
+    "decision_id": "d_1785484781546_850wgs",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:00:04.437Z"
+  },
+  {
+    "capability_name": "任务路由能力",
+    "duration_ms": 516,
+    "status": "success",
+    "decision_id": "d_1785484781546_850wgs",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:00:04.438Z"
+  },
+  {
+    "capability_name": "订单预测能力",
+    "duration_ms": 533,
+    "status": "success",
+    "decision_id": "d_1785484781546_850wgs",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:00:04.438Z"
+  },
+  {
+    "capability_name": "运力分析能力",
+    "duration_ms": 410,
+    "status": "success",
+    "decision_id": "d_1785484781546_850wgs",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:00:04.439Z"
+  },
+  {
+    "capability_name": "成本分析能力",
+    "duration_ms": 314,
+    "status": "success",
+    "decision_id": "d_1785484781546_850wgs",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:00:04.440Z"
+  },
+  {
+    "capability_name": "派单推荐能力",
+    "duration_ms": 452,
+    "status": "success",
+    "decision_id": "d_1785484781546_850wgs",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:00:04.441Z"
+  },
+  {
+    "capability_name": "决策汇总能力",
+    "duration_ms": 113,
+    "status": "success",
+    "decision_id": "d_1785484781546_850wgs",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:00:04.442Z"
+  },
+  {
+    "capability_name": "报告生成能力",
+    "duration_ms": 528,
+    "status": "success",
+    "decision_id": "d_1785484781546_850wgs",
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "timestamp": "2026-07-31T08:00:04.443Z"
   }
 ]
