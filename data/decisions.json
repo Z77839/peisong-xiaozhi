@@ -1,5 +1,91 @@
 [
   {
+    "id": "d_1785489903051_uolscy",
+    "userId": null,
+    "query": "衡阳晚高峰运力",
+    "cityId": "hengyang",
+    "predictedOrders": 2085,
+    "costEstimate": 25607.999999999996,
+    "riskLevel": "low",
+    "report": "# 配送小智·衡阳2026年7月31日晚高峰运力专项决策建议\n## 一、核心运力匹配判断（置信度92%）\n基于当前时间（17:25）、周五晚高峰（18:00-20:00）场景及衡阳本地历史运力测算数据，结论如下：\n1. 晚高峰预测订单量：2085单\n2. 有效运力匹配缺口率：0%\n3. 整体运力风险等级：low（低风险）\n\n## 二、前置风险核查执行要求（执行优先级：高，置信度92%）\n依据[参考:场景预案 05 午晚高峰运力不足处置预案]的风险分析框架，需在30分钟内完成以下核心指标确认，实时监控运力动态以预防风险：\n- 当前有效骑手数量\n- 高峰时段在线骑手数量\n- 近7日衡阳晚高峰完单能力\n- 当前履约率、准时率\n- 骑手负载情况\n\n📚 参考知识库\n[场景预案 05 午晚高峰运力不足处置预案]\n[配送小智·衡阳2026年7月31日晚高峰运力专项报告]",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "duration": 507,
+        "output": "已检索到 3 条相关知识：\n  • 05 午晚高峰运力不足处置预案（场景预案）匹配度 28\n  • 📊 衡阳：预测 2085 单，缺口率 0%，成本 ¥25608，风险 low（历史经验）匹配度 19.543429243730674\n  • 📊 衡阳：预测 2085 单，缺口率 0%，成本 ¥25608，风险 low（历史经验）匹配度 19.543429243730674"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "duration": 109,
+        "output": "已路由到 doubao (doubao-seed-2-0-mini-260428)"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "duration": 152,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "duration": 329,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "duration": 156,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "duration": 554,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "duration": 348,
+        "output": "由 doubao 生成建议"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "duration": 262,
+        "output": "由 doubao 生成建议"
+      }
+    ],
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T09:25:19.954Z"
+  },
+  {
     "id": "d_1785489670302_iwe7dg",
     "userId": null,
     "query": "衡阳晚高峰运力不足怎么办？",
