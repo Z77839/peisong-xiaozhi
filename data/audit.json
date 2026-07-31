@@ -159,5 +159,12 @@
     "action": "login_success",
     "ip": "10.28.225.130",
     "createdAt": "2026-07-31T08:31:38.391Z"
+  },
+  {
+    "id": 22,
+    "userId": "u_1",
+    "action": "login_success",
+    "ip": "10.28.225.130",
+    "createdAt": "2026-07-31T08:33:33.092Z"
   }
 ]
