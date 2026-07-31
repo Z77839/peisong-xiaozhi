@@ -5,6 +5,16 @@ import { ElMessage } from 'element-plus'
 import { runMultiAgentWorkflow, type AgentRunResult } from '@/api/coze'
 import request from '@/api/request'
 import { useCityStore } from '@/store/city'
+import MarkdownIt from 'markdown-it'
+import DOMPurify from 'dompurify'
+
+const md = new MarkdownIt({
+  html: false,        // 安全：禁 HTML
+  linkify: true,      // 自动识别链接
+  breaks: true,       // 单换行变 <br>
+  typographer: true   // 智能排版（中文标点优化）
+})
+const renderMd = (src) => DOMPurify.sanitize(md.render(src || ''))
 import { formatNumber, relativeTime } from '@/utils/format'
 import { renderMarkdown } from '@/utils/markdown'
 
@@ -775,7 +785,7 @@ function copyReport() {
                 <span class="kb-cat">{{ k.cat }}</span>
                 <span class="kb-score">匹配度 {{ k.score }}</span>
               </div>
-              <div class="kb-excerpt">{{ k.excerpt }}</div>
+              <div class="kb-excerpt markdown-body" v-html="renderMd(k.excerpt)"></div>
             </div>
           </div>
         </div>
