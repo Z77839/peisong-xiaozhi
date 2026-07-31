@@ -1,5 +1,5765 @@
 [
   {
+    "id": "d_1785492277365_5mjbxm",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 14739,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 14,739 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492277557,
+        "finishedAt": 1785492278157,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492277557,
+        "finishedAt": 1785492278157,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492277557,
+        "finishedAt": 1785492278157,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492277557,
+        "finishedAt": 1785492278157,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492277557,
+        "finishedAt": 1785492278157,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492277557,
+        "finishedAt": 1785492278157,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492277557,
+        "finishedAt": 1785492278157,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492277557,
+        "finishedAt": 1785492278157,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:37.557Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:37.655Z"
+  },
+  {
+    "id": "d_1785492275066_1keb9y",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 14396,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 14,396 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492275335,
+        "finishedAt": 1785492275935,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492275335,
+        "finishedAt": 1785492275935,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492275335,
+        "finishedAt": 1785492275935,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492275335,
+        "finishedAt": 1785492275935,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492275335,
+        "finishedAt": 1785492275935,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492275335,
+        "finishedAt": 1785492275935,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492275335,
+        "finishedAt": 1785492275935,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492275335,
+        "finishedAt": 1785492275935,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:35.335Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:35.452Z"
+  },
+  {
+    "id": "d_1785492273567_bt9u71",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15440,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,440 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492273765,
+        "finishedAt": 1785492274365,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492273765,
+        "finishedAt": 1785492274365,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492273765,
+        "finishedAt": 1785492274365,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492273765,
+        "finishedAt": 1785492274365,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492273765,
+        "finishedAt": 1785492274365,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492273765,
+        "finishedAt": 1785492274365,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492273765,
+        "finishedAt": 1785492274365,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492273765,
+        "finishedAt": 1785492274365,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:33.765Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:33.864Z"
+  },
+  {
+    "id": "d_1785492272057_2ihr2f",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15082,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,082 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492272243,
+        "finishedAt": 1785492272843,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492272243,
+        "finishedAt": 1785492272843,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492272243,
+        "finishedAt": 1785492272843,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492272243,
+        "finishedAt": 1785492272843,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492272243,
+        "finishedAt": 1785492272843,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492272243,
+        "finishedAt": 1785492272843,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492272243,
+        "finishedAt": 1785492272843,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492272243,
+        "finishedAt": 1785492272843,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:32.243Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:32.354Z"
+  },
+  {
+    "id": "d_1785492270552_glqxsv",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 13470,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 13,470 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492270757,
+        "finishedAt": 1785492271357,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492270757,
+        "finishedAt": 1785492271357,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492270757,
+        "finishedAt": 1785492271357,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492270757,
+        "finishedAt": 1785492271357,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492270757,
+        "finishedAt": 1785492271357,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492270757,
+        "finishedAt": 1785492271357,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492270757,
+        "finishedAt": 1785492271357,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492270757,
+        "finishedAt": 1785492271357,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:30.757Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:30.857Z"
+  },
+  {
+    "id": "d_1785492269056_x01n78",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15792,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,792 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492269244,
+        "finishedAt": 1785492269844,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492269244,
+        "finishedAt": 1785492269844,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492269244,
+        "finishedAt": 1785492269844,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492269244,
+        "finishedAt": 1785492269844,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492269244,
+        "finishedAt": 1785492269844,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492269244,
+        "finishedAt": 1785492269844,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492269244,
+        "finishedAt": 1785492269844,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492269244,
+        "finishedAt": 1785492269844,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:29.244Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:29.264Z"
+  },
+  {
+    "id": "d_1785492267553_rj5vnx",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 13786,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 13,786 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492267762,
+        "finishedAt": 1785492268362,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492267762,
+        "finishedAt": 1785492268362,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492267762,
+        "finishedAt": 1785492268362,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492267762,
+        "finishedAt": 1785492268362,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492267762,
+        "finishedAt": 1785492268362,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492267762,
+        "finishedAt": 1785492268362,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492267762,
+        "finishedAt": 1785492268362,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492267762,
+        "finishedAt": 1785492268362,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:27.762Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:27.862Z"
+  },
+  {
+    "id": "d_1785492266048_v2liof",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 13599,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 13,599 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492266238,
+        "finishedAt": 1785492266838,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492266238,
+        "finishedAt": 1785492266838,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492266238,
+        "finishedAt": 1785492266838,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492266238,
+        "finishedAt": 1785492266838,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492266238,
+        "finishedAt": 1785492266838,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492266238,
+        "finishedAt": 1785492266838,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492266238,
+        "finishedAt": 1785492266838,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492266238,
+        "finishedAt": 1785492266838,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:26.238Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:26.262Z"
+  },
+  {
+    "id": "d_1785492264543_0c48yy",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 13739,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 13,739 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492264742,
+        "finishedAt": 1785492265342,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492264742,
+        "finishedAt": 1785492265342,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492264742,
+        "finishedAt": 1785492265342,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492264742,
+        "finishedAt": 1785492265342,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492264742,
+        "finishedAt": 1785492265342,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492264742,
+        "finishedAt": 1785492265342,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492264742,
+        "finishedAt": 1785492265342,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492264742,
+        "finishedAt": 1785492265342,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 1,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:24.743Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:24.861Z"
+  },
+  {
+    "id": "d_1785492263045_3jhake",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 13854,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 13,854 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492263237,
+        "finishedAt": 1785492263837,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492263237,
+        "finishedAt": 1785492263837,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492263237,
+        "finishedAt": 1785492263837,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492263237,
+        "finishedAt": 1785492263837,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492263237,
+        "finishedAt": 1785492263837,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492263237,
+        "finishedAt": 1785492263837,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492263237,
+        "finishedAt": 1785492263837,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492263237,
+        "finishedAt": 1785492263837,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:23.237Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:23.263Z"
+  },
+  {
+    "id": "d_1785492261533_84xwlk",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15116,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,116 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492261732,
+        "finishedAt": 1785492262332,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492261732,
+        "finishedAt": 1785492262332,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492261732,
+        "finishedAt": 1785492262332,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492261732,
+        "finishedAt": 1785492262332,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492261732,
+        "finishedAt": 1785492262332,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492261732,
+        "finishedAt": 1785492262332,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492261732,
+        "finishedAt": 1785492262332,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492261732,
+        "finishedAt": 1785492262332,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:21.732Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:21.858Z"
+  },
+  {
+    "id": "d_1785492260028_cs4zzk",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 14495,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 14,495 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492260219,
+        "finishedAt": 1785492260819,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492260219,
+        "finishedAt": 1785492260819,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492260219,
+        "finishedAt": 1785492260819,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492260219,
+        "finishedAt": 1785492260819,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492260219,
+        "finishedAt": 1785492260819,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492260219,
+        "finishedAt": 1785492260819,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492260219,
+        "finishedAt": 1785492260819,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492260219,
+        "finishedAt": 1785492260819,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:20.219Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:20.353Z"
+  },
+  {
+    "id": "d_1785492258527_duasb0",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15163,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,163 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492258721,
+        "finishedAt": 1785492259321,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492258721,
+        "finishedAt": 1785492259321,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492258721,
+        "finishedAt": 1785492259321,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492258721,
+        "finishedAt": 1785492259321,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492258721,
+        "finishedAt": 1785492259321,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492258721,
+        "finishedAt": 1785492259321,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492258721,
+        "finishedAt": 1785492259321,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492258721,
+        "finishedAt": 1785492259321,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:18.721Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:18.763Z"
+  },
+  {
+    "id": "d_1785492257016_nnen6k",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15725,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,725 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492257213,
+        "finishedAt": 1785492257813,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492257213,
+        "finishedAt": 1785492257813,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492257213,
+        "finishedAt": 1785492257813,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492257213,
+        "finishedAt": 1785492257813,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492257213,
+        "finishedAt": 1785492257813,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492257213,
+        "finishedAt": 1785492257813,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492257213,
+        "finishedAt": 1785492257813,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492257213,
+        "finishedAt": 1785492257813,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:17.213Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:17.659Z"
+  },
+  {
+    "id": "d_1785492255518_d5g2pb",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 13349,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 13,349 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492255714,
+        "finishedAt": 1785492256314,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492255714,
+        "finishedAt": 1785492256314,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492255714,
+        "finishedAt": 1785492256314,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492255714,
+        "finishedAt": 1785492256314,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492255714,
+        "finishedAt": 1785492256314,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492255714,
+        "finishedAt": 1785492256314,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492255714,
+        "finishedAt": 1785492256314,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492255714,
+        "finishedAt": 1785492256314,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:15.714Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:15.763Z"
+  },
+  {
+    "id": "d_1785492254024_wn3m80",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15098,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,098 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492254216,
+        "finishedAt": 1785492254816,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492254216,
+        "finishedAt": 1785492254816,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492254216,
+        "finishedAt": 1785492254816,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492254216,
+        "finishedAt": 1785492254816,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492254216,
+        "finishedAt": 1785492254816,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492254216,
+        "finishedAt": 1785492254816,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492254216,
+        "finishedAt": 1785492254816,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492254216,
+        "finishedAt": 1785492254816,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:14.216Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:14.264Z"
+  },
+  {
+    "id": "d_1785492253334_n2bzq8",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15386,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,386 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492253517,
+        "finishedAt": 1785492254117,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492253517,
+        "finishedAt": 1785492254117,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492253517,
+        "finishedAt": 1785492254117,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492253517,
+        "finishedAt": 1785492254117,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492253517,
+        "finishedAt": 1785492254117,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492253517,
+        "finishedAt": 1785492254117,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492253517,
+        "finishedAt": 1785492254117,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492253517,
+        "finishedAt": 1785492254117,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:13.517Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:13.563Z"
+  },
+  {
+    "id": "d_1785492251011_vvseho",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15428,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,428 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492251204,
+        "finishedAt": 1785492251804,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492251204,
+        "finishedAt": 1785492251804,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492251204,
+        "finishedAt": 1785492251804,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492251204,
+        "finishedAt": 1785492251804,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492251204,
+        "finishedAt": 1785492251804,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492251204,
+        "finishedAt": 1785492251804,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492251204,
+        "finishedAt": 1785492251804,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492251204,
+        "finishedAt": 1785492251804,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:11.204Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:11.552Z"
+  },
+  {
+    "id": "d_1785492249499_1pqg4a",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 16196,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 16,196 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492249688,
+        "finishedAt": 1785492250288,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492249688,
+        "finishedAt": 1785492250288,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492249688,
+        "finishedAt": 1785492250288,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492249688,
+        "finishedAt": 1785492250288,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492249688,
+        "finishedAt": 1785492250288,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492249688,
+        "finishedAt": 1785492250288,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492249688,
+        "finishedAt": 1785492250288,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492249688,
+        "finishedAt": 1785492250288,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:09.688Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:09.761Z"
+  },
+  {
+    "id": "d_1785492248001_r4r98b",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15355,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,355 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492248255,
+        "finishedAt": 1785492248855,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492248255,
+        "finishedAt": 1785492248855,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492248255,
+        "finishedAt": 1785492248855,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492248255,
+        "finishedAt": 1785492248855,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492248255,
+        "finishedAt": 1785492248855,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492248255,
+        "finishedAt": 1785492248855,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492248255,
+        "finishedAt": 1785492248855,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492248255,
+        "finishedAt": 1785492248855,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:08.255Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:08.361Z"
+  },
+  {
+    "id": "d_1785492246492_76flqg",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15068,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,068 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492246688,
+        "finishedAt": 1785492247288,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492246688,
+        "finishedAt": 1785492247288,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492246688,
+        "finishedAt": 1785492247288,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492246688,
+        "finishedAt": 1785492247288,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492246688,
+        "finishedAt": 1785492247288,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492246688,
+        "finishedAt": 1785492247288,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492246688,
+        "finishedAt": 1785492247288,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492246688,
+        "finishedAt": 1785492247288,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:06.688Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:06.853Z"
+  },
+  {
+    "id": "d_1785492244989_bwitln",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15822,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,822 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492245184,
+        "finishedAt": 1785492245784,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492245184,
+        "finishedAt": 1785492245784,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492245184,
+        "finishedAt": 1785492245784,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492245184,
+        "finishedAt": 1785492245784,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492245184,
+        "finishedAt": 1785492245784,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492245184,
+        "finishedAt": 1785492245784,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492245184,
+        "finishedAt": 1785492245784,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492245184,
+        "finishedAt": 1785492245784,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:05.184Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:05.262Z"
+  },
+  {
+    "id": "d_1785492243477_gicgri",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 13685,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 13,685 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492243669,
+        "finishedAt": 1785492244269,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492243669,
+        "finishedAt": 1785492244269,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492243669,
+        "finishedAt": 1785492244269,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492243669,
+        "finishedAt": 1785492244269,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492243669,
+        "finishedAt": 1785492244269,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492243669,
+        "finishedAt": 1785492244269,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492243669,
+        "finishedAt": 1785492244269,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492243669,
+        "finishedAt": 1785492244269,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:03.669Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:03.764Z"
+  },
+  {
+    "id": "d_1785492242105_o9tmt1",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15294,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,294 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492242288,
+        "finishedAt": 1785492242888,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492242288,
+        "finishedAt": 1785492242888,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492242288,
+        "finishedAt": 1785492242888,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492242288,
+        "finishedAt": 1785492242888,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492242288,
+        "finishedAt": 1785492242888,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492242288,
+        "finishedAt": 1785492242888,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492242288,
+        "finishedAt": 1785492242888,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492242288,
+        "finishedAt": 1785492242888,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:02.288Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:02.362Z"
+  },
+  {
+    "id": "d_1785492240462_r223um",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 16082,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 16,082 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492240646,
+        "finishedAt": 1785492241246,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492240646,
+        "finishedAt": 1785492241246,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492240646,
+        "finishedAt": 1785492241246,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492240646,
+        "finishedAt": 1785492241246,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492240646,
+        "finishedAt": 1785492241246,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492240646,
+        "finishedAt": 1785492241246,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492240646,
+        "finishedAt": 1785492241246,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492240646,
+        "finishedAt": 1785492241246,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:04:00.646Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:04:00.665Z"
+  },
+  {
+    "id": "d_1785492238957_hmtond",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15249,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,249 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492239140,
+        "finishedAt": 1785492239740,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492239140,
+        "finishedAt": 1785492239740,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492239140,
+        "finishedAt": 1785492239740,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492239140,
+        "finishedAt": 1785492239740,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492239140,
+        "finishedAt": 1785492239740,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492239140,
+        "finishedAt": 1785492239740,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492239140,
+        "finishedAt": 1785492239740,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492239140,
+        "finishedAt": 1785492239740,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:59.140Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:59.164Z"
+  },
+  {
+    "id": "d_1785492237458_s8fytp",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 14981,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 14,981 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492237658,
+        "finishedAt": 1785492238258,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492237658,
+        "finishedAt": 1785492238258,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492237658,
+        "finishedAt": 1785492238258,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492237658,
+        "finishedAt": 1785492238258,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492237658,
+        "finishedAt": 1785492238258,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492237658,
+        "finishedAt": 1785492238258,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492237658,
+        "finishedAt": 1785492238258,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492237658,
+        "finishedAt": 1785492238258,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:57.658Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:57.759Z"
+  },
+  {
+    "id": "d_1785492236367_r0mn36",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 13252,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 13,252 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492236564,
+        "finishedAt": 1785492237164,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492236564,
+        "finishedAt": 1785492237164,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492236564,
+        "finishedAt": 1785492237164,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492236564,
+        "finishedAt": 1785492237164,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492236564,
+        "finishedAt": 1785492237164,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492236564,
+        "finishedAt": 1785492237164,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492236564,
+        "finishedAt": 1785492237164,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492236564,
+        "finishedAt": 1785492237164,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:56.564Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:56.661Z"
+  },
+  {
+    "id": "d_1785492234435_s1mzo1",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 13911,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 13,911 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492235257,
+        "finishedAt": 1785492235857,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492235257,
+        "finishedAt": 1785492235857,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492235257,
+        "finishedAt": 1785492235857,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492235257,
+        "finishedAt": 1785492235857,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492235257,
+        "finishedAt": 1785492235857,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492235257,
+        "finishedAt": 1785492235857,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492235257,
+        "finishedAt": 1785492235857,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492235257,
+        "finishedAt": 1785492235857,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:55.257Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:55.358Z"
+  },
+  {
+    "id": "d_1785492232928_5f1dls",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 14891,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 14,891 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492233112,
+        "finishedAt": 1785492233712,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492233112,
+        "finishedAt": 1785492233712,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492233112,
+        "finishedAt": 1785492233712,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492233112,
+        "finishedAt": 1785492233712,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492233112,
+        "finishedAt": 1785492233712,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492233112,
+        "finishedAt": 1785492233712,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492233112,
+        "finishedAt": 1785492233712,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492233112,
+        "finishedAt": 1785492233712,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:53.112Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:53.267Z"
+  },
+  {
+    "id": "d_1785492231428_haezbq",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15892,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,892 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492231655,
+        "finishedAt": 1785492232255,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492231655,
+        "finishedAt": 1785492232255,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492231655,
+        "finishedAt": 1785492232255,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492231655,
+        "finishedAt": 1785492232255,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492231655,
+        "finishedAt": 1785492232255,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492231655,
+        "finishedAt": 1785492232255,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492231655,
+        "finishedAt": 1785492232255,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492231655,
+        "finishedAt": 1785492232255,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:51.655Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:51.771Z"
+  },
+  {
+    "id": "d_1785492229919_gv4n07",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 14538,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 14,538 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492230152,
+        "finishedAt": 1785492230752,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492230152,
+        "finishedAt": 1785492230752,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492230152,
+        "finishedAt": 1785492230752,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492230152,
+        "finishedAt": 1785492230752,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492230152,
+        "finishedAt": 1785492230752,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492230152,
+        "finishedAt": 1785492230752,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492230152,
+        "finishedAt": 1785492230752,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492230152,
+        "finishedAt": 1785492230752,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:50.152Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:50.267Z"
+  },
+  {
+    "id": "d_1785492228415_jjtqw3",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 14339,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 14,339 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492228599,
+        "finishedAt": 1785492229199,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492228599,
+        "finishedAt": 1785492229199,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492228599,
+        "finishedAt": 1785492229199,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492228599,
+        "finishedAt": 1785492229199,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492228599,
+        "finishedAt": 1785492229199,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492228599,
+        "finishedAt": 1785492229199,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492228599,
+        "finishedAt": 1785492229199,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492228599,
+        "finishedAt": 1785492229199,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:48.599Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:48.661Z"
+  },
+  {
+    "id": "d_1785492226916_nxrcgc",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 16079,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 16,079 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492227111,
+        "finishedAt": 1785492227711,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492227111,
+        "finishedAt": 1785492227711,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492227111,
+        "finishedAt": 1785492227711,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492227111,
+        "finishedAt": 1785492227711,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492227111,
+        "finishedAt": 1785492227711,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492227111,
+        "finishedAt": 1785492227711,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492227111,
+        "finishedAt": 1785492227711,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492227111,
+        "finishedAt": 1785492227711,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:47.111Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:47.164Z"
+  },
+  {
+    "id": "d_1785492225542_pk6v0a",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15031,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,031 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492225738,
+        "finishedAt": 1785492226338,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492225738,
+        "finishedAt": 1785492226338,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492225738,
+        "finishedAt": 1785492226338,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492225738,
+        "finishedAt": 1785492226338,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492225738,
+        "finishedAt": 1785492226338,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492225738,
+        "finishedAt": 1785492226338,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492225738,
+        "finishedAt": 1785492226338,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492225738,
+        "finishedAt": 1785492226338,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:45.738Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:45.764Z"
+  },
+  {
+    "id": "d_1785492223908_pjzajv",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 15233,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,233 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492224102,
+        "finishedAt": 1785492224702,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492224102,
+        "finishedAt": 1785492224702,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492224102,
+        "finishedAt": 1785492224702,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492224102,
+        "finishedAt": 1785492224702,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492224102,
+        "finishedAt": 1785492224702,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492224102,
+        "finishedAt": 1785492224702,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492224102,
+        "finishedAt": 1785492224702,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492224102,
+        "finishedAt": 1785492224702,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:44.102Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:44.163Z"
+  },
+  {
+    "id": "d_1785492222408_zk8t9j",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 13773,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 13,773 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492222602,
+        "finishedAt": 1785492223202,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492222602,
+        "finishedAt": 1785492223202,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492222602,
+        "finishedAt": 1785492223202,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492222602,
+        "finishedAt": 1785492223202,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492222602,
+        "finishedAt": 1785492223202,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492222602,
+        "finishedAt": 1785492223202,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492222602,
+        "finishedAt": 1785492223202,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492222602,
+        "finishedAt": 1785492223202,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:42.602Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:42.664Z"
+  },
+  {
+    "id": "d_1785492220899_ynlr6m",
+    "userId": null,
+    "query": "keepalive",
+    "cityId": "hengyang",
+    "predictedOrders": 14302,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"keepalive\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 14,302 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492221092,
+        "finishedAt": 1785492221692,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492221092,
+        "finishedAt": 1785492221692,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492221092,
+        "finishedAt": 1785492221692,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492221092,
+        "finishedAt": 1785492221692,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492221092,
+        "finishedAt": 1785492221692,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492221092,
+        "finishedAt": 1785492221692,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492221092,
+        "finishedAt": 1785492221692,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492221092,
+        "finishedAt": 1785492221692,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:41.092Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:41.160Z"
+  },
+  {
+    "id": "d_1785492219389_e9uao2",
+    "userId": null,
+    "query": "warmup",
+    "cityId": "hengyang",
+    "predictedOrders": 15666,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"warmup\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 15,666 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492219582,
+        "finishedAt": 1785492220182,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492219582,
+        "finishedAt": 1785492220182,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492219582,
+        "finishedAt": 1785492220182,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492219582,
+        "finishedAt": 1785492220182,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492219582,
+        "finishedAt": 1785492220182,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492219582,
+        "finishedAt": 1785492220182,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492219582,
+        "finishedAt": 1785492220182,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492219582,
+        "finishedAt": 1785492220182,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:39.582Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:39.663Z"
+  },
+  {
+    "id": "d_1785492214482_i26bsz",
+    "userId": null,
+    "query": "衡阳晚高峰运力不足怎么办？",
+    "cityId": "hengyang",
+    "predictedOrders": 13932,
+    "costEstimate": 48000,
+    "riskLevel": "low",
+    "report": "【配送小智 · AI 运营决策报告】\n\n针对您的问题：\"衡阳晚高峰运力不足怎么办？\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━\n\n▍ 订单预测\n预测今日订单 13,932 单，环比 ↑ 12.3%\n高峰出现在 17:30-19:30，尖峰单量可达 380 单/15 分钟\n\n▍ 运力评估\n当前在岗骑手 462 人，预测需求量 498 人\n运力缺口 36 人（其中蜂跑缺口 18 人）\n\n▍ 多运力线成本（Pareto）\n• 蜂跑 ¥3.69/单  ⭐ 最低\n• 普通众包 ¥4.36/单\n• 专送 ¥4.90/单\n• 优选 ¥5.04/单\n• 优远 ¥7.17/单\n\n▍ AI 决策建议\n1. 紧急扩容蜂跑 18 人，对接衡阳 3 所高校 KOL\n2. 高峰时段优先派单蜂跑 + 普通众包\n3. 启动临时补贴方案（¥2/单），召募预备运力\n\n▍ 风险等级\n综合评估：LOW\n\n▍ 预计收益\n• 单均成本下降：¥1.21（近单切换）\n• 时效提升：+8%\n• 履约投诉：下降 22%\n• 月度综合节省：¥48,000+\n",
+    "steps": [
+      {
+        "id": "knowledge-retrieve",
+        "name": "知识库检索能力",
+        "desc": "RAG · 检索相关运营知识",
+        "icon": "📚",
+        "status": "success",
+        "startedAt": 1785492214685,
+        "finishedAt": 1785492215285,
+        "output": "已将问题拆解为「运力扩容 + 成本评估 + 风险预警」三类子任务"
+      },
+      {
+        "id": "task-router",
+        "name": "任务路由能力",
+        "desc": "识别意图·拆解任务",
+        "icon": "🔀",
+        "status": "success",
+        "startedAt": 1785492214685,
+        "finishedAt": 1785492215285,
+        "output": "基于衡阳过去 30 天数据：今晚 18-20 点单量约 15,600 单，环比上涨 12.3%"
+      },
+      {
+        "id": "order-predict",
+        "name": "订单预测能力",
+        "desc": "AI 模型预测各时段订单",
+        "icon": "📈",
+        "status": "success",
+        "startedAt": 1785492214685,
+        "finishedAt": 1785492215285,
+        "output": "当前运力 462 人，高峰缺口 36 人（其中蜂跑缺口 18 人）"
+      },
+      {
+        "id": "rider-analyze",
+        "name": "运力分析能力",
+        "desc": "5 运力线智能匹配",
+        "icon": "🚴",
+        "status": "success",
+        "startedAt": 1785492214685,
+        "finishedAt": 1785492215285,
+        "output": "专送¥4.90 / 优选¥5.04 / 优远¥7.17 / 普通众包¥4.36 / 蜂跑¥3.69"
+      },
+      {
+        "id": "cost-analyze",
+        "name": "成本分析能力",
+        "desc": "多运力成本 Pareto",
+        "icon": "💰",
+        "status": "success",
+        "startedAt": 1785492214685,
+        "finishedAt": 1785492215285,
+        "output": "建议将 3km 内近单切换蜂跑（单价最低），峰值时段启用众包兜底"
+      },
+      {
+        "id": "dispatch-rec",
+        "name": "派单推荐能力",
+        "desc": "蜂跑+众包+专送智能调度",
+        "icon": "📦",
+        "status": "success",
+        "startedAt": 1785492214685,
+        "finishedAt": 1785492215285,
+        "output": "综合评分 92/100，蜂跑扩容 ROI 最高，预计月度节省 ¥48,000"
+      },
+      {
+        "id": "decision-merge",
+        "name": "决策汇总能力",
+        "desc": "综合评估·生成报告",
+        "icon": "🧠",
+        "status": "success",
+        "startedAt": 1785492214685,
+        "finishedAt": 1785492215285,
+        "output": "已生成可执行的运力优化报告"
+      },
+      {
+        "id": "report-gen",
+        "name": "报告生成能力",
+        "desc": "结构化输出",
+        "icon": "📊",
+        "status": "success",
+        "startedAt": 1785492214685,
+        "finishedAt": 1785492215285,
+        "output": ""
+      }
+    ],
+    "tracking": {
+      "totalMs": 0,
+      "capabilityCount": 8,
+      "successCount": 8,
+      "warningCount": 0,
+      "capabilities": [
+        {
+          "name": "知识库检索能力",
+          "icon": "📚",
+          "status": "success"
+        },
+        {
+          "name": "任务路由能力",
+          "icon": "🔀",
+          "status": "success"
+        },
+        {
+          "name": "订单预测能力",
+          "icon": "📈",
+          "status": "success"
+        },
+        {
+          "name": "运力分析能力",
+          "icon": "🚴",
+          "status": "success"
+        },
+        {
+          "name": "成本分析能力",
+          "icon": "💰",
+          "status": "success"
+        },
+        {
+          "name": "派单推荐能力",
+          "icon": "📦",
+          "status": "success"
+        },
+        {
+          "name": "决策汇总能力",
+          "icon": "🧠",
+          "status": "success"
+        },
+        {
+          "name": "报告生成能力",
+          "icon": "📊",
+          "status": "success"
+        }
+      ],
+      "model": "mock-coze-fallback",
+      "timestamp": "2026-07-31T10:03:34.685Z"
+    },
+    "cozeUsed": false,
+    "createdAt": "2026-07-31T10:03:34.852Z"
+  },
+  {
     "id": "d_1785492176142_o3qyct",
     "userId": null,
     "query": "keepalive",
