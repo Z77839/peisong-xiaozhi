@@ -38,5 +38,13 @@
     "ip": "10.29.8.3",
     "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.0.0 Safari/537.36",
     "createdAt": "2026-07-31T07:59:24.100Z"
+  },
+  {
+    "id": 6,
+    "userId": "u_1",
+    "action": "login_success",
+    "ip": "10.29.8.3",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.0.0 Safari/537.36",
+    "createdAt": "2026-07-31T08:07:03.688Z"
   }
 ]
