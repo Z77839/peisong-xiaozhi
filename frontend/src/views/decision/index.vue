@@ -1887,13 +1887,32 @@ function copyReport() {
   font-size: 11px;
 }
 .kb-excerpt {
-  font-size: 12px;
-  color: #595959;
-  line-height: 1.6;
-  white-space: pre-wrap;
+  font-size: 13px;
+  color: #262626;
+  line-height: 1.7;
   border-left: 3px solid #ffd591;
-  padding-left: 10px;
-  margin-top: 4px;
+  padding: 4px 0 4px 12px;
+  margin-top: 6px;
+  max-height: 220px;
+  overflow-y: auto;
 }
+.kb-excerpt::-webkit-scrollbar { width: 4px; }
+.kb-excerpt::-webkit-scrollbar-thumb { background: #d9d9d9; border-radius: 2px; }
+
+/* Markdown 渲染样式 */
+.markdown-body :deep(h1), .markdown-body h1 { font-size: 18px; font-weight: 700; color: #1f1f1f; margin: 8px 0 6px; border-bottom: 1px solid #f0f0f0; padding-bottom: 4px; }
+.markdown-body :deep(h2), .markdown-body h2 { font-size: 15px; font-weight: 700; color: #1f1f1f; margin: 10px 0 4px; padding-left: 8px; border-left: 3px solid #1f6feb; }
+.markdown-body :deep(h3), .markdown-body h3 { font-size: 13px; font-weight: 600; color: #1f1f1f; margin: 8px 0 4px; }
+.markdown-body :deep(p),  .markdown-body p  { margin: 4px 0; }
+.markdown-body :deep(ul), .markdown-body ul { margin: 4px 0; padding-left: 20px; list-style: none; }
+.markdown-body :deep(ol), .markdown-body ol { margin: 4px 0; padding-left: 20px; }
+.markdown-body :deep(li), .markdown-body li { margin: 2px 0; position: relative; padding-left: 6px; }
+.markdown-body ul li::before { content: '▸'; color: #1f6feb; font-weight: bold; position: absolute; left: -10px; }
+.markdown-body :deep(strong), .markdown-body strong { color: #1f6feb; font-weight: 600; }
+.markdown-body :deep(em), .markdown-body em { color: #fa8c16; font-style: normal; }
+.markdown-body :deep(code), .markdown-body code { background: #f5f5f5; padding: 1px 5px; border-radius: 3px; font-size: 12px; color: #d4380d; font-family: 'SF Mono', Menlo, monospace; }
+.markdown-body :deep(a), .markdown-body a { color: #1f6feb; text-decoration: none; border-bottom: 1px dashed #91caff; }
+.markdown-body :deep(a:hover), .markdown-body a:hover { border-bottom-style: solid; }
+.markdown-body :deep(blockquote), .markdown-body blockquote { border-left: 3px solid #d9d9d9; padding-left: 10px; color: #595959; margin: 4px 0; }
 
 </style>
